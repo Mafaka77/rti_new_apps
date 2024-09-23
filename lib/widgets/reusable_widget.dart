@@ -66,6 +66,7 @@ textBoxFocusBorder() {
   return OutlineInputBorder(
     borderSide: BorderSide(
       color: MyColor.green,
+      width: 1,
     ),
   );
 }

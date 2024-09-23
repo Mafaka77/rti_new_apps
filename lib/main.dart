@@ -5,12 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rti_new_apps/router.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/services/auth_services.dart';
+import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
 
 void main() async {
   await GetStorage.init();
   Get.put(AuthServices(), tag: 'authServices');
   Get.put(HomeServices(), tag: 'homeServices');
+  Get.put(DepartmentWiseServices(), tag: 'departmentWiseServices');
   runApp(const MyApp());
 }
 

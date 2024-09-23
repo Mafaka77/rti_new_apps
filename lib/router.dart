@@ -4,6 +4,7 @@ import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/screens/login_screen.dart';
 import 'package:rti_new_apps/screens/otp_screen.dart';
 import 'package:rti_new_apps/screens/register_screen.dart';
+import 'package:rti_new_apps/screens/submit_rti_screen.dart';
 import 'package:rti_new_apps/screens/verify_otp_screen.dart';
 
 pageTransition() {
@@ -13,7 +14,7 @@ pageTransition() {
 final getPages = [
   GetPage(
     name: '/',
-    page: () => HomeScreen(),
+    page: () => const HomeScreen(),
     transition: pageTransition(),
     middlewares: [
       AuthMiddleware(),
@@ -39,4 +40,8 @@ final getPages = [
     page: () => RegisterScreen(),
     transition: pageTransition(),
   ),
+  GetPage(
+    name: '/submit-rti-screen',
+    page: () => const SubmitRtiScreen(),
+  )
 ];

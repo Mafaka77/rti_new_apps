@@ -24,18 +24,40 @@ class HomeScreen extends StatelessWidget {
                 type: ExpandableFabType.up,
                 pos: ExpandableFabPos.right,
                 distance: 70,
+                openButtonBuilder: DefaultFloatingActionButtonBuilder(
+                  backgroundColor: MyColor.green,
+                  fabSize: ExpandableFabSize.regular,
+                  foregroundColor: Colors.white,
+                  child: const Text(
+                    'APPLY',
+                  ),
+                ),
+                closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+                  backgroundColor: MyColor.green,
+                  fabSize: ExpandableFabSize.regular,
+                  foregroundColor: Colors.white,
+                  child: const Text(
+                    'CLOSE',
+                  ),
+                ),
                 children: [
                   FloatingActionButton.extended(
+                    backgroundColor: MyColor.green,
                     elevation: 0,
                     heroTag: null,
                     label: const Text('Submit Complaint'),
                     onPressed: () {},
                   ),
                   FloatingActionButton.extended(
+                    backgroundColor: MyColor.green,
                     elevation: 0,
                     heroTag: null,
                     label: const Text('Submit RTI'),
-                    onPressed: () {},
+                    onPressed: () {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(mySuccessSnackBar('1', 'asdasd'));
+                      Get.toNamed('/submit-rti-screen');
+                    },
                   ),
                 ]),
             body: SafeArea(

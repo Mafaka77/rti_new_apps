@@ -7,4 +7,6 @@ class Routes {
   static String LOGIN = '$BASE_URL/login';
   //HOME
   static String ME = '$BASE_URL/me';
+  //RTI
+  static String GET_DEPARTMENT = '$BASE_URL/getAllDepartment';
 }
