@@ -4,9 +4,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rti_new_apps/router.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
+import 'package:rti_new_apps/services/auth_services.dart';
+import 'package:rti_new_apps/services/home_services.dart';
 
 void main() async {
   await GetStorage.init();
+  Get.put(AuthServices(), tag: 'authServices');
+  Get.put(HomeServices(), tag: 'homeServices');
   runApp(const MyApp());
 }
 
