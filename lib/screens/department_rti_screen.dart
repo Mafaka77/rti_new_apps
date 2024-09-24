@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,134 +22,189 @@ class DepartmentRtiScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // MaterialButton(
-                  //   onPressed: () {
-                  //     var token = storage.read('token');
-                  //     print(token);
-                  //   },
-                  //   child: const Text('data'),
-                  // ),
-                  // DropdownSearch<DepartmentModel>(
-                  //   key: controller.dropDownKey,
-                  //   items: (filter, loadProps) =>
-                  //       controller.getDepartment(filter),
-                  // ),
-                  CupertinoSearchTextField(
-                    onTap: () {
-                      print('On tap');
-                    },
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 1,
-                        color: MyColor.green,
-                      ),
-                    ),
-                  ),
-
-                  sizedBoxHeight(10),
-                  TextFormField(
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      border: textBoxFocusBorder(),
-                      focusedBorder: textBoxFocusBorder(),
-                      enabledBorder: textBoxFocusBorder(),
-                      labelText: 'Zawhna',
-                    ),
-                  ),
-                  sizedBoxHeight(10),
-                  TextFormField(
-                    onTap: () {
-                      openPickerModal(context, controller);
-                    },
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      border: textBoxFocusBorder(),
-                      focusedBorder: textBoxFocusBorder(),
-                      enabledBorder: textBoxFocusBorder(),
-                      labelText: 'Attachment(Optional)',
-                    ),
-                  ),
-                  sizedBoxHeight(10),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Obx(
-                        () => Switch(
-                          activeColor: MyColor.green,
-                          value: controller.isBpl.value,
-                          onChanged: (val) {
-                            controller.isBpl.value = val;
-                          },
-                        ),
-                      ),
-                      const Text(
-                        'Below Poverty Line (BPL) ka ni e / \nI belong to Below Poverty Line (BPL) community',
-                      )
-                    ],
-                  ),
-                  sizedBoxHeight(10),
-                  Obx(
-                    () => controller.isBpl.isTrue
-                        ? const BplWidget()
-                        : Container(),
-                  ),
-                  sizedBoxHeight(10),
-                  Wrap(
-                    alignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Obx(
-                        () => Switch(
-                          activeColor: MyColor.green,
-                          value: controller.isLiberty.value,
-                          onChanged: (val) {
-                            controller.isLiberty.value = val;
-                            if (val == false) {
-                              controller.isLibertyChecked.value = false;
-                            }
-                          },
-                        ),
-                      ),
-                      const Text(
-                        'If it concerns the life or liberty of a person/\n Mi nunna emaw, zalenna khawih chungchang',
-                      )
-                    ],
-                  ),
-                  sizedBoxHeight(10),
-                  Obx(() => controller.isLiberty.isTrue
-                      ? const LibertyWidget()
-                      : Container()),
-                  sizedBoxHeight(10),
-                  Obx(() => controller.isBpl.isTrue
-                      ? MaterialButton(
-                          elevation: 0,
-                          minWidth: Get.width,
-                          height: 60,
-                          color: MyColor.green,
-                          onPressed: () {},
-                          child: const Text(
-                            'Submit',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+              child: Form(
+                key: controller.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // MaterialButton(
+                    //   onPressed: () {
+                    //     var token = storage.read('token');
+                    //     print(token);
+                    //   },
+                    //   child: const Text('data'),
+                    // ),
+                    DropdownSearch<DepartmentModel>(
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Required';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        controller.departmentId.value =
+                            value == null ? 0 : value.id;
+                        print(controller.departmentId.value);
+                      },
+                      suffixProps: DropdownSuffixProps(
+                        clearButtonProps: const ClearButtonProps(
+                          isSelected: true,
+                          icon: Icon(
+                            Icons.clear,
                           ),
+                          isVisible: true,
+                        ),
+                        dropdownButtonProps: DropdownButtonProps(
+                          iconClosed: Icon(
+                            Icons.search,
+                            color: MyColor.green,
+                          ),
+                          iconOpened: Icon(
+                            Icons.search,
+                            color: MyColor.green,
+                          ),
+                        ),
+                      ),
+                      decoratorProps: DropDownDecoratorProps(
+                        decoration: InputDecoration(
+                          border: textBoxFocusBorder(),
+                          focusedBorder: textBoxFocusBorder(),
+                          enabledBorder: textBoxFocusBorder(),
+                          hintText: 'Department zawng rawh',
+                        ),
+                      ),
+                      items: (filter, loadProps) async =>
+                          await controller.getDepartment(filter),
+                      compareFn: (item1, item2) => item1.isEqual(item2),
+                      popupProps: PopupPropsMultiSelection.modalBottomSheet(
+                          showSelectedItems: true,
+                          showSearchBox: true,
+                          listViewProps: const ListViewProps(
+                            padding: EdgeInsets.all(20),
+                          ),
+                          searchFieldProps: TextFieldProps(
+                            padding: const EdgeInsets.only(
+                                left: 30, right: 30, top: 20),
+                            decoration: InputDecoration(
+                              border: textBoxFocusBorder(),
+                              enabledBorder: textBoxFocusBorder(),
+                              focusedBorder: textBoxFocusBorder(),
+                              hintText: 'Department zawng rawh',
+                              suffixIcon: const Icon(Icons.search),
+                            ),
+                          )
+                          // itemBuilder: userModelPopupItem,
+                          ),
+                    ),
+                    sizedBoxHeight(10),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required';
+                        }
+                        return null;
+                      },
+                      controller: controller.questionsText,
+                      maxLines: 10,
+                      decoration: InputDecoration(
+                        border: textBoxFocusBorder(),
+                        focusedBorder: textBoxFocusBorder(),
+                        enabledBorder: textBoxFocusBorder(),
+                        labelText: 'I zawhna han ziak rawh le',
+                      ),
+                    ),
+                    sizedBoxHeight(10),
+                    TextFormField(
+                      onTap: () {
+                        openPickerModal(context, controller);
+                      },
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: textBoxFocusBorder(),
+                        focusedBorder: textBoxFocusBorder(),
+                        enabledBorder: textBoxFocusBorder(),
+                        labelText: 'Attachment(Optional)',
+                      ),
+                    ),
+                    sizedBoxHeight(10),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Obx(
+                          () => Switch(
+                            activeColor: MyColor.green,
+                            value: controller.isBpl.value,
+                            onChanged: (val) {
+                              controller.isBpl.value = val;
+                            },
+                          ),
+                        ),
+                        const Text(
+                          'Below Poverty Line (BPL) ka ni e / \nI belong to Below Poverty Line (BPL) community',
                         )
-                      : MaterialButton(
-                          elevation: 0,
-                          minWidth: Get.width,
-                          height: 60,
-                          color: MyColor.green,
-                          onPressed: () {},
-                          child: const Text(
-                            'Make Payment',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                      ],
+                    ),
+                    sizedBoxHeight(10),
+                    Obx(
+                      () => controller.isBpl.isTrue
+                          ? const BplWidget()
+                          : Container(),
+                    ),
+                    sizedBoxHeight(10),
+                    Wrap(
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Obx(
+                          () => Switch(
+                            activeColor: MyColor.green,
+                            value: controller.isLiberty.value,
+                            onChanged: (val) {
+                              controller.isLiberty.value = val;
+                              if (val == false) {
+                                controller.isLibertyChecked.value = false;
+                              }
+                            },
                           ),
-                        )),
-                  sizedBoxHeight(40),
-                ],
+                        ),
+                        const Text(
+                          'If it concerns the life or liberty of a person/\n Mi nunna emaw, zalenna khawih chungchang',
+                        )
+                      ],
+                    ),
+                    sizedBoxHeight(10),
+                    Obx(() => controller.isLiberty.isTrue
+                        ? const LibertyWidget()
+                        : Container()),
+                    sizedBoxHeight(10),
+                    Obx(() => controller.isBpl.isTrue
+                        ? MaterialButton(
+                            elevation: 0,
+                            minWidth: Get.width,
+                            height: 60,
+                            color: MyColor.green,
+                            onPressed: () {},
+                            child: const Text(
+                              'Submit',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          )
+                        : MaterialButton(
+                            elevation: 0,
+                            minWidth: Get.width,
+                            height: 60,
+                            color: MyColor.green,
+                            onPressed: () {},
+                            child: const Text(
+                              'Make Payment',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          )),
+                    sizedBoxHeight(40),
+                  ],
+                ),
               ),
             ),
           );

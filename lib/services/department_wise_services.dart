@@ -9,7 +9,7 @@ class DepartmentWiseServices extends BaseService {
       queryParameters: {"filter": filter},
     );
 
-    final data = response.data;
+    final data = response.data['data']['data'];
     if (data != null) {
       return DepartmentModel.fromJsonList(data);
     }
