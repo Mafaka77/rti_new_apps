@@ -76,7 +76,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                       items: (filter, loadProps) async =>
                           await controller.getDepartment(filter),
                       compareFn: (item1, item2) => item1.isEqual(item2),
-                      popupProps: PopupPropsMultiSelection.modalBottomSheet(
+                      popupProps: PopupPropsMultiSelection.menu(
                           showSelectedItems: true,
                           showSearchBox: true,
                           listViewProps: const ListViewProps(
@@ -84,12 +84,12 @@ class DepartmentRtiScreen extends StatelessWidget {
                           ),
                           searchFieldProps: TextFieldProps(
                             padding: const EdgeInsets.only(
-                                left: 30, right: 30, top: 20),
+                                left: 20, right: 20, top: 20),
                             decoration: InputDecoration(
                               border: textBoxFocusBorder(),
                               enabledBorder: textBoxFocusBorder(),
                               focusedBorder: textBoxFocusBorder(),
-                              hintText: 'Department zawng rawh',
+                              hintText: 'Search',
                               suffixIcon: const Icon(Icons.search),
                             ),
                           )
