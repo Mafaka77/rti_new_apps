@@ -24,22 +24,50 @@ class HomeScreen extends StatelessWidget {
                 type: ExpandableFabType.up,
                 pos: ExpandableFabPos.right,
                 distance: 70,
-                openButtonBuilder: DefaultFloatingActionButtonBuilder(
-                  backgroundColor: MyColor.green,
-                  fabSize: ExpandableFabSize.regular,
-                  foregroundColor: Colors.white,
-                  child: const Text(
-                    'APPLY',
-                  ),
-                ),
-                closeButtonBuilder: DefaultFloatingActionButtonBuilder(
-                  backgroundColor: MyColor.green,
-                  fabSize: ExpandableFabSize.regular,
-                  foregroundColor: Colors.white,
-                  child: const Text(
-                    'CLOSE',
-                  ),
-                ),
+                openButtonBuilder: FloatingActionButtonBuilder(
+                    size: 40,
+                    builder: (context, toggle, Animation) {
+                      return MaterialButton(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        color: MyColor.green,
+                        onPressed: () {
+                          toggle!();
+                        },
+                        child: const Text(
+                          'APPLY',
+                          style: TextStyle(
+                            fontSize: 17,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    }),
+                closeButtonBuilder: FloatingActionButtonBuilder(
+                    size: 40,
+                    builder: (context, toggle, Animation) {
+                      return MaterialButton(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        color: MyColor.orange,
+                        onPressed: () {
+                          toggle!();
+                        },
+                        child: const Text(
+                          'CLOSE',
+                          style: TextStyle(
+                            fontSize: 17,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    }),
                 children: [
                   FloatingActionButton.extended(
                     backgroundColor: MyColor.green,
@@ -54,8 +82,6 @@ class HomeScreen extends StatelessWidget {
                     heroTag: null,
                     label: const Text('Submit RTI'),
                     onPressed: () {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(mySuccessSnackBar('1', 'asdasd'));
                       Get.toNamed('/submit-rti-screen');
                     },
                   ),
@@ -63,6 +89,7 @@ class HomeScreen extends StatelessWidget {
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const HomeAppBarWidget(),
                     const HomeTabWidget(),
@@ -84,3 +111,11 @@ class HomeScreen extends StatelessWidget {
         });
   }
 }
+// DefaultFloatingActionButtonBuilder(
+//                   backgroundColor: MyColor.green,
+//                   fabSize: ExpandableFabSize.regular,
+//                   foregroundColor: Colors.white,
+//                   child: const Text(
+//                     'APPLY',
+//                   ),
+//                 ),

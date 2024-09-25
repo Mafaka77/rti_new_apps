@@ -15,9 +15,12 @@ class HomeTabWidget extends GetView<HomeController> {
           children: [
             MaterialButton(
               elevation: 0,
-              color: controller.isRtiSelected.isTrue
-                  ? MyColor.green
-                  : Colors.white,
+              shape: BeveledRectangleBorder(
+                  side: BorderSide(
+                color: controller.isRtiSelected.isTrue
+                    ? MyColor.green
+                    : Colors.white,
+              )),
               minWidth: Get.width * 0.4,
               onPressed: () {
                 controller.isRtiSelected.value = true;
@@ -27,9 +30,12 @@ class HomeTabWidget extends GetView<HomeController> {
             ),
             MaterialButton(
               elevation: 0,
-              color: controller.isComplainSelected.isTrue
-                  ? MyColor.green
-                  : Colors.white,
+              shape: BeveledRectangleBorder(
+                  side: BorderSide(
+                color: controller.isComplainSelected.isTrue
+                    ? MyColor.green
+                    : Colors.white,
+              )),
               minWidth: Get.width * 0.4,
               onPressed: () {
                 controller.isComplainSelected.value = true;

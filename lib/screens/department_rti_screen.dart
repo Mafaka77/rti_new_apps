@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/department_wise_controller.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
@@ -24,16 +28,18 @@ class DepartmentRtiScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Form(
                 key: controller.formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // MaterialButton(
-                    //   onPressed: () {
-                    //     var token = storage.read('token');
-                    //     print(token);
-                    //   },
-                    //   child: const Text('data'),
-                    // ),
+                    MaterialButton(
+                      onPressed: () {
+                        showLoader(context);
+                        var token = storage.read('token');
+                        print(token);
+                      },
+                      child: const Text('data'),
+                    ),
                     DropdownSearch<DepartmentModel>(
                       validator: (value) {
                         if (value == null) {
@@ -76,7 +82,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                       items: (filter, loadProps) async =>
                           await controller.getDepartment(filter),
                       compareFn: (item1, item2) => item1.isEqual(item2),
-                      popupProps: PopupPropsMultiSelection.menu(
+                      popupProps: PopupPropsMultiSelection.modalBottomSheet(
                           showSelectedItems: true,
                           showSearchBox: true,
                           listViewProps: const ListViewProps(
@@ -114,16 +120,29 @@ class DepartmentRtiScreen extends StatelessWidget {
                       ),
                     ),
                     sizedBoxHeight(10),
-                    TextFormField(
-                      onTap: () {
-                        openPickerModal(context, controller);
-                      },
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: textBoxFocusBorder(),
-                        focusedBorder: textBoxFocusBorder(),
-                        enabledBorder: textBoxFocusBorder(),
-                        labelText: 'Attachment(Optional)',
+                    Obx(
+                      () => TextFormField(
+                        controller: controller.attachmentName,
+                        onTap: () {
+                          openPickerModal(context, controller);
+                        },
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: textBoxFocusBorder(),
+                          focusedBorder: textBoxFocusBorder(),
+                          enabledBorder: textBoxFocusBorder(),
+                          labelText: 'Attachment(Optional)',
+                          suffixIcon: controller.isAttachment.isTrue
+                              ? IconButton(
+                                  onPressed: () {
+                                    controller.attachment = XFile('');
+                                    controller.attachmentName.clear();
+                                    controller.isAttachment.value = false;
+                                  },
+                                  icon: const Icon(Icons.clear),
+                                )
+                              : const Icon(Icons.attach_file),
+                        ),
                       ),
                     ),
                     sizedBoxHeight(10),
@@ -183,7 +202,32 @@ class DepartmentRtiScreen extends StatelessWidget {
                             minWidth: Get.width,
                             height: 60,
                             color: MyColor.green,
-                            onPressed: () {},
+                            onPressed: () {
+                              if (controller.formKey.currentState!.validate()) {
+                                if (controller.bplAttachmentName.text == '') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    myWarningSnackBar(
+                                        'Warning', 'BPL Proof is required'),
+                                  );
+                                  return;
+                                }
+                                if (controller.isLiberty.isTrue) {
+                                  if (controller.isLibertyChecked.isFalse) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      myWarningSnackBar('Warning',
+                                          'Check "I understand the consequences"'),
+                                    );
+                                    return;
+                                  }
+                                }
+                                submitFreeRti(context, controller);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  myWarningSnackBar('Required',
+                                      'Please fill all required fields'),
+                                );
+                              }
+                            },
                             child: const Text(
                               'Submit',
                               style:
@@ -222,22 +266,94 @@ class DepartmentRtiScreen extends StatelessWidget {
             child: GridView(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
-              children: const [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.image_rounded), Text('Gallery')],
+              children: [
+                InkWell(
+                  onTap: () {
+                    openGallery(controller);
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.image_rounded),
+                      Text('Gallery'),
+                    ],
+                  ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.camera_alt_outlined), Text('Camera')],
+                InkWell(
+                  onTap: () {
+                    openCamera(controller);
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Icon(Icons.camera_alt_outlined), Text('Camera')],
+                  ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.file_copy_outlined), Text('File')],
+                InkWell(
+                  onTap: () {
+                    openFile(controller);
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Icon(Icons.file_copy_outlined), Text('File')],
+                  ),
                 ),
               ],
             ),
           );
         });
+  }
+
+  void openGallery(DepartmentWiseController controller) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      controller.attachment = image;
+      controller.attachmentName.text = image.name;
+      controller.isAttachment.value = true;
+      Get.back();
+    } else {}
+  }
+
+  void openCamera(DepartmentWiseController controller) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image =
+        await picker.pickImage(source: ImageSource.camera, imageQuality: 50);
+    if (image != null) {
+      controller.attachment = image;
+      controller.attachmentName.text = image.name;
+      controller.isAttachment.value = true;
+      Get.back();
+    }
+  }
+
+  void openFile(DepartmentWiseController controller) async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: [
+      'pdf',
+    ]);
+
+    if (result != null) {
+      XFile file = XFile(result.files.single.path!);
+      controller.attachment = file;
+      controller.attachmentName.text = file.name;
+      controller.isAttachment.value = true;
+      Get.back();
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  void submitFreeRti(
+      BuildContext context, DepartmentWiseController controller) async {
+    controller.submitFreeRti(() {
+      showLoader(context);
+    }, (String message) {
+      hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(mySuccessSnackBar('Success', message));
+      Get.back();
+    }, (String message) {
+      hideLoader();
+    });
   }
 }

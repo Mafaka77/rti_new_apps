@@ -7,12 +7,14 @@ import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/services/auth_services.dart';
 import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
+import 'package:rti_new_apps/services/rti_services.dart';
 
 void main() async {
   await GetStorage.init();
   Get.put(AuthServices(), tag: 'authServices');
   Get.put(HomeServices(), tag: 'homeServices');
   Get.put(DepartmentWiseServices(), tag: 'departmentWiseServices');
+  Get.put(RtiServices(), tag: 'rtiServices');
   runApp(const MyApp());
 }
 

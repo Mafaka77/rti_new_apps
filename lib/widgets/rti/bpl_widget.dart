@@ -1,5 +1,7 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/controllers/department_wise_controller.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
@@ -31,17 +33,28 @@ class BplWidget extends GetView<DepartmentWiseController> {
             ),
           ),
           sizedBoxHeight(10),
-          TextFormField(
-            onTap: () {
-              openPickerModal(context, controller);
-            },
-            readOnly: true,
-            decoration: InputDecoration(
-              border: textBoxFocusBorder(),
-              focusedBorder: textBoxFocusBorder(),
-              enabledBorder: textBoxFocusBorder(),
-              labelText: 'BPL Proof(Required)',
-              suffixIcon: const Icon(Icons.attach_file),
+          Obx(
+            () => TextFormField(
+              controller: controller.bplAttachmentName,
+              onTap: () {
+                openPickerModal(context, controller);
+              },
+              readOnly: true,
+              decoration: InputDecoration(
+                border: textBoxFocusBorder(),
+                focusedBorder: textBoxFocusBorder(),
+                enabledBorder: textBoxFocusBorder(),
+                labelText: 'BPL Proof(Required)',
+                suffixIcon: controller.isBlpAttachment.isTrue
+                    ? IconButton(
+                        onPressed: () {
+                          controller.bplAttachment = XFile('');
+                          controller.bplAttachmentName.clear();
+                          controller.isBlpAttachment.value = false;
+                        },
+                        icon: const Icon(Icons.clear))
+                    : const Icon(Icons.attach_file),
+              ),
             ),
           ),
         ],
@@ -60,22 +73,85 @@ class BplWidget extends GetView<DepartmentWiseController> {
             child: GridView(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
-              children: const [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.image_rounded), Text('Gallery')],
+              children: [
+                InkWell(
+                  onTap: () {
+                    openGallery(controller);
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.image_rounded),
+                      Text('Gallery'),
+                    ],
+                  ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.camera_alt_outlined), Text('Camera')],
+                InkWell(
+                  onTap: () {
+                    openCamera(controller);
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.camera_alt_outlined),
+                      Text('Camera'),
+                    ],
+                  ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.file_copy_outlined), Text('File')],
+                InkWell(
+                  onTap: () {
+                    openFile(controller);
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.file_copy_outlined),
+                      Text('File'),
+                    ],
+                  ),
                 ),
               ],
             ),
           );
         });
+  }
+
+  void openCamera(DepartmentWiseController controller) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+    if (image != null) {
+      controller.bplAttachment = image;
+      controller.bplAttachmentName.text = image.name;
+      controller.isBlpAttachment.value = true;
+      Get.back();
+    } else {}
+  }
+
+  void openGallery(DepartmentWiseController controller) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      controller.bplAttachment = image;
+      controller.bplAttachmentName.text = image.name;
+      controller.isBlpAttachment.value = true;
+      Get.back();
+    } else {}
+  }
+
+  void openFile(DepartmentWiseController controller) async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: [
+      'pdf',
+    ]);
+
+    if (result != null) {
+      XFile file = XFile(result.files.single.path!);
+      controller.bplAttachment = file;
+      controller.bplAttachmentName.text = file.name;
+      controller.isBlpAttachment.value = true;
+      Get.back();
+    } else {
+      // User canceled the picker
+    }
   }
 }
