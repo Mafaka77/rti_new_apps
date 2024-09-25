@@ -15,6 +15,7 @@ class HomeTabWidget extends GetView<HomeController> {
           children: [
             MaterialButton(
               elevation: 0,
+              color: controller.isRtiSelected.isFalse ? null : Colors.white,
               shape: BeveledRectangleBorder(
                   side: BorderSide(
                 color: controller.isRtiSelected.isTrue
@@ -30,6 +31,8 @@ class HomeTabWidget extends GetView<HomeController> {
             ),
             MaterialButton(
               elevation: 0,
+              color:
+                  controller.isComplainSelected.isFalse ? null : Colors.white,
               shape: BeveledRectangleBorder(
                   side: BorderSide(
                 color: controller.isComplainSelected.isTrue

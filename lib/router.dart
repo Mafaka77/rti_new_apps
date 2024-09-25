@@ -4,6 +4,7 @@ import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/screens/login_screen.dart';
 import 'package:rti_new_apps/screens/otp_screen.dart';
 import 'package:rti_new_apps/screens/register_screen.dart';
+import 'package:rti_new_apps/screens/rti_detail_screen.dart';
 import 'package:rti_new_apps/screens/submit_rti_screen.dart';
 import 'package:rti_new_apps/screens/verify_otp_screen.dart';
 
@@ -43,5 +44,9 @@ final getPages = [
   GetPage(
     name: '/submit-rti-screen',
     page: () => const SubmitRtiScreen(),
+  ),
+  GetPage(
+    name: '/rti-detail-screen',
+    page: () => const RtiDetailScreen(),
   )
 ];

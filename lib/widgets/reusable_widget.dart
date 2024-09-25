@@ -133,6 +133,46 @@ rtiListLoader() {
   );
 }
 
+nameLoader() {
+  return Row(
+    children: [
+      CircleAvatar(
+        radius: 10,
+        child: Shimmer.fromColors(
+          baseColor: Colors.black45,
+          highlightColor: MyColor.limeGreen,
+          child: Container(
+            color: Colors.green[50],
+          ),
+        ),
+      ),
+      Column(
+        children: [
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.2,
+              height: Get.height * 0.01,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.2,
+              height: Get.height * 0.01,
+              color: Colors.green[50],
+            ),
+          ),
+        ],
+      )
+    ],
+  );
+}
+
 const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
 const fillColor = Color.fromRGBO(243, 246, 249, 0);
 const borderColor = Color.fromRGBO(23, 171, 144, 0.4);

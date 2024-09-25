@@ -16,7 +16,7 @@ class HomeAppBarWidget extends GetView<HomeController> {
         children: [
           Obx(
             () => controller.isMeLoading.isTrue
-                ? const CircularProgressIndicator()
+                ? nameLoader()
                 : Row(
                     children: [
                       const CircleAvatar(

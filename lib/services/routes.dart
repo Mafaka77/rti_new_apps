@@ -11,4 +11,5 @@ class Routes {
   static String GET_DEPARTMENT = '$BASE_URL/getAllDepartment';
   static String SUBMIT_FREE_RTI = '$BASE_URL/store-rti';
   static String GET_MY_RTI = '$BASE_URL/get-my-rti';
+  static String GET_RTI_DETAILS = '$BASE_URL/get-my-rti-details';
 }

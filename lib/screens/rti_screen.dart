@@ -29,7 +29,16 @@ class RtiScreen extends StatelessWidget {
                         var data = controller.myRtiList[i];
                         return InkWell(
                           splashColor: MyColor.green,
-                          onTap: () {},
+                          onTap: () {
+                            controller.getRtiDetails(data.id!, () {
+                              showLoader(context);
+                            }, () {
+                              hideLoader();
+                              Get.toNamed('/rti-detail-screen');
+                            }, () {
+                              hideLoader();
+                            });
+                          },
                           child: Container(
                             color: Colors.white,
                             child: Column(

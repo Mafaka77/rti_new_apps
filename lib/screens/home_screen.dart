@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
           return Scaffold(
             floatingActionButtonLocation: ExpandableFab.location,
             floatingActionButton: ExpandableFab(
+                key: controller.key,
                 type: ExpandableFabType.up,
                 pos: ExpandableFabPos.right,
                 distance: 70,
@@ -74,7 +75,12 @@ class HomeScreen extends StatelessWidget {
                     elevation: 0,
                     heroTag: null,
                     label: const Text('Submit Complaint'),
-                    onPressed: () {},
+                    onPressed: () {
+                      final state = controller.key.currentState;
+                      if (state != null) {
+                        state.toggle();
+                      }
+                    },
                   ),
                   FloatingActionButton.extended(
                     backgroundColor: MyColor.green,
@@ -82,6 +88,10 @@ class HomeScreen extends StatelessWidget {
                     heroTag: null,
                     label: const Text('Submit RTI'),
                     onPressed: () {
+                      final state = controller.key.currentState;
+                      if (state != null) {
+                        state.toggle();
+                      }
                       Get.toNamed('/submit-rti-screen');
                     },
                   ),
