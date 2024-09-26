@@ -44,9 +44,15 @@ final getPages = [
   GetPage(
     name: '/submit-rti-screen',
     page: () => const SubmitRtiScreen(),
+    middlewares: [
+      AuthMiddleware(),
+    ],
   ),
   GetPage(
     name: '/rti-detail-screen',
     page: () => const RtiDetailScreen(),
+    middlewares: [
+      AuthMiddleware(),
+    ],
   )
 ];
