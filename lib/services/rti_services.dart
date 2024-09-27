@@ -38,8 +38,10 @@ class RtiServices extends BaseService {
       });
       var response =
           await client.post(Routes.SUBMIT_FIRST_APPEAL, data: formData);
-      return response.statusCode;
+      print(response);
+      return response;
     } catch (ex) {
+      print(ex);
       return Future.error(ex);
     }
   }

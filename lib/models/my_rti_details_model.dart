@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:rti_new_apps/models/department_model.dart';
+import 'package:rti_new_apps/models/paid_attachment_model.dart';
 
 class MyRtiDetailsModel {
   int? id;
@@ -38,6 +39,7 @@ class MyRtiDetailsModel {
   String? citizen_question_locall_council;
   String? local_council;
   DepartmentModel? department;
+  PaidAttachmentModel? paid_attachments;
   MyRtiDetailsModel({
     this.id,
     this.citizen_name,
@@ -74,6 +76,7 @@ class MyRtiDetailsModel {
     this.citizen_question_locall_council,
     this.local_council,
     this.department,
+    this.paid_attachments,
   });
 
   MyRtiDetailsModel copyWith({
@@ -112,6 +115,7 @@ class MyRtiDetailsModel {
     String? citizen_question_locall_council,
     String? local_council,
     DepartmentModel? department,
+    PaidAttachmentModel? paid_attachments,
   }) {
     return MyRtiDetailsModel(
       id: id ?? this.id,
@@ -163,6 +167,7 @@ class MyRtiDetailsModel {
           this.citizen_question_locall_council,
       local_council: local_council ?? this.local_council,
       department: department ?? this.department,
+      paid_attachments: paid_attachments ?? this.paid_attachments,
     );
   }
 
@@ -204,6 +209,7 @@ class MyRtiDetailsModel {
       'citizen_question_locall_council': citizen_question_locall_council,
       'local_council': local_council,
       'department': department?.toMap(),
+      'paid_attachments': paid_attachments?.toMap(),
     };
   }
 
@@ -248,6 +254,9 @@ class MyRtiDetailsModel {
       department: map['department'] != null
           ? DepartmentModel.fromMap(map['department'])
           : null,
+      paid_attachments: map['paid_attachments'] != null
+          ? PaidAttachmentModel.fromMap(map['paid_attachments'])
+          : null,
     );
   }
 
@@ -261,7 +270,7 @@ class MyRtiDetailsModel {
 
   @override
   String toString() {
-    return 'MyRtiDetailsModel(id: $id, citizen_name: $citizen_name, citizen_contact: $citizen_contact, citizen_address: $citizen_address, citizen_question: $citizen_question, citizen_question_file: $citizen_question_file, citizen_question_department: $citizen_question_department, citizen_bpl: $citizen_bpl, citizen_bpl_file: $citizen_bpl_file, life_or_death: $life_or_death, spio_in: $spio_in, spio_answer: $spio_answer, spio_answer_file: $spio_answer_file, spio_transfer_remark: $spio_transfer_remark, spio_transfer_department: $spio_transfer_department, spio_out: $spio_out, spio_id: $spio_id, first_appeal_daa_in: $first_appeal_daa_in, first_appeal_citizen_question: $first_appeal_citizen_question, first_appeal_citizen_question_file: $first_appeal_citizen_question_file, first_appeal_daa_answer: $first_appeal_daa_answer, first_appeal_daa_answer_file: $first_appeal_daa_answer_file, first_appeal_daa_out: $first_appeal_daa_out, daa_id: $daa_id, second_appeal_cic_in: $second_appeal_cic_in, second_appeal_citizen_question: $second_appeal_citizen_question, second_appeal_citizen_question_file: $second_appeal_citizen_question_file, second_appeal_cic_answer: $second_appeal_cic_answer, second_appeal_cic_answer_file: $second_appeal_cic_answer_file, second_appeal_cic_out: $second_appeal_cic_out, my_file_proof: $my_file_proof, created_at: $created_at, citizen_question_locall_council: $citizen_question_locall_council, local_council: $local_council, department: $department)';
+    return 'MyRtiDetailsModel(id: $id, citizen_name: $citizen_name, citizen_contact: $citizen_contact, citizen_address: $citizen_address, citizen_question: $citizen_question, citizen_question_file: $citizen_question_file, citizen_question_department: $citizen_question_department, citizen_bpl: $citizen_bpl, citizen_bpl_file: $citizen_bpl_file, life_or_death: $life_or_death, spio_in: $spio_in, spio_answer: $spio_answer, spio_answer_file: $spio_answer_file, spio_transfer_remark: $spio_transfer_remark, spio_transfer_department: $spio_transfer_department, spio_out: $spio_out, spio_id: $spio_id, first_appeal_daa_in: $first_appeal_daa_in, first_appeal_citizen_question: $first_appeal_citizen_question, first_appeal_citizen_question_file: $first_appeal_citizen_question_file, first_appeal_daa_answer: $first_appeal_daa_answer, first_appeal_daa_answer_file: $first_appeal_daa_answer_file, first_appeal_daa_out: $first_appeal_daa_out, daa_id: $daa_id, second_appeal_cic_in: $second_appeal_cic_in, second_appeal_citizen_question: $second_appeal_citizen_question, second_appeal_citizen_question_file: $second_appeal_citizen_question_file, second_appeal_cic_answer: $second_appeal_cic_answer, second_appeal_cic_answer_file: $second_appeal_cic_answer_file, second_appeal_cic_out: $second_appeal_cic_out, my_file_proof: $my_file_proof, created_at: $created_at, citizen_question_locall_council: $citizen_question_locall_council, local_council: $local_council, department: $department, paid_attachments: $paid_attachments)';
   }
 
   @override
@@ -307,7 +316,8 @@ class MyRtiDetailsModel {
         other.citizen_question_locall_council ==
             citizen_question_locall_council &&
         other.local_council == local_council &&
-        other.department == department;
+        other.department == department &&
+        other.paid_attachments == paid_attachments;
   }
 
   @override
@@ -346,6 +356,7 @@ class MyRtiDetailsModel {
         created_at.hashCode ^
         citizen_question_locall_council.hashCode ^
         local_council.hashCode ^
-        department.hashCode;
+        department.hashCode ^
+        paid_attachments.hashCode;
   }
 }

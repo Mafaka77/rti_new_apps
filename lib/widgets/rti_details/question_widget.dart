@@ -18,8 +18,12 @@ class RtiDetailsQuestionWidget extends GetView<RtiController> {
       maintainState: true,
       initiallyExpanded: true,
       shape: const RoundedRectangleBorder(),
+      onExpansionChanged: (value) {
+        controller.spioAnswerTileController.collapse();
+        controller.firstAppealTileController.collapse();
+      },
       title: const Text(
-        'Question:',
+        'Question',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       children: [
@@ -31,12 +35,9 @@ class RtiDetailsQuestionWidget extends GetView<RtiController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: AutoSizeText(
-                      data.citizen_question.toString(),
-                      maxLines: 100,
-                    ),
+                  AutoSizeText(
+                    data.citizen_question.toString(),
+                    maxLines: 100,
                   )
                 ],
               ),

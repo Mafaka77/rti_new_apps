@@ -17,12 +17,21 @@ class RtiController extends GetxController {
   final questionTileController = ExpansionTileController();
   final spioAnswerTileController = ExpansionTileController();
   final firstAppealTileController = ExpansionTileController();
+  final firstAppealAnswerTileController = ExpansionTileController();
   //FIRST APPEAL
   final formKey = GlobalKey<FormState>();
   XFile? firstAppealAttachment = XFile('');
   var firstAttachmentName = TextEditingController();
   var isFirstAttachmentSelected = false.obs;
   var firstAppealReason = TextEditingController();
+
+  //SECOND APPEAL ANSWER
+  final secondAppealFormKey = GlobalKey<FormState>();
+  XFile? secondAppealAttachment = XFile('');
+  var secondAttachmentName = TextEditingController();
+  var isSecondAttachmentSelected = false.obs;
+  var secondAppealReason = TextEditingController();
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -46,7 +55,6 @@ class RtiController extends GetxController {
     try {
       var response = await services.getRtiDetails(id);
       myRtiDetails.add(response);
-      print(myRtiDetails);
       onSuccess();
     } catch (ex) {
       onError();

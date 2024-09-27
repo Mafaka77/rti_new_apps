@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:rti_new_apps/controllers/rti_controller.dart';
 import 'package:rti_new_apps/models/my_rti_details_model.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
+import 'package:rti_new_apps/widgets/rti_details/first_appeal_answer_widget.dart';
 import 'package:rti_new_apps/widgets/rti_details/first_appeal_question_widget.dart';
 import 'package:rti_new_apps/widgets/rti_details/question_widget.dart';
+import 'package:rti_new_apps/widgets/rti_details/second_appeal_question.dart';
 import 'package:rti_new_apps/widgets/rti_details/spio_answer_widget.dart';
 
 class RtiDetailScreen extends GetView<RtiController> {
@@ -21,12 +23,19 @@ class RtiDetailScreen extends GetView<RtiController> {
           width: Get.width,
           margin: const EdgeInsets.all(20.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const RtiDetailsQuestionWidget(),
               sizedBoxHeight(20),
               data.spio_answer != null ? const SpioAnswerWidget() : Container(),
               data.first_appeal_citizen_question != null
                   ? const FirstQuestionAppealWidget()
+                  : Container(),
+              data.first_appeal_daa_answer != null
+                  ? const FirtAppealAnswerWidget()
+                  : Container(),
+              data.second_appeal_citizen_question != null
+                  ? const SecondAppealQuestionWidget()
                   : Container(),
             ],
           ),

@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/rti_controller.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
+import 'package:rti_new_apps/widgets/rti_details/free_attachment_widget.dart';
+import 'package:rti_new_apps/widgets/rti_details/paid_attachment_widget.dart';
 
 class SpioAnswerWidget extends GetView<RtiController> {
   const SpioAnswerWidget({super.key});
@@ -15,11 +17,13 @@ class SpioAnswerWidget extends GetView<RtiController> {
   @override
   Widget build(BuildContext context) {
     var data = controller.myRtiDetails.first;
+    print(data.paid_attachments);
     return ExpansionTile(
       controller: controller.spioAnswerTileController,
       onExpansionChanged: (value) {
         if (value == true) {
           controller.questionTileController.collapse();
+          controller.firstAppealTileController.collapse();
         }
       },
       backgroundColor: Colors.white,
@@ -74,44 +78,31 @@ class SpioAnswerWidget extends GetView<RtiController> {
               ),
             ),
             sizedBoxHeight(10),
-            Container(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-                children: [
-                  const Text(
-                    ' Answer File:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  sizedBoxWidth(10),
-                  data.spio_answer_file == null
-                      ? const Text('N/A')
-                      : IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.download,
-                          ),
-                        ),
-                ],
-              ),
-            ),
+            data.paid_attachments == null
+                ? const FreeAttachmentWidget()
+                : const PaidAttachmentWidget(),
             sizedBoxHeight(10),
             data.first_appeal_citizen_question != null
                 ? Container()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      MaterialButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        color: MyColor.green,
-                        elevation: 0,
-                        onPressed: () {
-                          openAppealDialog(context, data.id!);
-                          // controller.spioAnswerTileController.collapse();
-                        },
-                        child: const Text(
-                          'Appeal',
-                          style: TextStyle(
-                            color: Colors.white,
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(right: 10.0, bottom: 10.0),
+                        child: MaterialButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          color: MyColor.green,
+                          elevation: 0,
+                          onPressed: () {
+                            openAppealDialog(context, data.id!);
+                            // controller.spioAnswerTileController.collapse();
+                          },
+                          child: const Text(
+                            'Appeal',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -131,6 +122,7 @@ class SpioAnswerWidget extends GetView<RtiController> {
               shape: const RoundedRectangleBorder(),
               child: SizedBox(
                 width: Get.width,
+                height: Get.height * 0.6,
                 child: Form(
                   key: controller.formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -164,7 +156,7 @@ class SpioAnswerWidget extends GetView<RtiController> {
                             }
                             return null;
                           },
-                          maxLines: 10,
+                          maxLines: 5,
                           decoration: InputDecoration(
                             isDense: true,
                             enabledBorder: textBoxFocusBorder(),
