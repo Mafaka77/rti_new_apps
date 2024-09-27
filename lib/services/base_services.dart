@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:rti_new_apps/middlewares/auth_middleware.dart';
+import 'package:rti_new_apps/main.dart';
 
 class BaseService extends GetConnect implements GetxService {
   late Dio client;

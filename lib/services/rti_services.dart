@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/models/my_rti_details_model.dart';
 import 'package:rti_new_apps/models/my_rti_model.dart';
 import 'package:rti_new_apps/services/base_services.dart';
@@ -19,6 +21,24 @@ class RtiServices extends BaseService {
       var respone = await client.get(Routes.GET_RTI_DETAILS, data: {'id': id});
       var data = respone.data['information'];
       return MyRtiDetailsModel.fromMap(data);
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
+
+  Future submitFirstAppeal(int rtiId, String reason, XFile attachment) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'informationId': rtiId,
+        'my_file_appeal': attachment.path.isEmpty
+            ? null
+            : await MultipartFile.fromFile(attachment.path,
+                filename: attachment.name),
+        'appealReason': reason,
+      });
+      var response =
+          await client.post(Routes.SUBMIT_FIRST_APPEAL, data: formData);
+      return response.statusCode;
     } catch (ex) {
       return Future.error(ex);
     }

@@ -9,6 +9,7 @@ import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
 import 'package:rti_new_apps/services/rti_services.dart';
 
+final storage = GetStorage();
 void main() async {
   await GetStorage.init();
   Get.put(AuthServices(), tag: 'authServices');

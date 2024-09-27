@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
 import 'package:rti_new_apps/services/auth_services.dart';
 

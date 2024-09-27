@@ -12,4 +12,5 @@ class Routes {
   static String SUBMIT_FREE_RTI = '$BASE_URL/store-rti';
   static String GET_MY_RTI = '$BASE_URL/get-my-rti';
   static String GET_RTI_DETAILS = '$BASE_URL/get-my-rti-details';
+  static String SUBMIT_FIRST_APPEAL = '$BASE_URL/first-appeal-rti';
 }

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/department_wise_controller.dart';
+import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
 import 'package:rti_new_apps/models/department_model.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
