@@ -1,5 +1,7 @@
 class Routes {
   static String BASE_URL = 'https://staging.egovmz.in/api';
+  static String DOWNLOAD_URL(String fileName) =>
+      'https://staging.egovmz.in/storage/files/$fileName';
   //AUTH
   static String SEND_OTP = '$BASE_URL/otp';
   static String VERIFY_OTP = '$BASE_URL/verify-otp';
@@ -13,4 +15,5 @@ class Routes {
   static String GET_MY_RTI = '$BASE_URL/get-my-rti';
   static String GET_RTI_DETAILS = '$BASE_URL/get-my-rti-details';
   static String SUBMIT_FIRST_APPEAL = '$BASE_URL/first-appeal-rti';
+  static String SUBMIT_SECOND_APPEAL = '$BASE_URL/second-appeal-rti';
 }

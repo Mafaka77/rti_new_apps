@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                           toggle!();
                         },
                         child: const Text(
-                          'APPLY',
+                          'SUBMIT',
                           style: TextStyle(
                             fontSize: 17,
                             letterSpacing: 2,

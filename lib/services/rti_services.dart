@@ -38,7 +38,27 @@ class RtiServices extends BaseService {
       });
       var response =
           await client.post(Routes.SUBMIT_FIRST_APPEAL, data: formData);
-      print(response);
+
+      return response;
+    } catch (ex) {
+      print(ex);
+      return Future.error(ex);
+    }
+  }
+
+  Future submitSecondAppeal(int rtiId, String reason, XFile attachment) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'informationId': rtiId,
+        'my_file_appeal': attachment.path.isEmpty
+            ? null
+            : await MultipartFile.fromFile(attachment.path,
+                filename: attachment.name),
+        'secondAppealReason': reason,
+      });
+      var response =
+          await client.post(Routes.SUBMIT_SECOND_APPEAL, data: formData);
+
       return response;
     } catch (ex) {
       print(ex);

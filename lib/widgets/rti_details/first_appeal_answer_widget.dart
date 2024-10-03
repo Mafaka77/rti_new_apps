@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/rti_controller.dart';
+import 'package:rti_new_apps/services/routes.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class FirtAppealAnswerWidget extends GetView<RtiController> {
   const FirtAppealAnswerWidget({super.key});
@@ -17,6 +25,7 @@ class FirtAppealAnswerWidget extends GetView<RtiController> {
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       expandedAlignment: Alignment.topLeft,
       controller: controller.firstAppealAnswerTileController,
+      collapsedBackgroundColor: Colors.white,
       title: const Text(
         'Firt Appeal Answer (DAA)',
         style: TextStyle(
@@ -65,7 +74,10 @@ class FirtAppealAnswerWidget extends GetView<RtiController> {
                   : MaterialButton(
                       elevation: 0,
                       color: MyColor.green,
-                      onPressed: () {},
+                      onPressed: () {
+                        downloadFile(context, data.first_appeal_daa_answer_file,
+                            controller);
+                      },
                       child: const Text(
                         'DOWNLOAD',
                         style: TextStyle(
@@ -81,7 +93,8 @@ class FirtAppealAnswerWidget extends GetView<RtiController> {
                           elevation: 0,
                           color: MyColor.green,
                           onPressed: () {
-                            openSecondAppealModal(context, controller);
+                            openSecondAppealModal(
+                                context, controller, data.id!);
                           },
                           child: const Text(
                             'APPEAL',
@@ -100,17 +113,17 @@ class FirtAppealAnswerWidget extends GetView<RtiController> {
     );
   }
 
-  openSecondAppealModal(BuildContext context, RtiController controller) {
-    return showDialog(
+  openSecondAppealModal(
+      BuildContext context, RtiController controller, int rtiId) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (_) {
-        return Dialog(
-          shape: const RoundedRectangleBorder(),
-          elevation: 0,
-          child: Container(
-            width: Get.width,
-            height: Get.height * 0.6,
-            padding: const EdgeInsets.all(10.0),
+        return Form(
+          key: controller.secondAppealFormKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
             child: Column(
               children: [
                 Row(
@@ -132,6 +145,12 @@ class FirtAppealAnswerWidget extends GetView<RtiController> {
                 ),
                 sizedBoxHeight(20),
                 TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Required';
+                    }
+                    return null;
+                  },
                   controller: controller.secondAppealReason,
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -153,25 +172,48 @@ class FirtAppealAnswerWidget extends GetView<RtiController> {
                     enabledBorder: textBoxFocusBorder(),
                     focusedBorder: textBoxFocusBorder(),
                     labelText: 'Select file',
-                    suffixIcon: controller.isSecondAttachmentSelected.isTrue
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.clear),
-                          )
-                        : const Icon(Icons.attachment),
+                    suffixIcon: Obx(
+                      () => controller.isSecondAttachmentSelected.isTrue
+                          ? IconButton(
+                              onPressed: () {
+                                controller.secondAttachmentName.clear();
+                                controller.isSecondAttachmentSelected.value =
+                                    false;
+                                controller.secondAppealAttachment = XFile('');
+                              },
+                              icon: const Icon(Icons.clear),
+                            )
+                          : const Icon(Icons.attachment),
+                    ),
                   ),
                 ),
                 sizedBoxHeight(20),
                 MaterialButton(
                   minWidth: Get.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   elevation: 0,
                   color: MyColor.green,
-                  onPressed: () {},
-                  child: const Text(
-                    'SUBMIT',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
+                  onPressed: () {
+                    if (controller.secondAppealFormKey.currentState!
+                        .validate()) {
+                      controller.submitSecondAppeal(rtiId, () {
+                        showLoader(context);
+                      }, (String message) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          mySuccessSnackBar('Success', message),
+                        );
+                        Get.back();
+                        Get.back();
+                        RtiController rtiController = Get.find();
+                        rtiController.getMyRti();
+                        hideLoader();
+                      }, (String message) {
+                        hideLoader();
+                      });
+                    }
+                  },
+                  child: const Text('SUBMIT'),
+                ),
               ],
             ),
           ),

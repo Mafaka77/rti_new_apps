@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/department_wise_controller.dart';
+import 'package:rti_new_apps/controllers/rti_controller.dart';
 import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
 import 'package:rti_new_apps/models/department_model.dart';
@@ -352,9 +353,13 @@ class DepartmentRtiScreen extends StatelessWidget {
       hideLoader();
       ScaffoldMessenger.of(context)
           .showSnackBar(mySuccessSnackBar('Success', message));
+      RtiController rtiController = Get.find();
+      rtiController.getMyRti();
       Get.back();
     }, (String message) {
       hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(myErrorSnackBar('Error', message));
     });
   }
 }

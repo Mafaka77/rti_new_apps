@@ -1,13 +1,20 @@
 import 'dart:io';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pinput/pinput.dart';
 import 'package:rti_new_apps/colors.dart';
+import 'package:rti_new_apps/controllers/rti_controller.dart';
+import 'package:rti_new_apps/services/routes.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 sizedBoxHeight(double height) {
   return SizedBox(
@@ -39,6 +46,28 @@ showLoader(BuildContext context) {
 
 hideLoader() {
   return Loader.hide();
+}
+
+showDownloadSuccessSnackBar(
+    String title, String message, Icon icon, String filePath) {
+  return Get.rawSnackbar(
+    title: title,
+    message: message,
+    icon: icon,
+    shouldIconPulse: true,
+    backgroundColor: MyColor.green,
+    padding: const EdgeInsets.all(10),
+    snackPosition: SnackPosition.BOTTOM,
+    duration: const Duration(seconds: 5),
+    margin: const EdgeInsets.all(20),
+    mainButton: MaterialButton(
+      onPressed: () {
+        print(filePath);
+        OpenFile.open(filePath);
+      },
+      child: const Text('VIEW'),
+    ),
+  );
 }
 
 mySuccessSnackBar(String title, String message) => SnackBar(
@@ -168,6 +197,62 @@ nameLoader() {
             ),
           ),
         ],
+      )
+    ],
+  );
+}
+
+void downloadFile(
+    BuildContext context, String? file, RtiController controller) async {
+  // try {
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
+  final Directory? directory = await getExternalStorageDirectory();
+  // final Directory directory = Directory('/storage/emulated/0/Download/Rti');
+  String filePath = '${directory!.path}/$file';
+  Dio dio = Dio();
+  // ignore: use_build_context_synchronously
+  ProgressDialog pd = ProgressDialog(context: context);
+  pd.show(max: 100, msg: 'File Downloading...');
+  await dio.download(
+    Routes.DOWNLOAD_URL(file!),
+    filePath,
+    onReceiveProgress: (count, total) {
+      if (total != -1) {
+        controller.downloadPercentage.value = ((count / total * 100).toInt());
+        pd.update(value: controller.downloadPercentage.value);
+      }
+    },
+  );
+
+  OpenFile.open(filePath);
+  showDownloadSuccessSnackBar(
+      'Success',
+      'File downloaded successfully',
+      const Icon(
+        Icons.check,
+        color: Colors.blue,
+      ),
+      filePath);
+  // } catch (ex) {}
+}
+
+myAppBarWidget() {
+  return AppBar(
+    leading: Container(),
+    actions: [
+      CircleAvatar(
+        radius: 50,
+        child: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.clear,
+              color: Colors.white,
+            )),
       )
     ],
   );

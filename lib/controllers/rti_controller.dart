@@ -12,12 +12,15 @@ class RtiController extends GetxController {
   var isRtiLoading = false.obs;
   var myRtiList = <MyRtiModel>[].obs;
   var myRtiDetails = <MyRtiDetailsModel>{}.obs;
+  var downloadPercentage = 0.obs;
 
   //RTI DETAILS QUESTIONS
   final questionTileController = ExpansionTileController();
   final spioAnswerTileController = ExpansionTileController();
   final firstAppealTileController = ExpansionTileController();
   final firstAppealAnswerTileController = ExpansionTileController();
+  final secondAppealTileController = ExpansionTileController();
+  final secondAppealAnswerTileController = ExpansionTileController();
   //FIRST APPEAL
   final formKey = GlobalKey<FormState>();
   XFile? firstAppealAttachment = XFile('');
@@ -41,6 +44,7 @@ class RtiController extends GetxController {
 
   void getMyRti() async {
     isRtiLoading.value = true;
+    myRtiList.clear();
     try {
       var response = await services.getMyRti();
       myRtiList.addAll(response);
@@ -70,15 +74,32 @@ class RtiController extends GetxController {
       if (response.statusCode == 200) {
         if (response.data['status'] == 200) {
           onSuccess(response.data['message']);
-          return;
-        }
-        if (response.data['status'] == 404) {
+        } else if (response.data['status'] == 404) {
           onError(response.data['message']);
-          return;
         }
-        return;
+      } else {
+        onError('Something went wrong');
       }
+    } catch (ex) {
       onError('Something went wrong');
+    }
+  }
+
+  void submitSecondAppeal(int rtiId, Function onLoading, Function onSuccess,
+      Function onError) async {
+    onLoading();
+    try {
+      var response = await services.submitSecondAppeal(
+          rtiId, secondAppealReason.text, secondAppealAttachment!);
+      if (response.statusCode == 200) {
+        if (response.data['status'] == 200) {
+          onSuccess(response.data['message']);
+        } else if (response.data['status'] == 404) {
+          onError(response.data['message']);
+        }
+      } else {
+        onError('Something went wrong');
+      }
     } catch (ex) {
       onError('Something went wrong');
     }
