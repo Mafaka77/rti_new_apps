@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/home_controller.dart';
+import 'package:rti_new_apps/controllers/track_controller.dart';
 
-class HomeTabWidget extends GetView<HomeController> {
+class HomeTabWidget extends GetView<TrackController> {
   const HomeTabWidget({super.key});
 
   @override

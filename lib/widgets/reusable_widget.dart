@@ -209,9 +209,9 @@ void downloadFile(
   if (!status.isGranted) {
     await Permission.storage.request();
   }
-  final Directory? directory = await getExternalStorageDirectory();
+  final Directory directory = await getApplicationDocumentsDirectory();
   // final Directory directory = Directory('/storage/emulated/0/Download/Rti');
-  String filePath = '${directory!.path}/$file';
+  String filePath = '${directory.path}/$file';
   Dio dio = Dio();
   // ignore: use_build_context_synchronously
   ProgressDialog pd = ProgressDialog(context: context);

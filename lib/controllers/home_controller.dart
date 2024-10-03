@@ -10,8 +10,7 @@ class HomeController extends GetxController
   final key = GlobalKey<ExpandableFabState>();
   var user = <UserModel>{}.obs;
   var isMeLoading = false.obs;
-  var isRtiSelected = true.obs;
-  var isComplainSelected = false.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit

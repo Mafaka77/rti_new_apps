@@ -353,8 +353,8 @@ class DepartmentRtiScreen extends StatelessWidget {
       hideLoader();
       ScaffoldMessenger.of(context)
           .showSnackBar(mySuccessSnackBar('Success', message));
-      RtiController rtiController = Get.find();
-      rtiController.getMyRti();
+      // RtiController rtiController = Get.find();
+      // rtiController.getMyRti();
       Get.back();
     }, (String message) {
       hideLoader();

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
@@ -19,100 +20,102 @@ class HomeScreen extends StatelessWidget {
         init: HomeController(),
         builder: (controller) {
           return Scaffold(
-            floatingActionButtonLocation: ExpandableFab.location,
-            floatingActionButton: ExpandableFab(
-                key: controller.key,
-                type: ExpandableFabType.up,
-                pos: ExpandableFabPos.right,
-                distance: 70,
-                openButtonBuilder: FloatingActionButtonBuilder(
-                    size: 40,
-                    builder: (context, toggle, Animation) {
-                      return MaterialButton(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        color: MyColor.green,
-                        onPressed: () {
-                          toggle!();
-                        },
-                        child: const Text(
-                          'SUBMIT',
-                          style: TextStyle(
-                            fontSize: 17,
-                            letterSpacing: 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-                    }),
-                closeButtonBuilder: FloatingActionButtonBuilder(
-                    size: 40,
-                    builder: (context, toggle, Animation) {
-                      return MaterialButton(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        color: MyColor.orange,
-                        onPressed: () {
-                          toggle!();
-                        },
-                        child: const Text(
-                          'CLOSE',
-                          style: TextStyle(
-                            fontSize: 17,
-                            letterSpacing: 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-                    }),
-                children: [
-                  FloatingActionButton.extended(
-                    backgroundColor: MyColor.green,
-                    elevation: 0,
-                    heroTag: null,
-                    label: const Text('Submit Complaint'),
-                    onPressed: () {
-                      final state = controller.key.currentState;
-                      if (state != null) {
-                        state.toggle();
-                      }
-                    },
-                  ),
-                  FloatingActionButton.extended(
-                    backgroundColor: MyColor.green,
-                    elevation: 0,
-                    heroTag: null,
-                    label: const Text('Submit RTI'),
-                    onPressed: () {
-                      final state = controller.key.currentState;
-                      if (state != null) {
-                        state.toggle();
-                      }
-                      Get.toNamed('/submit-rti-screen');
-                    },
-                  ),
-                ]),
-            body: SafeArea(
-              child: SingleChildScrollView(
+            appBar: homeAppBarWidget(),
+            // floatingActionButtonLocation: ExpandableFab.location,
+            // floatingActionButton: ExpandableFab(
+            //     key: controller.key,
+            //     type: ExpandableFabType.up,
+            //     pos: ExpandableFabPos.right,
+            //     distance: 70,
+            //     openButtonBuilder: FloatingActionButtonBuilder(
+            //         size: 40,
+            //         builder: (context, toggle, Animation) {
+            //           return MaterialButton(
+            //             padding: const EdgeInsets.symmetric(
+            //                 vertical: 15, horizontal: 40),
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(50)),
+            //             color: MyColor.green,
+            //             onPressed: () {
+            //               toggle!();
+            //             },
+            //             child: const Text(
+            //               'SUBMIT',
+            //               style: TextStyle(
+            //                 fontSize: 17,
+            //                 letterSpacing: 2,
+            //                 color: Colors.white,
+            //               ),
+            //             ),
+            //           );
+            //         }),
+            //     closeButtonBuilder: FloatingActionButtonBuilder(
+            //         size: 40,
+            //         builder: (context, toggle, Animation) {
+            //           return MaterialButton(
+            //             padding: const EdgeInsets.symmetric(
+            //                 vertical: 15, horizontal: 40),
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(50)),
+            //             color: MyColor.orange,
+            //             onPressed: () {
+            //               toggle!();
+            //             },
+            //             child: const Text(
+            //               'CLOSE',
+            //               style: TextStyle(
+            //                 fontSize: 17,
+            //                 letterSpacing: 2,
+            //                 color: Colors.white,
+            //               ),
+            //             ),
+            //           );
+            //         }),
+            //     children: [
+            //       FloatingActionButton.extended(
+            //         backgroundColor: MyColor.green,
+            //         elevation: 0,
+            //         heroTag: null,
+            //         label: const Text('Submit Complaint'),
+            //         onPressed: () {
+            //           final state = controller.key.currentState;
+            //           if (state != null) {
+            //             state.toggle();
+            //           }
+            //         },
+            //       ),
+            //       FloatingActionButton.extended(
+            //         backgroundColor: MyColor.green,
+            //         elevation: 0,
+            //         heroTag: null,
+            //         label: const Text('Submit RTI'),
+            //         onPressed: () {
+            //           final state = controller.key.currentState;
+            //           if (state != null) {
+            //             state.toggle();
+            //           }
+            //           Get.toNamed('/submit-rti-screen');
+            //         },
+            //       ),
+            //     ]),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const HomeAppBarWidget(),
-                    const HomeTabWidget(),
-                    Obx(
-                      () => controller.isRtiSelected.isTrue
-                          ? const RtiScreen()
-                          : Container(),
+                    TextFormField(
+                      readOnly: true,
+                      decoration: InputDecoration(
+                          isDense: true,
+                          border: textBoxFocusBorder(),
+                          focusedBorder: textBoxFocusBorder(),
+                          enabledBorder: textBoxFocusBorder(),
+                          prefixIcon: const Icon(
+                            Icons.search_rounded,
+                          ),
+                          hintText: 'Search Department'),
                     ),
-                    Obx(
-                      () => controller.isComplainSelected.isTrue
-                          ? const ComplainScreen()
-                          : Container(),
-                    )
                   ],
                 ),
               ),
@@ -120,6 +123,8 @@ class HomeScreen extends StatelessWidget {
           );
         });
   }
+
+  void openSearch(HomeController controller) {}
 }
 // DefaultFloatingActionButtonBuilder(
 //                   backgroundColor: MyColor.green,
