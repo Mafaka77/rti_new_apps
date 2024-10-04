@@ -22,7 +22,9 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
-                bottomRight: Radius.elliptical(400, 200)),
+              bottomRight: Radius.circular(70),
+              bottomLeft: Radius.circular(70),
+            ),
             color: MyColor.green,
           ),
           width: Get.width,
