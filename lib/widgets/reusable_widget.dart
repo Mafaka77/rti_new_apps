@@ -121,6 +121,7 @@ rtiListLoader() {
       ListView.builder(
           itemCount: 5,
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (c, i) {
             return ListTile(
               title: Shimmer.fromColors(

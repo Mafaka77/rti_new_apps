@@ -8,6 +8,7 @@ import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/services/auth_services.dart';
 import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
+import 'package:rti_new_apps/services/local_council_wise_services.dart';
 import 'package:rti_new_apps/services/rti_services.dart';
 
 final storage = GetStorage();
@@ -17,6 +18,7 @@ void main() async {
   Get.put(HomeServices(), tag: 'homeServices');
   Get.put(DepartmentWiseServices(), tag: 'departmentWiseServices');
   Get.put(RtiServices(), tag: 'rtiServices');
+  Get.put(LocalCouncilWiseServices(), tag: 'localCouncilWiseServices');
   runApp(const MyApp());
 }
 

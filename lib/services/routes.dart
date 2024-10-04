@@ -16,4 +16,11 @@ class Routes {
   static String GET_RTI_DETAILS = '$BASE_URL/get-my-rti-details';
   static String SUBMIT_FIRST_APPEAL = '$BASE_URL/first-appeal-rti';
   static String SUBMIT_SECOND_APPEAL = '$BASE_URL/second-appeal-rti';
+
+  //LOCAL COUNCIL
+  static String GET_DISTRICT = '$BASE_URL/getDistrict';
+  static String GET_LOCAL_COUNCIL = '$BASE_URL/getLocalCouncil';
+
+  //FAQ
+  static String GET_FAQ = '$BASE_URL/getFAQ';
 }
