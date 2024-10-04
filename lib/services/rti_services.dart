@@ -56,8 +56,10 @@ class RtiServices extends BaseService {
                 filename: attachment.name),
         'secondAppealReason': reason,
       });
-      var response =
-          await client.post(Routes.SUBMIT_SECOND_APPEAL, data: formData);
+      var response = await client.post(
+        Routes.SUBMIT_SECOND_APPEAL,
+        data: formData,
+      );
 
       return response;
     } catch (ex) {

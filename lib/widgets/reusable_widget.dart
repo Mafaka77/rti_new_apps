@@ -241,20 +241,19 @@ void downloadFile(
 
 myAppBarWidget() {
   return AppBar(
-    leading: Container(),
-    actions: [
-      CircleAvatar(
-        radius: 50,
-        child: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(
-              Icons.clear,
-              color: Colors.white,
-            )),
-      )
-    ],
+    backgroundColor: MyColor.lightGreen,
+    leading: Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
+      ),
+    ),
   );
 }
 

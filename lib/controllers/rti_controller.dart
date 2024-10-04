@@ -7,8 +7,7 @@ import 'package:rti_new_apps/services/rti_services.dart';
 
 class RtiController extends GetxController {
   RtiServices services = Get.find(tag: 'rtiServices');
-  var isDepartment = true.obs;
-  var isLocalCouncil = false.obs;
+
   var isRtiLoading = false.obs;
   var myRtiList = <MyRtiModel>[].obs;
   var myRtiDetails = <MyRtiDetailsModel>{}.obs;

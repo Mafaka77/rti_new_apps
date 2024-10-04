@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rti_new_apps/colors.dart';
+import 'package:rti_new_apps/controllers/home_controller.dart';
 import 'package:rti_new_apps/controllers/rti_controller.dart';
 
-class RtiButtonWidget extends GetView<RtiController> {
-  const RtiButtonWidget({Key? key}) : super(key: key);
+class RtiButtonWidget extends GetView<HomeController> {
+  const RtiButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

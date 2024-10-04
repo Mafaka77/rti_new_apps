@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rti_new_apps/controllers/home_controller.dart';
 import 'package:rti_new_apps/controllers/rti_controller.dart';
 import 'package:rti_new_apps/screens/department_rti_screen.dart';
 import 'package:rti_new_apps/screens/local_council_rti_screen.dart';
+import 'package:rti_new_apps/widgets/reusable_widget.dart';
 import 'package:rti_new_apps/widgets/rti/rti_button_widget.dart';
 
-class SubmitRtiScreen extends GetView<RtiController> {
+class SubmitRtiScreen extends GetView<HomeController> {
   const SubmitRtiScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: myAppBarWidget(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/router.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/services/auth_services.dart';
@@ -28,19 +29,21 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'RTI Online',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+      //   fontFamily: '',
+      //   useMaterial3: true,
+      // ),
+      theme: _buildTheme(),
       initialRoute: '/nav',
       getPages: getPages,
     );
   }
 
-  ThemeData _buildTheme(brightness) {
-    var baseTheme = ThemeData(brightness: brightness);
+  ThemeData _buildTheme() {
+    var baseTheme = ThemeData();
     return baseTheme.copyWith(
-      scaffoldBackgroundColor: const Color(0xffEDEDFF),
+      scaffoldBackgroundColor: MyColor.lightGreen,
       textTheme: GoogleFonts.robotoMonoTextTheme(baseTheme.textTheme),
     );
   }

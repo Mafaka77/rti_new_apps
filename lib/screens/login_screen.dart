@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/auth_controller.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
+import 'package:rti_new_apps/screens/nav_bar_screen.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -171,7 +172,7 @@ class LoginScreen extends StatelessWidget {
         showLoader(context);
       }, (String message) {
         hideLoader();
-        Get.offAll(() => const HomeScreen());
+        Get.offAll(() => const NavBarScreen());
         ScaffoldMessenger.of(context)
             .showSnackBar(mySuccessSnackBar('Success', message));
       }, (String message) {

@@ -7,6 +7,8 @@ import 'package:rti_new_apps/services/home_services.dart';
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   HomeServices services = Get.find(tag: 'homeServices');
+  var isDepartment = true.obs;
+  var isLocalCouncil = false.obs;
   final key = GlobalKey<ExpandableFabState>();
   var user = <UserModel>{}.obs;
   var isMeLoading = false.obs;

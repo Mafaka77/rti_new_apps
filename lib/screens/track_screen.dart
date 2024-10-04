@@ -16,7 +16,6 @@ class TrackScreen extends StatelessWidget {
       initState: (_) {},
       builder: (controller) {
         return Scaffold(
-          appBar: homeAppBarWidget(),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
