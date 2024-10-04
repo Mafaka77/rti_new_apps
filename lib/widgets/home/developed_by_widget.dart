@@ -11,7 +11,7 @@ class DevelopedByWidget extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            const Text('Design & Developed By'),
+            const Text('Designed & Developed By'),
             sizedBoxHeight(10),
             const Image(
               image: AssetImage('images/msegs_logo.png'),
