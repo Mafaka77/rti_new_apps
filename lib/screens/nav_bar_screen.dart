@@ -30,6 +30,8 @@ class NavBarScreen extends StatelessWidget {
                   unselectedItemColor: Colors.black,
                   showUnselectedLabels: true,
                   useLegacyColorScheme: true,
+                  selectedIconTheme:
+                      IconThemeData(color: MyColor.green, fill: 1),
                   onTap: (value) {
                     controller.selectedIndex.value = value;
                   },

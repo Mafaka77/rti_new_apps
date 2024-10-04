@@ -17,6 +17,7 @@ class DevelopedByWidget extends StatelessWidget {
               image: AssetImage('images/msegs_logo.png'),
             ),
             const Text('(A Government of Mizoram Undertaking)'),
+            sizedBoxHeight(20),
           ],
         ),
       ),
