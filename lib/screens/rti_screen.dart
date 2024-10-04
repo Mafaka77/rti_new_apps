@@ -30,7 +30,6 @@ class RtiScreen extends StatelessWidget {
                         return InkWell(
                           splashColor: MyColor.green,
                           onTap: () {
-                            print(data.id);
                             controller.getRtiDetails(data.id!, () {
                               showLoader(context);
                             }, () {
@@ -56,16 +55,20 @@ class RtiScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Text(
-                                            'Question:',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                          const Image(
+                                              height: 20,
+                                              image: AssetImage(
+                                                  'images/file.png')),
                                           rtiStatus(data),
                                         ],
                                       ),
                                       const Divider(),
+                                      const Text(
+                                        'Question:',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       AutoSizeText(
                                         data.citizen_question.toString(),
                                         maxLines: 5,
@@ -104,8 +107,8 @@ class RtiScreen extends StatelessWidget {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             sizedBoxWidth(5),
-                                            const Text(
-                                              'Chief Controller of Account, Accounts & Treasuries',
+                                            Text(
+                                              data.departmentModel!.name,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ],

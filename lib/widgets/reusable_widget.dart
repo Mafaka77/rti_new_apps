@@ -203,6 +203,124 @@ nameLoader() {
   );
 }
 
+fileRtiLoader() {
+  return Positioned(
+    bottom: -80, // Overflowing the bottom of the container
+    left: 30,
+    child: Container(
+      width: Get.width * 0.4,
+      height: Get.height * 0.2,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(50)),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            child: Shimmer.fromColors(
+              baseColor: Colors.black45,
+              highlightColor: MyColor.limeGreen,
+              child: Container(
+                color: Colors.green[50],
+              ),
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+fileComplaintLoader() {
+  return Positioned(
+    bottom: -80, // Overflowing the bottom of the container
+    right: 30,
+    child: Container(
+      width: Get.width * 0.4,
+      height: Get.height * 0.2,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(50)),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            child: Shimmer.fromColors(
+              baseColor: Colors.black45,
+              highlightColor: MyColor.limeGreen,
+              child: Container(
+                color: Colors.green[50],
+              ),
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 void downloadFile(
     BuildContext context, String? file, RtiController controller) async {
   // try {

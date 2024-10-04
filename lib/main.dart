@@ -9,6 +9,7 @@ import 'package:rti_new_apps/services/auth_services.dart';
 import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
 import 'package:rti_new_apps/services/local_council_wise_services.dart';
+import 'package:rti_new_apps/services/profile_services.dart';
 import 'package:rti_new_apps/services/rti_services.dart';
 
 final storage = GetStorage();
@@ -19,6 +20,7 @@ void main() async {
   Get.put(DepartmentWiseServices(), tag: 'departmentWiseServices');
   Get.put(RtiServices(), tag: 'rtiServices');
   Get.put(LocalCouncilWiseServices(), tag: 'localCouncilWiseServices');
+  Get.put(ProfileServices(), tag: 'profileServices');
   runApp(const MyApp());
 }
 
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
       //   useMaterial3: true,
       // ),
       theme: _buildTheme(),
-      initialRoute: '/nav',
+      initialRoute: '/',
       getPages: getPages,
     );
   }

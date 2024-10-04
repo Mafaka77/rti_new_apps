@@ -15,6 +15,28 @@ class HomeController extends GetxController
   var isMeLoading = false.obs;
   var isFaqLoading = false.obs;
   var faqList = <FaqModel>[].obs;
+
+  var pdfList = [
+    {
+      'url': 'https://rti.mizoram.gov.in/images/rti.pdf',
+      'icon': 'images/manual.png',
+      'name': 'Manual',
+      'file_name': 'rti.pdf'
+    },
+    {
+      'url': 'https://rti.mizoram.gov.in/images/guidelines.pdf',
+      'icon': 'images/file-2.png',
+      'name': 'Guidlines',
+      'file_name': 'guidelines.pdf'
+    },
+    {
+      'url': 'https://rti.mizoram.gov.in/my/tc',
+      'icon': 'images/terms-and-conditions.png',
+      'name': 'Terms',
+      'file_name': ''
+    }
+  ];
+  var downloadPercentage = 0.obs;
   @override
   void onInit() {
     // TODO: implement onInit

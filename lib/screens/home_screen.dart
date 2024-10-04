@@ -8,11 +8,14 @@ import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
 import 'package:rti_new_apps/screens/complain_screen.dart';
 import 'package:rti_new_apps/screens/rti_screen.dart';
+import 'package:rti_new_apps/widgets/home/developed_by_widget.dart';
 import 'package:rti_new_apps/widgets/home/faq_widget.dart';
 import 'package:rti_new_apps/widgets/home/home_app_bar_widget.dart';
 import 'package:rti_new_apps/widgets/home/home_overflow_button_widget.dart';
 import 'package:rti_new_apps/widgets/home/home_tab_widget.dart';
+import 'package:rti_new_apps/widgets/home/important_document_widget.dart';
 import 'package:rti_new_apps/widgets/home/statistics_widget.dart';
+import 'package:rti_new_apps/widgets/home/tutorial_widget.dart';
 import 'package:rti_new_apps/widgets/home/two_button_widget.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
@@ -114,15 +117,21 @@ class HomeScreen extends StatelessWidget {
                     //   },
                     //   child: const Text('LOGOUT'),
                     // ),
-                    const AppBarWidget(),
+                    AppBarWidget(
+                      title: 'home',
+                    ),
                     const HomeOverflowButtonWidget(),
                     // Padding(
                     //   padding: EdgeInsets.all(20.0),
                     //   child: TwoButtonWidget(),
                     // ),
-                    // StatisticsWidget(),
                     sizedBoxHeight(100),
+                    const StatisticsWidget(),
+
                     const FaqWidget(),
+                    const ImportantDocumentWidget(),
+                    sizedBoxHeight(10),
+                    const DevelopedByWidget(),
                   ],
                 ),
               ),

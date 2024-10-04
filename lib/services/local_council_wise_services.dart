@@ -1,3 +1,4 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/models/local_council_model.dart';
 import 'package:rti_new_apps/services/base_services.dart';
 import 'package:rti_new_apps/services/routes.dart';
@@ -25,5 +26,14 @@ class LocalCouncilWiseServices extends BaseService {
       return LocalCouncilModel.fromJsonList(data);
     }
     return [];
+  }
+
+  Future submitFreeRti(
+    int localCouncil,
+    String question,
+    XFile? myFile,
+    XFile? bplFile,
+  ) async {
+    try {} catch (ex) {}
   }
 }

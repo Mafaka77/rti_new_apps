@@ -5,6 +5,7 @@ import 'package:rti_new_apps/screens/complain_screen.dart';
 import 'package:rti_new_apps/screens/rti_screen.dart';
 import 'package:rti_new_apps/widgets/home/home_app_bar_widget.dart';
 import 'package:rti_new_apps/widgets/home/home_tab_widget.dart';
+import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
 class TrackScreen extends StatelessWidget {
   const TrackScreen({super.key});
@@ -20,6 +21,10 @@ class TrackScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  AppBarWidget(
+                    title: 'track',
+                  ),
+                  sizedBoxHeight(20),
                   const HomeTabWidget(),
                   Obx(
                     () => controller.isRtiSelected.isTrue

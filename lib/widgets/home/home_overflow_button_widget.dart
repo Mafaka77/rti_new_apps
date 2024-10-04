@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/home_controller.dart';
 import 'package:rti_new_apps/widgets/home/two_button_widget.dart';
@@ -49,13 +50,15 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                             children: [
                               const Text(
                                 'Welcome,',
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
                               ),
                               SizedBox(
                                 width: 250.0,
                                 child: DefaultTextStyle(
-                                  style: const TextStyle(
-                                    fontSize: 24.0,
+                                  style: GoogleFonts.lilitaOne(
+                                    fontSize: 24,
+                                    letterSpacing: 2,
                                   ),
                                   child: AnimatedTextKit(
                                     animatedTexts: [
@@ -76,67 +79,76 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
             ],
           ),
         ),
-        Positioned(
-          bottom: -80, // Overflowing the bottom of the container
-          left: 30,
-          child: GestureDetector(
-            onTap: () {
-              Get.toNamed('/submit-rti-screen');
-            },
-            child: Container(
-              width: Get.width * 0.4,
-              height: Get.height * 0.2,
-              decoration: const BoxDecoration(
-                borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(50)),
-                color: Colors.white,
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                    width: 80,
-                    image: AssetImage('images/search.png'),
+        Obx(
+          () => controller.isFaqLoading.isTrue
+              ? fileRtiLoader()
+              : Positioned(
+                  bottom: -80, // Overflowing the bottom of the container
+                  left: 30,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/submit-rti-screen');
+                    },
+                    child: Container(
+                      width: Get.width * 0.4,
+                      height: Get.height * 0.2,
+                      decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.only(bottomRight: Radius.circular(50)),
+                        color: Colors.white,
+                      ),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            width: 80,
+                            image: AssetImage('images/search.png'),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text('File RTI Application'),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text('File RTI Application'),
-                  )
-                ],
-              ),
-            ),
-          ),
+                ),
         ),
 
         // Button on the bottom right
-        Positioned(
-          bottom: -80, // Overflowing the bottom of the container
-          right: 30,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
-              color: Colors.white,
-            ),
-            width: Get.width * 0.4,
-            height: Get.height * 0.2,
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(
-                  width: 80,
-                  image: AssetImage('images/issue.png'),
-                ),
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text('File a Complaint'),
+        Obx(
+          () => controller.isFaqLoading.isTrue
+              ? fileComplaintLoader()
+              : Positioned(
+                  bottom: -80, // Overflowing the bottom of the container
+                  right: 30,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    width: Get.width * 0.4,
+                    height: Get.height * 0.2,
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image(
+                          width: 80,
+                          image: AssetImage('images/issue.png'),
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text('File a Complaint'),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ],
-            ),
-          ),
+                ),
         ),
       ],
     );

@@ -46,4 +46,9 @@ class LocalCouncilWiseController extends GetxController {
       return response;
     } catch (ex) {}
   }
+
+  void submitFreeRti(
+      Function onLoading, Function onSuccess, Function onError) async {
+    try {} catch (ex) {}
+  }
 }

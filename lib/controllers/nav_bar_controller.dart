@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/screens/track_screen.dart';
@@ -15,9 +16,10 @@ class NavBarController extends GetxController with GetTickerProviderStateMixin {
   late AnimationController hideBottomBarAnimationController;
   final autoSizeGroup = AutoSizeGroup();
   final navBarList = [
-    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.track_changes), label: 'Track'),
+    BottomNavigationBarItem(
+        icon: SvgPicture.asset('images/home.svg'), label: 'Home'),
+    BottomNavigationBarItem(
+        icon: SvgPicture.asset('images/track.svg'), label: 'Application'),
   ];
   final List<Widget> widgetOptions = <Widget>[
     const HomeScreen(),

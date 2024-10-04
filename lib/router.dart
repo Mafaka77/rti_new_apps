@@ -4,6 +4,7 @@ import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/screens/login_screen.dart';
 import 'package:rti_new_apps/screens/nav_bar_screen.dart';
 import 'package:rti_new_apps/screens/otp_screen.dart';
+import 'package:rti_new_apps/screens/profile_screen.dart';
 import 'package:rti_new_apps/screens/register_screen.dart';
 import 'package:rti_new_apps/screens/rti_detail_screen.dart';
 import 'package:rti_new_apps/screens/submit_rti_screen.dart';
@@ -15,21 +16,48 @@ pageTransition() {
 
 final getPages = [
   GetPage(
-    name: '/',
-    page: () => const HomeScreen(),
-    transition: pageTransition(),
-    middlewares: [
-      AuthMiddleware(),
-    ],
-  ),
-  GetPage(
-    name: '/nav',
-    page: () => const NavBarScreen(),
-    transition: pageTransition(),
-    middlewares: [
-      AuthMiddleware(),
-    ],
-  ),
+      name: '/',
+      page: () => const NavBarScreen(),
+      transition: pageTransition(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
+      children: [
+        GetPage(
+          name: '/home',
+          page: () => const HomeScreen(),
+          transition: pageTransition(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+        ),
+        GetPage(
+          name: '/submit-rti-screen',
+          page: () => const SubmitRtiScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          maintainState: true,
+          transition: pageTransition(),
+        ),
+        GetPage(
+          name: '/rti-detail-screen',
+          page: () => const RtiDetailScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          maintainState: true,
+          transition: pageTransition(),
+        ),
+        GetPage(
+          name: '/profile-screen/:user',
+          page: () => const ProfileScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          transition: pageTransition(),
+        )
+      ]),
   GetPage(
     name: '/login-screen',
     page: () => const LoginScreen(),
@@ -49,19 +77,5 @@ final getPages = [
     name: '/register-screen',
     page: () => RegisterScreen(),
     transition: pageTransition(),
-  ),
-  GetPage(
-    name: '/submit-rti-screen',
-    page: () => const SubmitRtiScreen(),
-    middlewares: [
-      AuthMiddleware(),
-    ],
-  ),
-  GetPage(
-    name: '/rti-detail-screen',
-    page: () => const RtiDetailScreen(),
-    middlewares: [
-      AuthMiddleware(),
-    ],
   ),
 ];
