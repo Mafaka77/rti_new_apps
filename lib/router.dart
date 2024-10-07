@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
+import 'package:rti_new_apps/screens/complain_detail_screen.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/screens/login_screen.dart';
 import 'package:rti_new_apps/screens/nav_bar_screen.dart';
@@ -7,6 +8,7 @@ import 'package:rti_new_apps/screens/otp_screen.dart';
 import 'package:rti_new_apps/screens/profile_screen.dart';
 import 'package:rti_new_apps/screens/register_screen.dart';
 import 'package:rti_new_apps/screens/rti_detail_screen.dart';
+import 'package:rti_new_apps/screens/submit_complaint_screen.dart';
 import 'package:rti_new_apps/screens/submit_rti_screen.dart';
 import 'package:rti_new_apps/screens/verify_otp_screen.dart';
 
@@ -56,7 +58,23 @@ final getPages = [
             AuthMiddleware(),
           ],
           transition: pageTransition(),
-        )
+        ),
+        GetPage(
+          name: '/submit-complaint',
+          page: () => const SubmitComplaintScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          transition: pageTransition(),
+        ),
+        GetPage(
+          name: '/complaint-detail-screen',
+          page: () => const ComplainDetailScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          transition: pageTransition(),
+        ),
       ]),
   GetPage(
     name: '/login-screen',

@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pinput/pinput.dart';
 import 'package:rti_new_apps/colors.dart';
+import 'package:rti_new_apps/controllers/complain_controller.dart';
 import 'package:rti_new_apps/controllers/rti_controller.dart';
 import 'package:rti_new_apps/services/routes.dart';
 import 'package:shimmer/shimmer.dart';
@@ -321,8 +322,104 @@ fileComplaintLoader() {
   );
 }
 
+statsLoader() {
+  return Positioned(
+    bottom: -80, // Overflowing the bottom of the container
+    right: 30,
+    child: Container(
+      width: Get.width * 0.4,
+      height: Get.height * 0.2,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(50)),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            child: Shimmer.fromColors(
+              baseColor: Colors.black45,
+              highlightColor: MyColor.limeGreen,
+              child: Container(
+                color: Colors.green[50],
+              ),
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+          sizedBoxHeight(10),
+          Shimmer.fromColors(
+            baseColor: Colors.black45,
+            highlightColor: MyColor.limeGreen,
+            child: Container(
+              width: Get.width * 0.4,
+              height: Get.height * 0.02,
+              color: Colors.green[50],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 void downloadFile(
     BuildContext context, String? file, RtiController controller) async {
+  // try {
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
+  final Directory directory = await getApplicationDocumentsDirectory();
+  // final Directory directory = Directory('/storage/emulated/0/Download/Rti');
+  String filePath = '${directory.path}/$file';
+  Dio dio = Dio();
+  // ignore: use_build_context_synchronously
+  ProgressDialog pd = ProgressDialog(context: context);
+  pd.show(max: 100, msg: 'File Downloading...');
+  await dio.download(
+    Routes.DOWNLOAD_URL(file!),
+    filePath,
+    onReceiveProgress: (count, total) {
+      if (total != -1) {
+        controller.downloadPercentage.value = ((count / total * 100).toInt());
+        pd.update(value: controller.downloadPercentage.value);
+      }
+    },
+  );
+
+  OpenFile.open(filePath);
+  showDownloadSuccessSnackBar(
+      'Success',
+      'File downloaded successfully',
+      const Icon(
+        Icons.check,
+        color: Colors.blue,
+      ),
+      filePath);
+  // } catch (ex) {}
+}
+
+void downloadComplaintFile(
+    BuildContext context, String? file, ComplainController controller) async {
   // try {
   var status = await Permission.storage.status;
   if (!status.isGranted) {

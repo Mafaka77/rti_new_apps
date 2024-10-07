@@ -23,4 +23,12 @@ class Routes {
 
   //FAQ
   static String GET_FAQ = '$BASE_URL/getFAQ';
+
+  //STATS
+  static String GET_STATS = '$BASE_URL/getStatistics';
+
+  //COMPLAINT
+  static String SUBMIT_COMPLAINT = '$BASE_URL/storeComplain';
+  static String GET_MY_COMPLAINT = '$BASE_URL/get-my-complain';
+  static String GET_COMPLAINT_DETAIL = '$BASE_URL/get-my-complain-details';
 }

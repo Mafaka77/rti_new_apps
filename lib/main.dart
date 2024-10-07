@@ -6,11 +6,13 @@ import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/router.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
 import 'package:rti_new_apps/services/auth_services.dart';
+import 'package:rti_new_apps/services/complaint_services.dart';
 import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
 import 'package:rti_new_apps/services/local_council_wise_services.dart';
 import 'package:rti_new_apps/services/profile_services.dart';
 import 'package:rti_new_apps/services/rti_services.dart';
+import 'package:rti_new_apps/services/submit_complaint_services.dart';
 
 final storage = GetStorage();
 void main() async {
@@ -21,6 +23,8 @@ void main() async {
   Get.put(RtiServices(), tag: 'rtiServices');
   Get.put(LocalCouncilWiseServices(), tag: 'localCouncilWiseServices');
   Get.put(ProfileServices(), tag: 'profileServices');
+  Get.put(SubmitComplaintServices(), tag: 'submitComplaintServices');
+  Get.put(ComplaintServices(), tag: 'complaintServices');
   runApp(const MyApp());
 }
 

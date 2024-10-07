@@ -14,7 +14,10 @@ class HomeController extends GetxController
   var user = <UserModel>{}.obs;
   var isMeLoading = false.obs;
   var isFaqLoading = false.obs;
+  var isStatsLoading = false.obs;
   var faqList = <FaqModel>[].obs;
+  var statsDate = {}.obs;
+  var statsData = {}.obs;
 
   var pdfList = [
     {
@@ -42,6 +45,7 @@ class HomeController extends GetxController
     // TODO: implement onInit
     me();
     getFaq();
+    getStats();
     super.onInit();
   }
 
@@ -66,6 +70,20 @@ class HomeController extends GetxController
       isFaqLoading.value = false;
     } catch (ex) {
       isFaqLoading.value = false;
+    }
+  }
+
+  void getStats() async {
+    isStatsLoading.value = true;
+    statsDate.clear();
+    statsData.clear();
+    try {
+      var response = await services.getStats();
+      statsDate.addAll(response['date']);
+      statsData.addAll(response['data']);
+      isStatsLoading.value = false;
+    } catch (ex) {
+      isStatsLoading.value = false;
     }
   }
 }

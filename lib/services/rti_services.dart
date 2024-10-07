@@ -22,6 +22,7 @@ class RtiServices extends BaseService {
       var data = respone.data['information'];
       return MyRtiDetailsModel.fromMap(data);
     } catch (ex) {
+      print(ex);
       return Future.error(ex);
     }
   }

@@ -31,6 +31,7 @@ class RtiScreen extends StatelessWidget {
                           splashColor: MyColor.green,
                           onTap: () {
                             controller.getRtiDetails(data.id!, () {
+                              print(data.id);
                               showLoader(context);
                             }, () {
                               hideLoader();
@@ -71,7 +72,7 @@ class RtiScreen extends StatelessWidget {
                                       ),
                                       AutoSizeText(
                                         data.citizen_question.toString(),
-                                        maxLines: 5,
+                                        maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
@@ -125,7 +126,8 @@ class RtiScreen extends StatelessWidget {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             sizedBoxWidth(5),
-                                            Text(data.departmentModel!.name),
+                                            Text(data.local_council!.name
+                                                .toString()),
                                           ],
                                         ),
                                       ),

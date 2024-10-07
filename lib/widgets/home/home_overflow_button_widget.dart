@@ -93,8 +93,11 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                       width: Get.width * 0.4,
                       height: Get.height * 0.2,
                       decoration: const BoxDecoration(
-                        borderRadius:
-                            BorderRadius.only(bottomRight: Radius.circular(50)),
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(50),
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
+                        ),
                         color: Colors.white,
                       ),
                       child: const Column(
@@ -123,29 +126,37 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
               : Positioned(
                   bottom: -80, // Overflowing the bottom of the container
                   right: 30,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(50)),
-                      color: Colors.white,
-                    ),
-                    width: Get.width * 0.4,
-                    height: Get.height * 0.2,
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          width: 80,
-                          image: AssetImage('images/issue.png'),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/submit-complaint');
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
                         ),
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text('File a Complaint'),
+                        color: Colors.white,
+                      ),
+                      width: Get.width * 0.4,
+                      height: Get.height * 0.2,
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            width: 80,
+                            image: AssetImage('images/issue.png'),
                           ),
-                        )
-                      ],
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text('File a Complaint'),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

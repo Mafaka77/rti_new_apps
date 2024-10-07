@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/local_council_wise_controller.dart';
+import 'package:rti_new_apps/models/district_model.dart';
 import 'package:rti_new_apps/models/local_council_model.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 import 'package:rti_new_apps/widgets/rti/local_council_bpl_widget.dart';
@@ -26,11 +27,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                DropdownSearch<String>(
-                  items: (c, i) => controller.districtList,
-                ),
-                sizedBoxHeight(10),
-                DropdownSearch<LocalCouncilModel>(
+                DropdownSearch<DistrictModel>(
                   validator: (value) {
                     if (value == null) {
                       return 'Required';
@@ -38,9 +35,8 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    controller.localCouncilId.value =
+                    controller.districtId.value =
                         (value == null ? 0 : value.id)!;
-                    print(controller.localCouncilId.value);
                   },
                   suffixProps: DropdownSuffixProps(
                     clearButtonProps: const ClearButtonProps(
@@ -66,11 +62,11 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                       border: textBoxFocusBorder(),
                       focusedBorder: textBoxFocusBorder(),
                       enabledBorder: textBoxFocusBorder(),
-                      hintText: 'Department zawng rawh',
+                      hintText: 'District zawng rawh',
                     ),
                   ),
                   items: (filter, loadProps) async =>
-                      await controller.getLocalCouncil(filter),
+                      await controller.getDistrict(filter),
                   compareFn: (item1, item2) => item1.isEqual(item2),
                   popupProps: PopupPropsMultiSelection.modalBottomSheet(
                       showSelectedItems: true,
@@ -93,25 +89,96 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                       ),
                 ),
                 sizedBoxHeight(10),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Required';
-                    }
-                    return null;
-                  },
-                  // controller: controller.questionsText,
-                  maxLines: 10,
-                  decoration: InputDecoration(
-                    border: textBoxFocusBorder(),
-                    focusedBorder: textBoxFocusBorder(),
-                    enabledBorder: textBoxFocusBorder(),
-                    labelText: 'I zawhna han ziak rawh le',
+                Obx(
+                  () => DropdownSearch<LocalCouncilModel>(
+                    enabled: controller.districtId.value == 0 ? false : true,
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      controller.localCouncilId.value =
+                          (value == null ? 0 : value.id)!;
+                      print(controller.localCouncilId.value);
+                    },
+                    suffixProps: DropdownSuffixProps(
+                      clearButtonProps: const ClearButtonProps(
+                        isSelected: true,
+                        icon: Icon(
+                          Icons.clear,
+                        ),
+                        isVisible: true,
+                      ),
+                      dropdownButtonProps: DropdownButtonProps(
+                        iconClosed: Icon(
+                          Icons.search,
+                          color: MyColor.green,
+                        ),
+                        iconOpened: Icon(
+                          Icons.search,
+                          color: MyColor.green,
+                        ),
+                      ),
+                    ),
+                    decoratorProps: DropDownDecoratorProps(
+                      decoration: InputDecoration(
+                        border: textBoxFocusBorder(),
+                        focusedBorder: textBoxFocusBorder(),
+                        enabledBorder: textBoxFocusBorder(),
+                        hintText: 'Department zawng rawh',
+                      ),
+                    ),
+                    items: (filter, loadProps) async =>
+                        await controller.getLocalCouncil(filter),
+                    compareFn: (item1, item2) => item1.isEqual(item2),
+                    popupProps: PopupPropsMultiSelection.modalBottomSheet(
+                        showSelectedItems: true,
+                        showSearchBox: true,
+                        listViewProps: const ListViewProps(
+                          padding: EdgeInsets.all(20),
+                        ),
+                        searchFieldProps: TextFieldProps(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 20),
+                          decoration: InputDecoration(
+                            border: textBoxFocusBorder(),
+                            enabledBorder: textBoxFocusBorder(),
+                            focusedBorder: textBoxFocusBorder(),
+                            hintText: 'Search',
+                            suffixIcon: const Icon(Icons.search),
+                          ),
+                        )
+                        // itemBuilder: userModelPopupItem,
+                        ),
                   ),
                 ),
                 sizedBoxHeight(10),
                 Obx(
                   () => TextFormField(
+                    controller: controller.question,
+                    enabled: controller.districtId.value == 0 ? false : true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
+                    // controller: controller.questionsText,
+                    maxLines: 10,
+                    decoration: InputDecoration(
+                      border: textBoxFocusBorder(),
+                      focusedBorder: textBoxFocusBorder(),
+                      enabledBorder: textBoxFocusBorder(),
+                      labelText: 'I zawhna han ziak rawh le',
+                    ),
+                  ),
+                ),
+                sizedBoxHeight(10),
+                Obx(
+                  () => TextFormField(
+                    enabled: controller.districtId.value == 0 ? false : true,
                     controller: controller.attachmentName,
                     onTap: () {
                       openPickerModal(context, controller);
@@ -332,5 +399,20 @@ class LocalCouncilRtiScreen extends StatelessWidget {
   }
 
   void submitFreeRti(
-      BuildContext context, LocalCouncilWiseController controller) {}
+      BuildContext context, LocalCouncilWiseController controller) {
+    controller.submitFreeRti(() {
+      showLoader(context);
+    }, (String message) {
+      hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(mySuccessSnackBar('Success', message));
+      // RtiController rtiController = Get.find();
+      // rtiController.getMyRti();
+      Get.back();
+    }, (String message) {
+      hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(myErrorSnackBar('Error', message));
+    });
+  }
 }

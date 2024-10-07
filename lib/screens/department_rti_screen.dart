@@ -75,6 +75,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                       ),
                       decoratorProps: DropDownDecoratorProps(
                         decoration: InputDecoration(
+                          isDense: true,
                           border: textBoxFocusBorder(),
                           focusedBorder: textBoxFocusBorder(),
                           enabledBorder: textBoxFocusBorder(),
@@ -115,6 +116,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                       controller: controller.questionsText,
                       maxLines: 10,
                       decoration: InputDecoration(
+                        isDense: true,
                         border: textBoxFocusBorder(),
                         focusedBorder: textBoxFocusBorder(),
                         enabledBorder: textBoxFocusBorder(),
@@ -130,6 +132,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                         },
                         readOnly: true,
                         decoration: InputDecoration(
+                          isDense: true,
                           border: textBoxFocusBorder(),
                           focusedBorder: textBoxFocusBorder(),
                           enabledBorder: textBoxFocusBorder(),

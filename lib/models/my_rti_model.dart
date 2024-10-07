@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:rti_new_apps/models/department_model.dart';
+import 'package:rti_new_apps/models/local_council_model.dart';
 
 class MyRtiModel {
   int? id;
@@ -17,6 +18,7 @@ class MyRtiModel {
   String? second_appeal_cic_answer;
   String? created_at;
   DepartmentModel? departmentModel;
+  LocalCouncilModel? local_council;
   MyRtiModel({
     this.id,
     this.citizen_question,
@@ -31,6 +33,7 @@ class MyRtiModel {
     this.second_appeal_cic_answer,
     this.created_at,
     this.departmentModel,
+    this.local_council,
   });
 
   MyRtiModel copyWith({
@@ -47,6 +50,7 @@ class MyRtiModel {
     String? second_appeal_cic_answer,
     String? created_at,
     DepartmentModel? departmentModel,
+    LocalCouncilModel? local_council,
   }) {
     return MyRtiModel(
       id: id ?? this.id,
@@ -65,6 +69,7 @@ class MyRtiModel {
           second_appeal_cic_answer ?? this.second_appeal_cic_answer,
       created_at: created_at ?? this.created_at,
       departmentModel: departmentModel ?? this.departmentModel,
+      local_council: local_council ?? this.local_council,
     );
   }
 
@@ -83,6 +88,7 @@ class MyRtiModel {
       'second_appeal_cic_answer': second_appeal_cic_answer,
       'created_at': created_at,
       'departmentModel': departmentModel?.toMap(),
+      'local_council': local_council?.toMap(),
     };
   }
 
@@ -118,6 +124,10 @@ class MyRtiModel {
       departmentModel: map['department'] != null
           ? DepartmentModel.fromMap(map['department'] as Map<String, dynamic>)
           : null,
+      local_council: map['local_council'] != null
+          ? LocalCouncilModel.fromMap(
+              map['local_council'] as Map<String, dynamic>)
+          : null,
     );
   }
   static List<MyRtiModel> fromJsonList(List list) {
@@ -131,7 +141,7 @@ class MyRtiModel {
 
   @override
   String toString() {
-    return 'MyRtiModel(id: $id, citizen_question: $citizen_question, citizen_question_department: $citizen_question_department, aspio_in: $aspio_in, aspio_answer: $aspio_answer, spio_in: $spio_in, spio_answer: $spio_answer, first_appeal_daa_in: $first_appeal_daa_in, first_appeal_daa_answer: $first_appeal_daa_answer, second_appeal_cic_in: $second_appeal_cic_in, second_appeal_cic_answer: $second_appeal_cic_answer, created_at: $created_at, departmentModel: $departmentModel)';
+    return 'MyRtiModel(id: $id, citizen_question: $citizen_question, citizen_question_department: $citizen_question_department, aspio_in: $aspio_in, aspio_answer: $aspio_answer, spio_in: $spio_in, spio_answer: $spio_answer, first_appeal_daa_in: $first_appeal_daa_in, first_appeal_daa_answer: $first_appeal_daa_answer, second_appeal_cic_in: $second_appeal_cic_in, second_appeal_cic_answer: $second_appeal_cic_answer, created_at: $created_at, departmentModel: $departmentModel, local_council: $local_council)';
   }
 
   @override
@@ -150,7 +160,8 @@ class MyRtiModel {
         other.second_appeal_cic_in == second_appeal_cic_in &&
         other.second_appeal_cic_answer == second_appeal_cic_answer &&
         other.created_at == created_at &&
-        other.departmentModel == departmentModel;
+        other.departmentModel == departmentModel &&
+        other.local_council == local_council;
   }
 
   @override
@@ -167,6 +178,7 @@ class MyRtiModel {
         second_appeal_cic_in.hashCode ^
         second_appeal_cic_answer.hashCode ^
         created_at.hashCode ^
-        departmentModel.hashCode;
+        departmentModel.hashCode ^
+        local_council.hashCode;
   }
 }

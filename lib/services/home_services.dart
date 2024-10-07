@@ -22,4 +22,13 @@ class HomeServices extends BaseService {
       return Future.error(ex);
     }
   }
+
+  Future getStats() async {
+    try {
+      var response = await client.get(Routes.GET_STATS);
+      return response.data;
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
 }
