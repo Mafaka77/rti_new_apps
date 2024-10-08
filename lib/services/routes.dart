@@ -31,4 +31,8 @@ class Routes {
   static String SUBMIT_COMPLAINT = '$BASE_URL/storeComplain';
   static String GET_MY_COMPLAINT = '$BASE_URL/get-my-complain';
   static String GET_COMPLAINT_DETAIL = '$BASE_URL/get-my-complain-details';
+
+  //RESET PASSWORD
+  static String RESET_PASSWORD_OTP = '$BASE_URL/password-reset-otp';
+  static String RESET_PASSWORD_VERIFY_OTP = '$BASE_URL/verify-password-otp';
 }

@@ -135,7 +135,9 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed('/forgot-password-otp-screen');
+                                },
                                 child: const Text(
                                   'Forgot password?',
                                   style: TextStyle(color: Colors.red),

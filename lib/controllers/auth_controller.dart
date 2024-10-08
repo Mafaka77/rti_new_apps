@@ -7,6 +7,7 @@ import 'package:rti_new_apps/services/auth_services.dart';
 class AuthController extends GetxController {
   AuthServices services = Get.find(tag: 'authServices');
   final formKey = GlobalKey<FormState>();
+  final forgotPasswordFormKey = GlobalKey<FormState>();
   final otpFormKey = GlobalKey<FormState>();
   final verifyOtpFormKey = GlobalKey<FormState>();
   final registerFormKey = GlobalKey<FormState>();
@@ -28,15 +29,15 @@ class AuthController extends GetxController {
       var response = await services.sendOtp(otpMobileText.text);
       if (response.statusCode == 200) {
         if (response.data['status'] == 200) {
-          onSuccess('OTP successfully sent');
-        } else {
-          onError('Error Occured');
+          onSuccess(response.data['message']);
+        } else if (response.data['status'] == 409) {
+          onError(response.data['message']);
         }
       } else {
         onError('Error Occured');
       }
     } catch (ex) {
-      print(ex);
+      print('ex');
       onError('Error Occured');
     }
   }
@@ -132,6 +133,47 @@ class AuthController extends GetxController {
     } catch (ex) {
       print(ex);
       onError('Something went wrong!');
+    }
+  }
+
+  void resetPasswordOtp(
+      Function onLoading, Function onSuccess, Function onError) async {
+    onLoading();
+    try {
+      var response = await services.resetPasswordOtp(otpMobileText.text);
+      if (response.statusCode == 200) {
+        if (response.data['status'] == 200) {
+          onSuccess(response.data['message']);
+        } else if (response.data['status'] == 404) {
+          onError(response.data['message']);
+        }
+      } else {
+        onError('Error Occured');
+      }
+    } catch (ex) {
+      onError('Error Occured');
+    }
+  }
+
+  Future resetPasswordVerifyOtp(String phone, String otp, Function onLoading,
+      Function onSuccess, Function onError) async {
+    onLoading();
+    try {
+      var response = await services.resetPasswordVerifyOtp(phone, otp);
+      if (response.statusCode == 200) {
+        if (response.data['status'] == 200) {
+          onSuccess(response.data['message']);
+        } else if (response.data['status'] == 404) {
+          onError(response.data['message']);
+        } else {
+          onError('Something went wrong');
+        }
+      } else {
+        onError('Something went wrong');
+      }
+    } catch (ex) {
+      print(ex);
+      onError('Something went wrong');
     }
   }
 }

@@ -53,4 +53,27 @@ class AuthServices extends BaseService {
       return Future.error(ex);
     }
   }
+
+  Future resetPasswordOtp(String phone) async {
+    try {
+      var response = await client.get(Routes.RESET_PASSWORD_OTP, data: {
+        'phone': phone,
+      });
+      return response;
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
+
+  Future resetPasswordVerifyOtp(String phone, String otp) async {
+    try {
+      var response = await client.post(Routes.RESET_PASSWORD_VERIFY_OTP, data: {
+        'otp': otp,
+        'phone': phone,
+      });
+      return response;
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
 }

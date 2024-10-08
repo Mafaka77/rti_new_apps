@@ -56,7 +56,7 @@ class StatisticsWidget extends GetView<HomeController> {
                         elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(date['today']),
+                          child: Text(date['today'] ?? ''),
                         ),
                       ),
                     ),

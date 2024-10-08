@@ -83,7 +83,7 @@ class HomeController extends GetxController
       statsData.addAll(response['data']);
       isStatsLoading.value = false;
     } catch (ex) {
-      isStatsLoading.value = false;
+      isStatsLoading.value = true;
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/models/user_model.dart';
 import 'package:rti_new_apps/services/profile_services.dart';
 
@@ -10,6 +11,7 @@ class ProfileController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    me();
   }
 
   void me() async {
@@ -21,6 +23,19 @@ class ProfileController extends GetxController {
       isMeLoading.value = false;
     } catch (ex) {
       print(ex);
+    }
+  }
+
+  void deleteAccount(
+      Function onLoading, Function onSuccess, Function onError) async {}
+  void logout(Function onLoading, Function onSuccess, Function onError) async {
+    onLoading();
+    try {
+      storage.erase();
+      Get.toNamed('/');
+      onSuccess();
+    } catch (ex) {
+      onError();
     }
   }
 }
