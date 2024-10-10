@@ -135,11 +135,11 @@ class DepartmentWiseController extends GetxController {
       "receipt": receipt.value,
     };
 
-    var data = await services.verifyOrder(receipt.value, response.signature!,
-        response.orderId!, response.paymentId!);
-    if (data.statusCode == 200) {
-      Get.offAndToNamed('/payment-success-screen', parameters: parameters);
-    }
+    // var data = await services.verifyOrder(receipt.value, response.signature!,
+    //     response.orderId!, response.paymentId!);
+    // if (data.statusCode == 200) {
+    Get.offAndToNamed('/payment-success-screen', parameters: parameters);
+    // }
   }
 
   // Handle payment error

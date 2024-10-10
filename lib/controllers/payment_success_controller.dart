@@ -11,7 +11,7 @@ class PaymentSuccessController extends GetxController {
 
   Future verifyPayment() async {
     try {
-      print(receipt.value);
+      print('receipt.value');
       //  var data = await services.verifyOrder(receipt.value, response.signature!,
       //   response.orderId!, response.paymentId!);
     } catch (ex) {}

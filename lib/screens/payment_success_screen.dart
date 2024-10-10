@@ -16,11 +16,10 @@ class PaymentSuccessScreen extends StatelessWidget {
     print(Get.parameters['orderId']);
     return GetBuilder<PaymentSuccessController>(
         initState: (state) async {
-          state.controller!.receipt.value = receipt!;
+          state.controller!.verifyPayment();
         },
         init: PaymentSuccessController(),
         builder: (controller) {
-          verifyOrder(receipt, paymentId, signature, orderId);
           return Scaffold(
             backgroundColor: Colors.white,
             body: SafeArea(
@@ -41,13 +40,5 @@ class PaymentSuccessScreen extends StatelessWidget {
             )),
           );
         });
-  }
-
-  void verifyPayment() async {}
-
-  void verifyOrder(String? receipt, String? paymentId, String? signature,
-      String? orderId) async {
-    print('Hello');
-    DepartmentWiseServices services = Get.find(tag: 'departmentWiseServices');
   }
 }
