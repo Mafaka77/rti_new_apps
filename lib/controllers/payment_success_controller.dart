@@ -1,19 +1,25 @@
 import 'package:get/get.dart';
+import 'package:rti_new_apps/services/payment_success_services.dart';
 
 class PaymentSuccessController extends GetxController {
-  var receipt = ''.obs;
+  PaymentSuccessServices services = Get.find(tag: 'paymentSuccessServices');
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    verifyPayment();
+    verifyPayment('receipt', 'signature', 'orderId', 'paymentId');
   }
 
-  Future verifyPayment() async {
+  Future verifyPayment(String receipt, String signature, String orderId,
+      String paymentId) async {
     try {
-      print('receipt.value');
-      //  var data = await services.verifyOrder(receipt.value, response.signature!,
-      //   response.orderId!, response.paymentId!);
+      print('Hello');
+      // var data =
+      //     await services.verifyPayment(receipt, signature, orderId, paymentId);
+      // if (data.statusCode == 200) {
+      //   print('Success');
+      // }
     } catch (ex) {}
   }
 }

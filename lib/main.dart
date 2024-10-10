@@ -10,6 +10,7 @@ import 'package:rti_new_apps/services/complaint_services.dart';
 import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/services/home_services.dart';
 import 'package:rti_new_apps/services/local_council_wise_services.dart';
+import 'package:rti_new_apps/services/payment_success_services.dart';
 import 'package:rti_new_apps/services/profile_services.dart';
 import 'package:rti_new_apps/services/rti_services.dart';
 import 'package:rti_new_apps/services/submit_complaint_services.dart';
@@ -25,6 +26,7 @@ void main() async {
   Get.put(ProfileServices(), tag: 'profileServices');
   Get.put(SubmitComplaintServices(), tag: 'submitComplaintServices');
   Get.put(ComplaintServices(), tag: 'complaintServices');
+  Get.put(PaymentSuccessServices(), tag: 'paymentSuccessServices');
   runApp(const MyApp());
 }
 

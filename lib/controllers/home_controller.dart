@@ -18,7 +18,7 @@ class HomeController extends GetxController
   var faqList = <FaqModel>[].obs;
   var statsDate = {}.obs;
   var statsData = {}.obs;
-
+  var isPaymentSuccess = false.obs;
   var pdfList = [
     {
       'url': 'https://rti.mizoram.gov.in/images/rti.pdf',
@@ -85,5 +85,16 @@ class HomeController extends GetxController
     } catch (ex) {
       isStatsLoading.value = true;
     }
+  }
+
+  Future verifyPayment(String receipt, String signature, String orderId,
+      String paymentId) async {
+    try {
+      var data =
+          await services.verifyOrder(receipt, signature, orderId, paymentId);
+      if (data.statusCode == 200) {
+        isPaymentSuccess.value = true;
+      }
+    } catch (ex) {}
   }
 }

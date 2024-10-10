@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rti_new_apps/controllers/home_controller.dart';
 import 'package:rti_new_apps/controllers/payment_success_controller.dart';
 import 'package:rti_new_apps/services/department_wise_services.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
-class PaymentSuccessScreen extends StatelessWidget {
+class PaymentSuccessScreen extends GetView<HomeController> {
   const PaymentSuccessScreen({super.key});
 
   @override
@@ -13,19 +14,14 @@ class PaymentSuccessScreen extends StatelessWidget {
     var paymentId = Get.parameters['paymentId'];
     var signature = Get.parameters['signature'];
     var orderId = Get.parameters['orderId'];
-    print(Get.parameters['orderId']);
-    return GetBuilder<PaymentSuccessController>(
-        initState: (state) async {
-          state.controller!.verifyPayment();
-        },
-        init: PaymentSuccessController(),
-        builder: (controller) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: SafeArea(
-                child: SingleChildScrollView(
-              child: Center(
-                child: Column(
+    controller.verifyPayment(receipt!, signature!, orderId!, paymentId!);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Center(
+          child: Obx(() => controller.isPaymentSuccess.isTrue
+              ? Column(
                   children: [
                     sizedBoxHeight(Get.height * 0.15),
                     Image(
@@ -35,10 +31,12 @@ class PaymentSuccessScreen extends StatelessWidget {
                     sizedBoxHeight(20),
                     const Text('RTI PAYMENT SUCCESSFUL')
                   ],
-                ),
-              ),
-            )),
-          );
-        });
+                )
+              : Container(
+                  child: const Text('Hello'),
+                )),
+        ),
+      )),
+    );
   }
 }

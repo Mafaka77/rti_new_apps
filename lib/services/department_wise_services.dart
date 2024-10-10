@@ -75,20 +75,4 @@ class DepartmentWiseServices extends BaseService {
       return Future.error(ex);
     }
   }
-
-  Future verifyOrder(String receipt, String signature, String orderId,
-      String paymentId) async {
-    try {
-      var response = await client.post(Routes.VERIFY_ORDER, data: {
-        'receipt': receipt,
-        'razorpay_signature': signature,
-        'razorpay_order_id': orderId,
-        'razorpay_payment_id': paymentId,
-      });
-      return response;
-    } catch (ex) {
-      print(ex);
-      return Future.error(ex);
-    }
-  }
 }
