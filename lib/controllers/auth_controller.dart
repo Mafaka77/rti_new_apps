@@ -23,6 +23,20 @@ class AuthController extends GetxController {
   var registerNameText = TextEditingController();
   var registerEmailText = TextEditingController();
   var registerPasswordText = TextEditingController();
+  //RESET PASSWORD
+  var resetPasswordFormKey = GlobalKey<FormState>();
+  var resetPasswordText = TextEditingController();
+  var confirmResetPasswordText = TextEditingController();
+  var isResetPasswordHidden = true.obs;
+  var isConfirmResetPasswordHidden = true.obs;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  //AUTH MIDDLEWARE
+  var isAuthenticated = false.obs;
   void sendOtp(Function onLoading, Function onSuccess, Function onError) async {
     onLoading();
     try {
@@ -89,6 +103,7 @@ class AuthController extends GetxController {
           case 200:
             {
               await storage.write('token', response.data['access_token']);
+              isAuthenticated.value = true;
               onSuccess(response.data['message']);
             }
           case 401:
@@ -120,8 +135,8 @@ class AuthController extends GetxController {
       var response = await services.register(name, email, mobile, password);
       if (response.statusCode == 200) {
         if (response.data['status'] == 200) {
-          print('Success');
           await storage.write('token', response.data['access_token']);
+          isAuthenticated.value = true;
           onSuccess(response.data['message']);
         } else if (response.data['status'] == 409) {
           onError(response.data['message']);
@@ -175,5 +190,33 @@ class AuthController extends GetxController {
       print(ex);
       onError('Something went wrong');
     }
+  }
+
+  Future resetPassword(String phone, Function onLoading, Function onSuccess,
+      Function onError) async {
+    onLoading();
+    try {
+      var response =
+          await services.resetPassword(resetPasswordText.text, phone);
+      if (response.statusCode == 200) {
+        if (response.data['status'] == 200) {
+          onSuccess(response.data['message']);
+        } else {
+          onError('Something went wrong');
+        }
+      }
+    } catch (ex) {
+      print(ex);
+      onError('Something went wrong');
+    }
+  }
+
+  bool get isUserAuthenticated {
+    var token = storage.read('token');
+    if (token != null) {
+      isAuthenticated.value = true;
+      return true;
+    }
+    return false;
   }
 }

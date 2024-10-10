@@ -99,17 +99,19 @@ class RtiDetailsQuestionWidget extends GetView<RtiController> {
                     : const Text('N/A'),
               ],
             ),
-            MaterialButton(
-              elevation: 0,
-              color: MyColor.green,
-              onPressed: () {
-                downloadFile(context, data.citizen_bpl_file, controller);
-              },
-              child: const Text(
-                'DOWNLOAD',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+            data.citizen_bpl_file != null
+                ? MaterialButton(
+                    elevation: 0,
+                    color: MyColor.green,
+                    onPressed: () {
+                      downloadFile(context, data.citizen_bpl_file, controller);
+                    },
+                    child: const Text(
+                      'DOWNLOAD',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                : Container(),
             Wrap(
               children: [
                 const Text(

@@ -244,7 +244,16 @@ class DepartmentRtiScreen extends StatelessWidget {
                             minWidth: Get.width,
                             height: 60,
                             color: MyColor.green,
-                            onPressed: () {},
+                            onPressed: () {
+                              createOrder(context, controller);
+                              // var parameters = <String, String>{
+                              //   "flag": "true",
+                              //   "country": "italy",
+                              // };
+                              // Get.offAndToNamed(
+                              //     '/payment-success-screen/pay_jasdasd',
+                              //     parameters: parameters);
+                            },
                             child: const Text(
                               'Make Payment',
                               style:
@@ -359,6 +368,19 @@ class DepartmentRtiScreen extends StatelessWidget {
       // RtiController rtiController = Get.find();
       // rtiController.getMyRti();
       Get.back();
+    }, (String message) {
+      hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(myErrorSnackBar('Error', message));
+    });
+  }
+
+  void createOrder(
+      BuildContext context, DepartmentWiseController controller) async {
+    controller.createOrder(() {
+      showLoader(context);
+    }, () {
+      hideLoader();
     }, (String message) {
       hideLoader();
       ScaffoldMessenger.of(context)

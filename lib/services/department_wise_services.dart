@@ -56,4 +56,39 @@ class DepartmentWiseServices extends BaseService {
       return Future.error;
     }
   }
+
+  Future createOrder(String question, XFile? attachment, int departmentId,
+      bool lifeOrDeath) async {
+    FormData formData = FormData.fromMap({
+      'department': departmentId,
+      'my_file': attachment!.path.isEmpty
+          ? null
+          : await MultipartFile.fromFile(attachment.path,
+              filename: attachment.name),
+      'question': question,
+      'life_or_death': lifeOrDeath,
+    });
+    try {
+      var response = await client.post(Routes.CREATE_ORDER, data: formData);
+      return response;
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
+
+  Future verifyOrder(String receipt, String signature, String orderId,
+      String paymentId) async {
+    try {
+      var response = await client.post(Routes.VERIFY_ORDER, data: {
+        'receipt': receipt,
+        'razorpay_signature': signature,
+        'razorpay_order_id': orderId,
+        'razorpay_payment_id': paymentId,
+      });
+      return response;
+    } catch (ex) {
+      print(ex);
+      return Future.error(ex);
+    }
+  }
 }

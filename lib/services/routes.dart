@@ -2,6 +2,7 @@ class Routes {
   static String BASE_URL = 'https://staging.egovmz.in/api';
   static String DOWNLOAD_URL(String fileName) =>
       'https://staging.egovmz.in/storage/files/$fileName';
+  static String RAZORPAY_KEY = 'rzp_test_pYMxUu0tLMBSbz';
   //AUTH
   static String SEND_OTP = '$BASE_URL/otp';
   static String VERIFY_OTP = '$BASE_URL/verify-otp';
@@ -16,7 +17,8 @@ class Routes {
   static String GET_RTI_DETAILS = '$BASE_URL/get-my-rti-details';
   static String SUBMIT_FIRST_APPEAL = '$BASE_URL/first-appeal-rti';
   static String SUBMIT_SECOND_APPEAL = '$BASE_URL/second-appeal-rti';
-
+  static String CREATE_ORDER = '$BASE_URL/create-order';
+  static String VERIFY_ORDER = '$BASE_URL/verify-order';
   //LOCAL COUNCIL
   static String GET_DISTRICT = '$BASE_URL/getDistrict';
   static String GET_LOCAL_COUNCIL = '$BASE_URL/getLocalCouncil';
@@ -35,4 +37,5 @@ class Routes {
   //RESET PASSWORD
   static String RESET_PASSWORD_OTP = '$BASE_URL/password-reset-otp';
   static String RESET_PASSWORD_VERIFY_OTP = '$BASE_URL/verify-password-otp';
+  static String RESET_PASSWORD = '$BASE_URL/reset-password';
 }

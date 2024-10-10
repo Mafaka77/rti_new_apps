@@ -76,4 +76,17 @@ class AuthServices extends BaseService {
       return Future.error(ex);
     }
   }
+
+  Future resetPassword(String password, String phone) async {
+    try {
+      var response = await client.get(Routes.RESET_PASSWORD, data: {
+        'newPassword': password,
+        'phone': phone,
+      });
+      return response;
+    } catch (ex) {
+      print(ex);
+      return Future.error(ex);
+    }
+  }
 }

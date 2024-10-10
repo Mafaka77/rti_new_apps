@@ -55,14 +55,15 @@ class ForgotPasswordOtpScreen extends GetView<AuthController> {
               ],
             ),
             sizedBoxHeight(20),
-            Form(
-              key: controller.forgotPasswordFormKey,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Obx(
-                      () => TextFormField(
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Obx(
+                    () => Form(
+                      key: controller.forgotPasswordFormKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      child: TextFormField(
                         readOnly: controller.isOtpVisible.isTrue ? true : false,
                         controller: controller.otpMobileText,
                         validator: (value) {
@@ -85,90 +86,90 @@ class ForgotPasswordOtpScreen extends GetView<AuthController> {
                         maxLength: 10,
                       ),
                     ),
-                    sizedBoxHeight(20),
-                    Obx(
-                      () => Visibility(
-                        visible: controller.isOtpVisible.value,
-                        child: Center(
-                          child: Pinput(
-                            length: 6,
-                            // validator: (value) {
-                            //   if (value == null ||
-                            //       value.isEmpty && value.length < 6) {
-                            //     return 'Enter OTP';
-                            //   }
-                            //   return null;
-                            // },
-                            defaultPinTheme: defaultPinTheme,
-                            hapticFeedbackType: HapticFeedbackType.lightImpact,
-                            focusNode: controller.pinFocusNode,
-                            controller: controller.otpText,
-                            keyboardType: TextInputType.number,
-                            onCompleted: (value) {
-                              verifyOtp(context, controller.otpMobileText.text,
-                                  value);
-                            },
-                          ),
+                  ),
+                  sizedBoxHeight(20),
+                  Obx(
+                    () => Visibility(
+                      visible: controller.isOtpVisible.value,
+                      child: Center(
+                        child: Pinput(
+                          length: 6,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty && value.length < 6) {
+                              return 'Enter OTP';
+                            }
+                            return null;
+                          },
+                          defaultPinTheme: defaultPinTheme,
+                          hapticFeedbackType: HapticFeedbackType.lightImpact,
+                          focusNode: controller.pinFocusNode,
+                          controller: controller.otpText,
+                          keyboardType: TextInputType.number,
+                          onCompleted: (value) {
+                            verifyOtp(
+                                context, controller.otpMobileText.text, value);
+                          },
                         ),
                       ),
                     ),
-                    Obx(
-                      () => controller.isOtpVisible.isTrue
-                          ? Container()
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  height: Get.height * 0.06,
-                                  elevation: 0,
-                                  color: MyColor.green,
-                                  minWidth: Get.width * 0.5,
-                                  onPressed: () {
-                                    sendOtp(context);
-                                  },
-                                  child: const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Send OTP',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 16),
-                                      ),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
+                  ),
+                  Obx(
+                    () => controller.isOtpVisible.isTrue
+                        ? Container()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50)),
+                                height: Get.height * 0.06,
+                                elevation: 0,
+                                color: MyColor.green,
+                                minWidth: Get.width * 0.5,
+                                onPressed: () {
+                                  sendOtp(context);
+                                },
+                                child: const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Send OTP',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Icon(
+                                      Icons.send,
+                                      color: Colors.white,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                    ),
-                    sizedBoxHeight(20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Column(
-                          children: [
-                            const Text("Didn't receive Code?"),
-                            TextButton(
-                              onPressed: () {
-                                sendOtp(context);
-                              },
-                              child: const Text('Resend OTP'),
-                            ),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                              ),
+                            ],
+                          ),
+                  ),
+                  sizedBoxHeight(20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        children: [
+                          const Text("Didn't receive Code?"),
+                          TextButton(
+                            onPressed: () {
+                              sendOtp(context);
+                            },
+                            child: const Text('Resend OTP'),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
           ],
@@ -202,6 +203,7 @@ class ForgotPasswordOtpScreen extends GetView<AuthController> {
       hideLoader();
       ScaffoldMessenger.of(context)
           .showSnackBar(mySuccessSnackBar('Success', message));
+      Get.toNamed('/change-password-screen/$phone');
     }, (String message) {
       hideLoader();
     });

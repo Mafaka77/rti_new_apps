@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
+import 'package:rti_new_apps/screens/change_password_screen.dart';
 import 'package:rti_new_apps/screens/complain_detail_screen.dart';
 import 'package:rti_new_apps/screens/forgot_password_otp_screen.dart';
 import 'package:rti_new_apps/screens/home_screen.dart';
@@ -7,6 +8,7 @@ import 'package:rti_new_apps/screens/login_screen.dart';
 import 'package:rti_new_apps/screens/my_profile_screen.dart';
 import 'package:rti_new_apps/screens/nav_bar_screen.dart';
 import 'package:rti_new_apps/screens/otp_screen.dart';
+import 'package:rti_new_apps/screens/payment_success_screen.dart';
 import 'package:rti_new_apps/screens/profile_screen.dart';
 import 'package:rti_new_apps/screens/register_screen.dart';
 import 'package:rti_new_apps/screens/rti_detail_screen.dart';
@@ -85,6 +87,14 @@ final getPages = [
           ],
           transition: pageTransition(),
         ),
+        GetPage(
+          name: '/payment-success-screen',
+          page: () => const PaymentSuccessScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          transition: pageTransition(),
+        ),
       ]),
   GetPage(
     name: '/login-screen',
@@ -109,6 +119,11 @@ final getPages = [
   GetPage(
     name: '/forgot-password-otp-screen',
     page: () => const ForgotPasswordOtpScreen(),
+    transition: pageTransition(),
+  ),
+  GetPage(
+    name: '/change-password-screen/:phone',
+    page: () => const ChangePasswordScreen(),
     transition: pageTransition(),
   ),
 ];

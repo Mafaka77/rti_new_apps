@@ -32,7 +32,7 @@ class ProfileController extends GetxController {
     onLoading();
     try {
       storage.erase();
-      Get.toNamed('/');
+      Get.offAllNamed('/');
       onSuccess();
     } catch (ex) {
       onError();
