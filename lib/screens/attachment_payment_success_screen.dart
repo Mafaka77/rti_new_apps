@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rti_new_apps/colors.dart';
-import 'package:rti_new_apps/controllers/home_controller.dart';
-import 'package:rti_new_apps/controllers/payment_success_controller.dart';
-import 'package:rti_new_apps/services/department_wise_services.dart';
+import 'package:rti_new_apps/controllers/rti_controller.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
-class PaymentSuccessScreen extends GetView<HomeController> {
-  const PaymentSuccessScreen({super.key});
+class AttachmentPaymentSuccessScreen extends GetView<RtiController> {
+  const AttachmentPaymentSuccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var id = Get.parameters['id'];
     var receipt = Get.parameters['receipt'];
     var paymentId = Get.parameters['paymentId'];
     var signature = Get.parameters['signature'];
@@ -52,7 +51,7 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                               minWidth: Get.width,
                               color: MyColor.green,
                               onPressed: () {
-                                Get.offAndToNamed('/');
+                                Get.back();
                               },
                               child: const Text(
                                 'Home',
@@ -147,7 +146,14 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                               minWidth: Get.width,
                               color: MyColor.green,
                               onPressed: () {
-                                Get.offAndToNamed('/');
+                                controller.getRtiDetails(int.parse(id!), () {
+                                  showLoader(context);
+                                }, () {
+                                  hideLoader();
+                                  Get.offAndToNamed('/rti-detail-screen');
+                                }, () {
+                                  hideLoader();
+                                });
                               },
                               child: const Text(
                                 'Home',

@@ -43,7 +43,10 @@ class PaidAttachmentWidget extends GetView<RtiController> {
             ? MaterialButton(
                 elevation: 0,
                 color: MyColor.green,
-                onPressed: () {},
+                onPressed: () {
+                  print(data.id);
+                  createOrder(context, controller, data.id!);
+                },
                 child: const Text(
                   'PAY',
                   style: TextStyle(color: Colors.white),
@@ -62,5 +65,24 @@ class PaidAttachmentWidget extends GetView<RtiController> {
               ),
       ],
     );
+  }
+
+  void createOrder(
+    BuildContext context,
+    RtiController controller,
+    int id,
+  ) {
+    controller.createOrder(id, () {
+      showLoader(context);
+    }, () {
+      hideLoader();
+    }, (String message) {
+      hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(myErrorSnackBar('Error', message));
+    }, (String message) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(myErrorSnackBar('Error', message));
+    });
   }
 }

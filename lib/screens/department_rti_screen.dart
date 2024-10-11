@@ -246,13 +246,8 @@ class DepartmentRtiScreen extends StatelessWidget {
                             color: MyColor.green,
                             onPressed: () {
                               createOrder(context, controller);
-                              // var parameters = <String, String>{
-                              //   "flag": "true",
-                              //   "country": "italy",
-                              // };
-                              // Get.offAndToNamed(
-                              //     '/payment-success-screen/pay_jasdasd',
-                              //     parameters: parameters);
+
+                              // Get.toNamed('/payment-success-screen');
                             },
                             child: const Text(
                               'Make Payment',

@@ -19,6 +19,9 @@ class Routes {
   static String SUBMIT_SECOND_APPEAL = '$BASE_URL/second-appeal-rti';
   static String CREATE_ORDER = '$BASE_URL/create-order';
   static String VERIFY_ORDER = '$BASE_URL/verify-order';
+
+  static String CREATE_ATTACHMENT_ORDER = '$BASE_URL/create-order-attachment';
+  static String VERIFY_ATTACHMENT_PAYMENT = '$BASE_URL/verify-order-attachment';
   //LOCAL COUNCIL
   static String GET_DISTRICT = '$BASE_URL/getDistrict';
   static String GET_LOCAL_COUNCIL = '$BASE_URL/getLocalCouncil';

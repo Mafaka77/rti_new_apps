@@ -18,7 +18,13 @@ class HomeController extends GetxController
   var faqList = <FaqModel>[].obs;
   var statsDate = {}.obs;
   var statsData = {}.obs;
+  //PAYMENT
   var isPaymentSuccess = false.obs;
+  var isPaymentVerifyLoading = false.obs;
+  var order_id = ''.obs;
+  var receipt_id = ''.obs;
+  var payment_id = ''.obs;
+  var transactionDate = ''.obs;
   var pdfList = [
     {
       'url': 'https://rti.mizoram.gov.in/images/rti.pdf',
@@ -89,12 +95,29 @@ class HomeController extends GetxController
 
   Future verifyPayment(String receipt, String signature, String orderId,
       String paymentId) async {
+    isPaymentVerifyLoading.value = true;
     try {
-      var data =
+      var response =
           await services.verifyOrder(receipt, signature, orderId, paymentId);
-      if (data.statusCode == 200) {
-        isPaymentSuccess.value = true;
+
+      if (response.statusCode == 200) {
+        if (response.data['status'] == 200) {
+          print(response);
+          isPaymentVerifyLoading.value = false;
+          isPaymentSuccess.value = true;
+          receipt_id.value = response.data['data']['receipt'];
+          order_id.value = response.data['data']['order_id'];
+          payment_id.value = response.data['data']['payment_id'];
+          transactionDate.value = response.data['data']['transaction_time'];
+        } else if (response.data['status'] == 400) {
+          print(response.data);
+          isPaymentVerifyLoading.value = false;
+          isPaymentSuccess.value = false;
+        }
       }
-    } catch (ex) {}
+    } catch (ex) {
+      isPaymentVerifyLoading.value = false;
+      isPaymentSuccess.value = false;
+    }
   }
 }

@@ -68,4 +68,23 @@ class LocalCouncilWiseServices extends BaseService {
       return Future.error;
     }
   }
+
+  Future createOrder(String question, XFile? attachment, int localCouncilId,
+      bool lifeOrDeath) async {
+    FormData formData = FormData.fromMap({
+      'local_council': localCouncilId,
+      'my_file': attachment!.path.isEmpty
+          ? null
+          : await MultipartFile.fromFile(attachment.path,
+              filename: attachment.name),
+      'question': question,
+      'life_or_death': lifeOrDeath,
+    });
+    try {
+      var response = await client.post(Routes.CREATE_ORDER, data: formData);
+      return response;
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
 }

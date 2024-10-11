@@ -68,4 +68,34 @@ class RtiServices extends BaseService {
       return Future.error(ex);
     }
   }
+
+  Future createOrder(
+    int id,
+  ) async {
+    try {
+      var response = await client.post(Routes.CREATE_ATTACHMENT_ORDER, data: {
+        'information_id': id,
+      });
+      return response;
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
+
+  Future verifyOrder(String receipt, String signature, String orderId,
+      String paymentId, String amount) async {
+    try {
+      var response = await client.post(Routes.VERIFY_ATTACHMENT_PAYMENT, data: {
+        'receipt': receipt,
+        'razorpay_signature': signature,
+        'razorpay_order_id': orderId,
+        'razorpay_payment_id': paymentId,
+        'amount': amount,
+      });
+      return response;
+    } catch (ex) {
+      print(ex);
+      return Future.error(ex);
+    }
+  }
 }

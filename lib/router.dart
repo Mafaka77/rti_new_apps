@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:rti_new_apps/middlewares/auth_middleware.dart';
+import 'package:rti_new_apps/screens/attachment_payment_success_screen.dart';
 import 'package:rti_new_apps/screens/change_password_screen.dart';
 import 'package:rti_new_apps/screens/complain_detail_screen.dart';
 import 'package:rti_new_apps/screens/forgot_password_otp_screen.dart';
@@ -90,6 +91,14 @@ final getPages = [
         GetPage(
           name: '/payment-success-screen',
           page: () => const PaymentSuccessScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          transition: pageTransition(),
+        ),
+        GetPage(
+          name: '/attachment-payment-success-screen',
+          page: () => const AttachmentPaymentSuccessScreen(),
           middlewares: [
             AuthMiddleware(),
           ],

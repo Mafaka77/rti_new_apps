@@ -295,7 +295,9 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                         minWidth: Get.width,
                         height: 60,
                         color: MyColor.green,
-                        onPressed: () {},
+                        onPressed: () {
+                          createOrder(context, controller);
+                        },
                         child: const Text(
                           'Make Payment',
                           style: TextStyle(fontSize: 18, color: Colors.white),
@@ -409,6 +411,19 @@ class LocalCouncilRtiScreen extends StatelessWidget {
       // RtiController rtiController = Get.find();
       // rtiController.getMyRti();
       Get.back();
+    }, (String message) {
+      hideLoader();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(myErrorSnackBar('Error', message));
+    });
+  }
+
+  void createOrder(
+      BuildContext context, LocalCouncilWiseController controller) {
+    controller.createOrder(() {
+      showLoader(context);
+    }, () {
+      hideLoader();
     }, (String message) {
       hideLoader();
       ScaffoldMessenger.of(context)
