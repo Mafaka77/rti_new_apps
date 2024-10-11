@@ -91,16 +91,18 @@ class RtiController extends GetxController {
     try {
       var response = await services.submitFirstAppeal(
           rtiId, firstAppealReason.text, firstAppealAttachment!);
+      print(response.data);
       if (response.statusCode == 200) {
         if (response.data['status'] == 200) {
           onSuccess(response.data['message']);
         } else if (response.data['status'] == 404) {
-          onError(response.data['message']);
+          onError(response.data['reason']);
         }
       } else {
         onError('Something went wrong');
       }
     } catch (ex) {
+      print(ex);
       onError('Something went wrong');
     }
   }
