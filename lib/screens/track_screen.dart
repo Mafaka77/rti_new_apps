@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rti_new_apps/controllers/track_controller.dart';
 import 'package:rti_new_apps/screens/complain_screen.dart';
 import 'package:rti_new_apps/screens/rti_screen.dart';
@@ -19,6 +20,7 @@ class TrackScreen extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 children: [
                   AppBarWidget(

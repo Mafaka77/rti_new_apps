@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:rti_new_apps/models/my_rti_details_model.dart';
 import 'package:rti_new_apps/models/my_rti_model.dart';
@@ -10,7 +11,8 @@ import 'package:rti_new_apps/services/rti_services.dart';
 
 class RtiController extends GetxController {
   RtiServices services = Get.find(tag: 'rtiServices');
-
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   var isRtiLoading = false.obs;
   var myRtiList = <MyRtiModel>[].obs;
   var myRtiDetails = <MyRtiDetailsModel>{}.obs;
@@ -225,7 +227,6 @@ class RtiController extends GetxController {
 
       if (response.statusCode == 200) {
         if (response.data['status'] == 200) {
-          print(response);
           isPaymentVerifyLoading.value = false;
           isPaymentSuccess.value = true;
           receipt_id.value = response.data['data']['receipt'];
@@ -242,5 +243,20 @@ class RtiController extends GetxController {
       isPaymentVerifyLoading.value = false;
       isPaymentSuccess.value = false;
     }
+  }
+
+  void onRefresh() async {
+    myRtiList.clear();
+    var response = await services.getMyRti();
+    myRtiList.addAll(response);
+    refreshController.refreshCompleted();
+  }
+
+  void onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+
+    refreshController.loadComplete();
   }
 }
