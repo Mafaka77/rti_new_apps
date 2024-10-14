@@ -104,6 +104,9 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       sizedBoxHeight(10),
                       ListTile(
+                        onTap: () {
+                          Get.toNamed('/payment-history-screen');
+                        },
                         contentPadding: const EdgeInsets.all(10),
                         dense: true,
                         tileColor: Colors.white,
@@ -112,7 +115,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         title: const Text('Payment History'),
                         trailing: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed('/payment-history-screen');
+                            },
                             icon: const Icon(Icons.arrow_forward_ios_outlined)),
                       ),
                       sizedBoxHeight(10),

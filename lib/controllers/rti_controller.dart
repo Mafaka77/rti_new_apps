@@ -17,7 +17,8 @@ class RtiController extends GetxController {
   var myRtiList = <MyRtiModel>[].obs;
   var myRtiDetails = <MyRtiDetailsModel>{}.obs;
   var downloadPercentage = 0.obs;
-
+  var offset = 0.obs;
+  var limit = 10.obs;
   //RTI DETAILS QUESTIONS
   final questionTileController = ExpansionTileController();
   final spioAnswerTileController = ExpansionTileController();
@@ -68,7 +69,7 @@ class RtiController extends GetxController {
     isRtiLoading.value = true;
     myRtiList.clear();
     try {
-      var response = await services.getMyRti();
+      var response = await services.getMyRti(offset.value, limit.value);
       myRtiList.addAll(response);
       isRtiLoading.value = false;
     } catch (ex) {}
@@ -246,17 +247,18 @@ class RtiController extends GetxController {
   }
 
   void onRefresh() async {
+    offset.value = 0;
+    limit.value = 10;
     myRtiList.clear();
-    var response = await services.getMyRti();
+    var response = await services.getMyRti(offset.value, limit.value);
     myRtiList.addAll(response);
     refreshController.refreshCompleted();
   }
 
   void onLoading() async {
-    // monitor network fetch
-    await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-
+    offset.value += limit.value;
+    var response = await services.getMyRti(offset.value, limit.value);
+    myRtiList.addAll(response);
     refreshController.loadComplete();
   }
 }

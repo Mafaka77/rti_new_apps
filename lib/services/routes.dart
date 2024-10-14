@@ -41,4 +41,7 @@ class Routes {
   static String RESET_PASSWORD_OTP = '$BASE_URL/password-reset-otp';
   static String RESET_PASSWORD_VERIFY_OTP = '$BASE_URL/verify-password-otp';
   static String RESET_PASSWORD = '$BASE_URL/reset-password';
+
+  //PAYMENT HISTORY
+  static String GET_ALL_PAYMENT_HISTORY = '$BASE_URL/payment-history';
 }

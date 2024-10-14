@@ -9,6 +9,7 @@ import 'package:rti_new_apps/screens/login_screen.dart';
 import 'package:rti_new_apps/screens/my_profile_screen.dart';
 import 'package:rti_new_apps/screens/nav_bar_screen.dart';
 import 'package:rti_new_apps/screens/otp_screen.dart';
+import 'package:rti_new_apps/screens/payment_history_screen.dart';
 import 'package:rti_new_apps/screens/payment_success_screen.dart';
 import 'package:rti_new_apps/screens/profile_screen.dart';
 import 'package:rti_new_apps/screens/register_screen.dart';
@@ -99,6 +100,14 @@ final getPages = [
         GetPage(
           name: '/attachment-payment-success-screen',
           page: () => const AttachmentPaymentSuccessScreen(),
+          middlewares: [
+            AuthMiddleware(),
+          ],
+          transition: pageTransition(),
+        ),
+        GetPage(
+          name: '/payment-history-screen',
+          page: () => const PaymentHistoryScreen(),
           middlewares: [
             AuthMiddleware(),
           ],

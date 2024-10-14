@@ -4,9 +4,12 @@ import 'package:rti_new_apps/services/base_services.dart';
 import 'package:rti_new_apps/services/routes.dart';
 
 class ComplaintServices extends BaseService {
-  Future<List<ComplaintModel>> getMyComplaint() async {
+  Future<List<ComplaintModel>> getMyComplaint(int offset, int limit) async {
     try {
-      var response = await client.get(Routes.GET_MY_COMPLAINT);
+      var response = await client.get(Routes.GET_MY_COMPLAINT, data: {
+        'offset': offset,
+        'limit': limit,
+      });
       var data = response.data['complains'];
       return ComplaintModel.fromJsonList(data);
     } catch (ex) {
