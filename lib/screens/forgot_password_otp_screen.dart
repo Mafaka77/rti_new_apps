@@ -153,22 +153,24 @@ class ForgotPasswordOtpScreen extends GetView<AuthController> {
                           ),
                   ),
                   sizedBoxHeight(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Column(
-                        children: [
-                          const Text("Didn't receive Code?"),
-                          TextButton(
-                            onPressed: () {
-                              sendOtp(context);
-                            },
-                            child: const Text('Resend OTP'),
-                          ),
-                        ],
-                      )
-                    ],
-                  )
+                  Obx(() => controller.isOtpVisible.isTrue
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Didn't receive Code?"),
+                                TextButton(
+                                  onPressed: () {
+                                    sendOtp(context);
+                                  },
+                                  child: const Text('Resend OTP'),
+                                ),
+                              ],
+                            )
+                          ],
+                        )
+                      : Container())
                 ],
               ),
             ),
