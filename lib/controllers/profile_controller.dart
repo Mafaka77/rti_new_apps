@@ -31,9 +31,14 @@ class ProfileController extends GetxController {
   void logout(Function onLoading, Function onSuccess, Function onError) async {
     onLoading();
     try {
-      storage.erase();
-      Get.offAllNamed('/');
-      onSuccess();
+      var response = await services.logout();
+      if (response.statusCode == 200) {
+        if (response.data['status'] == 200) {
+          onSuccess();
+        } else {
+          onError();
+        }
+      }
     } catch (ex) {
       onError();
     }

@@ -8,6 +8,7 @@ class Routes {
   static String VERIFY_OTP = '$BASE_URL/verify-otp';
   static String REGISTER = '$BASE_URL/register';
   static String LOGIN = '$BASE_URL/login';
+  static String LOGOUT = '$BASE_URL/logout';
   //HOME
   static String ME = '$BASE_URL/me';
   //RTI
@@ -43,5 +44,6 @@ class Routes {
   static String RESET_PASSWORD = '$BASE_URL/reset-password';
 
   //PAYMENT HISTORY
-  static String GET_ALL_PAYMENT_HISTORY = '$BASE_URL/payment-history';
+  static String GET_MOBILE_PAYMENT = '$BASE_URL/payment-history-mobile';
+  static String GET_WEB_PAYMENT = '$BASE_URL/payment-history-web';
 }

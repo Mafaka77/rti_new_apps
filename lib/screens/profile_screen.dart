@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rti_new_apps/colors.dart';
 import 'package:rti_new_apps/controllers/profile_controller.dart';
+import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/widgets/reusable_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -122,6 +123,9 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       sizedBoxHeight(10),
                       ListTile(
+                        onTap: () {
+                          Get.toNamed('/terms-screen');
+                        },
                         contentPadding: const EdgeInsets.all(10),
                         dense: true,
                         tileColor: Colors.white,
@@ -130,11 +134,16 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         title: const Text('Terms & Conditions'),
                         trailing: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed('/terms-screen');
+                            },
                             icon: const Icon(Icons.arrow_forward_ios_outlined)),
                       ),
                       sizedBoxHeight(10),
                       ListTile(
+                        onTap: () {
+                          Get.toNamed('/payment-policy-screen');
+                        },
                         contentPadding: const EdgeInsets.all(10),
                         dense: true,
                         tileColor: Colors.white,
@@ -143,7 +152,9 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         title: const Text('Payment Terms'),
                         trailing: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed('/payment-policy-screen');
+                            },
                             icon: const Icon(Icons.arrow_forward_ios_outlined)),
                       ),
                       sizedBoxHeight(10),
@@ -233,6 +244,8 @@ class ProfileScreen extends StatelessWidget {
                   controller.logout(() {
                     showLoader(context);
                   }, () {
+                    storage.erase();
+                    Get.offAllNamed('/');
                     hideLoader();
                   }, () {
                     hideLoader();
