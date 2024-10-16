@@ -8,8 +8,40 @@ class MyProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBarWidget(),
-      body: const SingleChildScrollView(
-        child: Column(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  isDense: true,
+                  border: textBoxFocusBorder(),
+                  enabledBorder: textBoxFocusBorder(),
+                  focusedBorder: textBoxFocusBorder(),
+                ),
+              ),
+              sizedBoxHeight(10),
+              TextFormField(
+                decoration: InputDecoration(
+                  isDense: true,
+                  border: textBoxFocusBorder(),
+                  enabledBorder: textBoxFocusBorder(),
+                  focusedBorder: textBoxFocusBorder(),
+                ),
+              ),
+              sizedBoxHeight(10),
+              TextFormField(
+                decoration: InputDecoration(
+                  isDense: true,
+                  border: textBoxFocusBorder(),
+                  enabledBorder: textBoxFocusBorder(),
+                  focusedBorder: textBoxFocusBorder(),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
