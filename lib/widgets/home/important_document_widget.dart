@@ -17,64 +17,69 @@ class ImportantDocumentWidget extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 5,
-                height: 10,
-                color: MyColor.green,
-              ),
-              sizedBoxWidth(5),
-              const Text('Important Documents'),
-            ],
-          ),
-          sizedBoxHeight(20),
-          GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 3 / 3,
-                crossAxisSpacing: 10),
-            shrinkWrap: true,
-            itemCount: controller.pdfList.length,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (c, i) {
-              var data = controller.pdfList[i];
-              return Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      if (i != 2) {
-                        downloadFile(context, data['url'], data['file_name']);
-                      }
-                    },
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Center(
-                          child: Image(
-                            image: AssetImage(data['icon']!),
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 5,
+                  height: 10,
+                  color: MyColor.green,
+                ),
+                sizedBoxWidth(5),
+                const Text('Important Documents'),
+              ],
+            ),
+            sizedBoxHeight(20),
+            GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 3 / 3,
+                  crossAxisSpacing: 10),
+              shrinkWrap: true,
+              itemCount: controller.pdfList.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (c, i) {
+                var data = controller.pdfList[i];
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (i != 2) {
+                          downloadFile(context, data['url'], data['file_name']);
+                        } else {
+                          Get.toNamed('/terms-screen');
+                        }
+                      },
+                      child: Container(
+                        height: Get.height * 0.09,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Center(
+                            child: Image(
+                              image: AssetImage(data['icon']!),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  sizedBoxHeight(10),
-                  Text(data['name']!)
-                ],
-              );
-            },
-          )
-        ],
+                    sizedBoxHeight(10),
+                    Text(data['name']!)
+                  ],
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }

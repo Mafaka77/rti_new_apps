@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rti_new_apps/main.dart';
 import 'package:rti_new_apps/models/user_model.dart';
@@ -7,6 +8,13 @@ class ProfileController extends GetxController {
   ProfileServices services = Get.find(tag: 'profileServices');
   var isMeLoading = false.obs;
   var user = <UserModel>{}.obs;
+  var nameText = TextEditingController();
+  var mobileText = TextEditingController();
+  var emailText = TextEditingController();
+  var oldPasswordText = TextEditingController();
+  var passwordText = TextEditingController();
+  var isPasswordHidden = true.obs;
+  var isOldPasswordHidden = true.obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -19,6 +27,9 @@ class ProfileController extends GetxController {
     user.clear();
     try {
       var response = await services.me();
+      nameText.text = response.name!;
+      emailText.text = response.email!;
+      mobileText.text = response.contact!;
       user.add(response);
       isMeLoading.value = false;
     } catch (ex) {

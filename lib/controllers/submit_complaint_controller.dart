@@ -31,6 +31,7 @@ class SubmitComplaintController extends GetxController {
         onError('Something went wrong!');
       }
     } catch (ex) {
+      print(ex);
       onError('Something went wrong!');
     }
   }
