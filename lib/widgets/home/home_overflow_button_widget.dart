@@ -91,7 +91,7 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                     },
                     child: Container(
                       width: Get.width * 0.4,
-                      height: Get.height * 0.2,
+                      height: Get.height * 0.24,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(50),
@@ -100,15 +100,15 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                         ),
                         color: Colors.white,
                       ),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image(
-                            width: 80,
-                            image: AssetImage('images/search.png'),
+                            width: Get.width * 0.16,
+                            image: const AssetImage('images/search.png'),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(20.0),
                             child: Text('File RTI Application'),
                           )
@@ -140,7 +140,7 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                         color: Colors.white,
                       ),
                       width: Get.width * 0.4,
-                      height: Get.height * 0.2,
+                      height: Get.height * 0.24,
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,

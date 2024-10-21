@@ -241,15 +241,16 @@ class ProfileScreen extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  controller.logout(() {
-                    showLoader(context);
-                  }, () {
-                    storage.erase();
-                    Get.offAllNamed('/');
-                    hideLoader();
-                  }, () {
-                    hideLoader();
-                  });
+                  storage.erase();
+                  // controller.logout(() {
+                  //   showLoader(context);
+                  // }, () {
+                  //   storage.erase();
+                  //   Get.offAllNamed('/');
+                  //   hideLoader();
+                  // }, () {
+                  //   hideLoader();
+                  // });
                 },
                 child: const Text('YES'),
               ),
