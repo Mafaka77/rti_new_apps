@@ -25,7 +25,7 @@ class PaidAttachmentWidget extends GetView<RtiController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
           children: [
             const Text(
               ' Answer File:',

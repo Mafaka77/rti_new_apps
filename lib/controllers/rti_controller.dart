@@ -141,7 +141,6 @@ class RtiController extends GetxController {
         infoId.value = id;
         receipt.value = data['receipt'];
         amount.value = data['amount'];
-        print(data['amount'] + 'Pawisa');
         openCheckout(
           amount: data['amount'],
           name: data['name'],
