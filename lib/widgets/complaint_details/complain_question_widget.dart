@@ -59,18 +59,20 @@ class ComplainQuestionWidget extends GetView<ComplainController> {
                   Text(data.citizen_question_file == null ? 'N/A' : ''),
                 ],
               ),
-              MaterialButton(
-                elevation: 0,
-                color: MyColor.green,
-                onPressed: () {
-                  downloadComplaintFile(
-                      context, data.citizen_question_file, controller);
-                },
-                child: const Text(
-                  'DOWNLOAD',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              data.citizen_question_file == null
+                  ? Container()
+                  : MaterialButton(
+                      elevation: 0,
+                      color: MyColor.green,
+                      onPressed: () {
+                        downloadComplaintFile(
+                            context, data.citizen_question_file, controller);
+                      },
+                      child: const Text(
+                        'DOWNLOAD',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
               Wrap(
                 children: [
                   const Text(

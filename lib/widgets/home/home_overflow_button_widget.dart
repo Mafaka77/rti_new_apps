@@ -91,7 +91,7 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                     },
                     child: Container(
                       width: Get.width * 0.4,
-                      height: Get.height * 0.24,
+                      height: Get.height * 0.22,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(50),
@@ -140,7 +140,7 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                         color: Colors.white,
                       ),
                       width: Get.width * 0.4,
-                      height: Get.height * 0.24,
+                      height: Get.height * 0.22,
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,

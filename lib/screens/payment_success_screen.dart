@@ -55,7 +55,7 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                                 Get.offAndToNamed('/');
                               },
                               child: const Text(
-                                'Home',
+                                'BACK',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
