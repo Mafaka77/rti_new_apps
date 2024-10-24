@@ -26,29 +26,34 @@ class StatisticsWidget extends GetView<HomeController> {
                         color: MyColor.green,
                       ),
                       sizedBoxWidth(5),
-                      const Text('Online RTI Count'),
+                      const FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text('Online RTI Count')),
                     ],
                   ),
                   sizedBoxHeight(10),
                   Container(
                     color: Colors.white,
                     child: ListTile(
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Today',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            data['today'].toString(),
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: MyColor.green,
+                      leading: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Today',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
+                            Text(
+                              data['today'].toString(),
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: MyColor.green,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       trailing: Card(
                         borderOnForeground: true,
@@ -56,7 +61,9 @@ class StatisticsWidget extends GetView<HomeController> {
                         elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(date['today'] ?? ''),
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(date['today'] ?? '')),
                         ),
                       ),
                     ),
@@ -65,22 +72,25 @@ class StatisticsWidget extends GetView<HomeController> {
                   Container(
                     color: Colors.white,
                     child: ListTile(
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Week',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            data['week'].toString(),
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: MyColor.green,
-                              fontWeight: FontWeight.bold,
+                      leading: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Week',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
+                            Text(
+                              data['week'].toString(),
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: MyColor.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       trailing: Card(
                         borderOnForeground: true,
@@ -88,8 +98,11 @@ class StatisticsWidget extends GetView<HomeController> {
                         elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                              '${date['week_start']} - ${date['week_end']}'),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                                '${date['week_start']} - ${date['week_end']}'),
+                          ),
                         ),
                       ),
                     ),
@@ -98,22 +111,25 @@ class StatisticsWidget extends GetView<HomeController> {
                   Container(
                     color: Colors.white,
                     child: ListTile(
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Month',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            data['month'].toString(),
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: MyColor.green,
+                      leading: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Month',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
+                            Text(
+                              data['month'].toString(),
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: MyColor.green,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       trailing: Card(
                         borderOnForeground: true,
@@ -121,7 +137,9 @@ class StatisticsWidget extends GetView<HomeController> {
                         elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(date['month']),
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(date['month'])),
                         ),
                       ),
                     ),
@@ -130,22 +148,25 @@ class StatisticsWidget extends GetView<HomeController> {
                   Container(
                     color: Colors.white,
                     child: ListTile(
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Year',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            data['year'].toString(),
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: MyColor.green,
+                      leading: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Year',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
+                            Text(
+                              data['year'].toString(),
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: MyColor.green,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       trailing: Card(
                         borderOnForeground: true,
@@ -153,7 +174,8 @@ class StatisticsWidget extends GetView<HomeController> {
                         elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(date['year']),
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown, child: Text(date['year'])),
                         ),
                       ),
                     ),

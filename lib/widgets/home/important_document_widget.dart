@@ -22,8 +22,10 @@ class ImportantDocumentWidget extends GetView<HomeController> {
       child: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   width: 5,
@@ -31,7 +33,10 @@ class ImportantDocumentWidget extends GetView<HomeController> {
                   color: MyColor.green,
                 ),
                 sizedBoxWidth(5),
-                const Text('Important Documents'),
+                const FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text('Important Documents'),
+                ),
               ],
             ),
             sizedBoxHeight(20),
@@ -73,7 +78,10 @@ class ImportantDocumentWidget extends GetView<HomeController> {
                       ),
                     ),
                     sizedBoxHeight(10),
-                    Text(data['name']!)
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(data['name']!),
+                    )
                   ],
                 );
               },

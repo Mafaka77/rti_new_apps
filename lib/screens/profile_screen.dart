@@ -29,61 +29,64 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Container(
                           width: Get.width,
-                          height: Get.height * 0.15,
+                          height: Get.height * 0.13,
                           padding: const EdgeInsets.all(20),
                           color: MyColor.green,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              controller.isMeLoading.isTrue
-                                  ? nameLoader()
-                                  : Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'Welcome,',
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 30),
-                                          width: 250.0,
-                                          child: DefaultTextStyle(
-                                            style: GoogleFonts.lilitaOne(
-                                              fontSize: 24,
-                                              letterSpacing: 2,
-                                            ),
-                                            child: AnimatedTextKit(
-                                              animatedTexts: [
-                                                TypewriterAnimatedText(
-                                                    controller
-                                                        .user.first.name!),
-                                              ],
-                                              onTap: () {
-                                                print("Tap Event");
-                                              },
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                controller.isMeLoading.isTrue
+                                    ? nameLoader()
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'Welcome,',
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 30),
+                                            width: 250.0,
+                                            child: DefaultTextStyle(
+                                              style: GoogleFonts.lilitaOne(
+                                                fontSize: 20,
+                                                letterSpacing: 2,
+                                              ),
+                                              child: AnimatedTextKit(
+                                                animatedTexts: [
+                                                  TypewriterAnimatedText(
+                                                      controller
+                                                          .user.first.name!),
+                                                ],
+                                                onTap: () {
+                                                  print("Tap Event");
+                                                },
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor: Colors.white,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      openLogoutDialog(context, controller);
+                                    },
+                                    icon: Icon(
+                                      Icons.logout,
+                                      color: MyColor.green,
                                     ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.white,
-                                child: IconButton(
-                                  onPressed: () {
-                                    openLogoutDialog(context, controller);
-                                  },
-                                  icon: Icon(
-                                    Icons.logout,
-                                    color: MyColor.green,
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           )),
                       sizedBoxHeight(10),
                       ListTile(
@@ -93,8 +96,11 @@ class ProfileScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.all(10),
                         dense: true,
                         tileColor: Colors.white,
-                        leading: const Image(
-                          image: AssetImage('images/user.png'),
+                        leading: const FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Image(
+                            image: AssetImage('images/user.png'),
+                          ),
                         ),
                         title: const Text('My Profile'),
                         trailing: IconButton(

@@ -119,7 +119,7 @@ class RtiDetailsQuestionWidget extends GetView<RtiController> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 sizedBoxWidth(10),
-                Text(DateFormat('dd-MMM-yyyy hh:mm a')
+                Text(DateFormat('dd-MMM-yyyy')
                     .format(DateTime.parse(data.created_at!))),
               ],
             ),

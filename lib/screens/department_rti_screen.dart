@@ -34,13 +34,13 @@ class DepartmentRtiScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MaterialButton(
-                      onPressed: () {
-                        var token = storage.read('token');
-                        print(token);
-                      },
-                      child: const Text('data'),
-                    ),
+                    // MaterialButton(
+                    //   onPressed: () {
+                    //     var token = storage.read('token');
+                    //     print(token);
+                    //   },
+                    //   child: const Text('data'),
+                    // ),
                     DropdownSearch<DepartmentModel>(
                       validator: (value) {
                         if (value == null) {

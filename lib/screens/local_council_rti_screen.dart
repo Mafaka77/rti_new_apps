@@ -59,6 +59,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                   ),
                   decoratorProps: DropDownDecoratorProps(
                     decoration: InputDecoration(
+                      isDense: true,
                       border: textBoxFocusBorder(),
                       focusedBorder: textBoxFocusBorder(),
                       enabledBorder: textBoxFocusBorder(),
@@ -78,6 +79,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                         padding:
                             const EdgeInsets.only(left: 20, right: 20, top: 20),
                         decoration: InputDecoration(
+                          isDense: true,
                           border: textBoxFocusBorder(),
                           enabledBorder: textBoxFocusBorder(),
                           focusedBorder: textBoxFocusBorder(),
@@ -124,6 +126,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                     ),
                     decoratorProps: DropDownDecoratorProps(
                       decoration: InputDecoration(
+                        isDense: true,
                         border: textBoxFocusBorder(),
                         focusedBorder: textBoxFocusBorder(),
                         enabledBorder: textBoxFocusBorder(),
@@ -143,6 +146,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 20),
                           decoration: InputDecoration(
+                            isDense: true,
                             border: textBoxFocusBorder(),
                             enabledBorder: textBoxFocusBorder(),
                             focusedBorder: textBoxFocusBorder(),
@@ -168,6 +172,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                     // controller: controller.questionsText,
                     maxLines: 10,
                     decoration: InputDecoration(
+                      isDense: true,
                       border: textBoxFocusBorder(),
                       focusedBorder: textBoxFocusBorder(),
                       enabledBorder: textBoxFocusBorder(),
@@ -185,6 +190,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                     },
                     readOnly: true,
                     decoration: InputDecoration(
+                      isDense: true,
                       border: textBoxFocusBorder(),
                       focusedBorder: textBoxFocusBorder(),
                       enabledBorder: textBoxFocusBorder(),

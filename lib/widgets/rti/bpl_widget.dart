@@ -41,6 +41,7 @@ class BplWidget extends GetView<DepartmentWiseController> {
               },
               readOnly: true,
               decoration: InputDecoration(
+                isDense: true,
                 border: textBoxFocusBorder(),
                 focusedBorder: textBoxFocusBorder(),
                 enabledBorder: textBoxFocusBorder(),

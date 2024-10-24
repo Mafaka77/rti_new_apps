@@ -110,7 +110,9 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                           ),
                           const Padding(
                             padding: EdgeInsets.all(20.0),
-                            child: Text('File RTI Application'),
+                            child: FittedBox(
+                                fit: BoxFit.fitHeight,
+                                child: Text('File RTI \nApplication')),
                           )
                         ],
                       ),
@@ -141,18 +143,20 @@ class HomeOverflowButtonWidget extends GetView<HomeController> {
                       ),
                       width: Get.width * 0.4,
                       height: Get.height * 0.22,
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image(
-                            width: 80,
-                            image: AssetImage('images/issue.png'),
+                            width: Get.width * 0.16,
+                            image: const AssetImage('images/issue.png'),
                           ),
-                          Center(
+                          const Center(
                             child: Padding(
                               padding: EdgeInsets.all(20.0),
-                              child: Text('File a Complaint'),
+                              child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Text('File a \nComplaint')),
                             ),
                           )
                         ],

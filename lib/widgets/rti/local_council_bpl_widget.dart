@@ -41,6 +41,7 @@ class LocalCouncilBplWidget extends GetView<LocalCouncilWiseController> {
               },
               readOnly: true,
               decoration: InputDecoration(
+                isDense: true,
                 border: textBoxFocusBorder(),
                 focusedBorder: textBoxFocusBorder(),
                 enabledBorder: textBoxFocusBorder(),

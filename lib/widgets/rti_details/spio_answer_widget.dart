@@ -62,7 +62,7 @@ class SpioAnswerWidget extends GetView<RtiController> {
                 Text(
                   data.spio_out == null
                       ? 'N/A'
-                      : DateFormat('dd-MMM-yyyy hh:mm a').format(
+                      : DateFormat('dd-MMM-yyyy').format(
                           DateTime.parse(
                             data.spio_out.toString(),
                           ),
@@ -83,6 +83,10 @@ class SpioAnswerWidget extends GetView<RtiController> {
                         color: MyColor.green,
                         elevation: 0,
                         onPressed: () {
+                          controller.firstAppealReason.clear();
+                          controller.firstAppealAttachment = XFile('');
+                          controller.firstAttachmentName.clear();
+                          controller.isFirstAttachmentSelected.value = false;
                           openAppealDialog(context, data.id!);
                           // controller.spioAnswerTileController.collapse();
                         },
