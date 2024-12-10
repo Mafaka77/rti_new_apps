@@ -2,7 +2,11 @@ class Routes {
   static String BASE_URL = 'https://staging.egovmz.in/api';
   static String DOWNLOAD_URL(String fileName) =>
       'https://staging.egovmz.in/storage/files/$fileName';
-  static String RAZORPAY_KEY = 'rzp_test_pYMxUu0tLMBSbz';
+  // static String RAZORPAY_KEY = 'rzp_test_pYMxUu0tLMBSbz';
+  static String RAZORPAY_KEY = 'rzp_live_RzDxBnKyypP12K';
+
+//   RAZORPAY_KEY_ID=rzp_live_RzDxBnKyypP12K
+// RAZORPAY_KEY_SECRET=bBE5mWzWBHn4FoqjrwukrAtp
   //AUTH
   static String SEND_OTP = '$BASE_URL/otp';
   static String VERIFY_OTP = '$BASE_URL/verify-otp';

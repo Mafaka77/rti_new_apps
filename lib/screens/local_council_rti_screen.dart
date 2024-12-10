@@ -130,7 +130,7 @@ class LocalCouncilRtiScreen extends StatelessWidget {
                         border: textBoxFocusBorder(),
                         focusedBorder: textBoxFocusBorder(),
                         enabledBorder: textBoxFocusBorder(),
-                        hintText: 'Department zawng rawh',
+                        hintText: 'Local Council zawng rawh',
                       ),
                     ),
                     items: (filter, loadProps) async =>

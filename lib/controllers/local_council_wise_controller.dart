@@ -123,7 +123,6 @@ class LocalCouncilWiseController extends GetxController {
       'description': description,
       'prefill': {'contact': contact, 'email': email},
       'order_id': orderId,
-      'timeout': "60"
     };
 
     try {

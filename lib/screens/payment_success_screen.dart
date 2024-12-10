@@ -38,7 +38,7 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                           ),
                           sizedBoxHeight(20),
                           const Text(
-                            'RTI PAYMENT FAILED',
+                            'FAILED',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -52,7 +52,7 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                               minWidth: Get.width,
                               color: MyColor.green,
                               onPressed: () {
-                                Get.offAndToNamed('/');
+                                Get.offAllNamed('/');
                               },
                               child: const Text(
                                 'BACK',
@@ -74,7 +74,7 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                           ),
                           sizedBoxHeight(20),
                           const Text(
-                            'RTI PAYMENT SUCCESSFUL',
+                            'SUCCESS',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -147,7 +147,7 @@ class PaymentSuccessScreen extends GetView<HomeController> {
                               minWidth: Get.width,
                               color: MyColor.green,
                               onPressed: () {
-                                Get.offAndToNamed('/');
+                                Get.offAllNamed('/');
                               },
                               child: const Text(
                                 'Home',

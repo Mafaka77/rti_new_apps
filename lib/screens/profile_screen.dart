@@ -214,7 +214,14 @@ class ProfileScreen extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  controller.deleteAccount(() {}, () {}, () {});
+                  controller.deleteAccount(() {
+                    showLoader(context);
+                  }, () {
+                    hideLoader();
+                    Get.offAllNamed('/');
+                  }, () {
+                    hideLoader();
+                  });
                 },
                 child: const Text('YES'),
               ),
@@ -247,16 +254,17 @@ class ProfileScreen extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  storage.erase();
-                  // controller.logout(() {
-                  //   showLoader(context);
-                  // }, () {
-                  //   storage.erase();
-                  //   Get.offAllNamed('/');
-                  //   hideLoader();
-                  // }, () {
-                  //   hideLoader();
-                  // });
+                  print(storage.read('token'));
+                  // storage.erase();
+                  controller.logout(() {
+                    showLoader(context);
+                  }, () {
+                    storage.erase();
+                    Get.offAllNamed('/');
+                    hideLoader();
+                  }, () {
+                    hideLoader();
+                  });
                 },
                 child: const Text('YES'),
               ),

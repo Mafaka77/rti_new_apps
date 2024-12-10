@@ -44,12 +44,16 @@ class ProfileController extends GetxController {
     try {
       var response = await services.logout();
       if (response.statusCode == 200) {
-        if (response.data['status'] == 200) {
-          onSuccess();
-        } else {
-          onError();
-        }
+        onSuccess();
       }
+
+      // if (response.statusCode == 200) {
+      //   if (response.data['status'] == 200) {
+      //     onSuccess();
+      //   } else {
+      //     onError();
+      //   }
+      // }
     } catch (ex) {
       onError();
     }

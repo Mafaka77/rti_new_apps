@@ -11,8 +11,7 @@ import 'package:rti_new_apps/services/rti_services.dart';
 
 class RtiController extends GetxController {
   RtiServices services = Get.find(tag: 'rtiServices');
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  var refreshController = RefreshController(initialRefresh: false);
   var isRtiLoading = false.obs;
   var myRtiList = <MyRtiModel>[].obs;
   var myRtiDetails = <MyRtiDetailsModel>{}.obs;
@@ -61,6 +60,7 @@ class RtiController extends GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
+    refreshController.dispose();
     super.dispose();
     _razorpay.clear();
   }
@@ -171,7 +171,6 @@ class RtiController extends GetxController {
       'description': description,
       'prefill': {'contact': contact, 'email': email},
       'order_id': orderId,
-      'timeout': "60"
     };
 
     try {

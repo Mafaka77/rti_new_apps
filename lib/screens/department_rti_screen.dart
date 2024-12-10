@@ -94,6 +94,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 20, right: 20, top: 20),
                             decoration: InputDecoration(
+                              isDense: true,
                               border: textBoxFocusBorder(),
                               enabledBorder: textBoxFocusBorder(),
                               focusedBorder: textBoxFocusBorder(),
@@ -244,7 +245,9 @@ class DepartmentRtiScreen extends StatelessWidget {
                             height: 60,
                             color: MyColor.green,
                             onPressed: () {
-                              createOrder(context, controller);
+                              if (controller.formKey.currentState!.validate()) {
+                                createOrder(context, controller);
+                              }
 
                               // Get.toNamed('/payment-success-screen');
                             },
