@@ -77,6 +77,7 @@ class ProfileScreen extends StatelessWidget {
                                   backgroundColor: Colors.white,
                                   child: IconButton(
                                     onPressed: () {
+                                      storage.erase();
                                       openLogoutDialog(context, controller);
                                     },
                                     icon: Icon(

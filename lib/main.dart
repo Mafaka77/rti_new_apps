@@ -41,11 +41,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'RTI Online',
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-      //   fontFamily: '',
-      //   useMaterial3: true,
-      // ),
       theme: _buildTheme(),
       initialRoute: '/',
       getPages: getPages,

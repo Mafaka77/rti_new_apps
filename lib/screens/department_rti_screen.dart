@@ -192,7 +192,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                           ),
                         ),
                         const Text(
-                          'If it concerns the life or liberty of a person/\n Mi nunna emaw, zalenna khawih chungchang',
+                          'If it concerns the life or liberty/\n Mi nunna emaw, zalenna khawih chungchang',
                         )
                       ],
                     ),

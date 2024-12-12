@@ -96,6 +96,7 @@ class AuthController extends GetxController {
   }
 
   void login(Function onLoading, Function onSuccess, Function onError) async {
+    onLoading();
     try {
       var response = await services.login(emailText.text, passwordText.text);
       if (response.statusCode == 200) {
