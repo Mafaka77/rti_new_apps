@@ -12,7 +12,7 @@ class PaymentHistoryServices extends BaseService {
         'limit': limit,
       });
       var data = response.data['payments'];
-
+      print(data);
       return MobilePaymentModel.fromJsonList(data);
     } catch (ex) {
       return Future.error(ex);
@@ -26,7 +26,7 @@ class PaymentHistoryServices extends BaseService {
         'limit': limit,
       });
       var data = response.data['payments'];
-
+      print(data);
       return WebPaymentModel.fromJsonList(data);
     } catch (ex) {
       return Future.error(ex);

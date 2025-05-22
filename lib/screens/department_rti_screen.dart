@@ -242,7 +242,7 @@ class DepartmentRtiScreen extends StatelessWidget {
                         : MaterialButton(
                             elevation: 0,
                             minWidth: Get.width,
-                            height: 60,
+                            height: 50,
                             color: MyColor.green,
                             onPressed: () {
                               if (controller.formKey.currentState!.validate()) {

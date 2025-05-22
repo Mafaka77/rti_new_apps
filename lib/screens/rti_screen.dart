@@ -22,144 +22,162 @@ class RtiScreen extends StatelessWidget {
             child: Obx(
               () => controller.isRtiLoading.isTrue
                   ? rtiListLoader()
-                  : SingleChildScrollView(
-                      child: SizedBox(
-                        height: Get.height * 0.7,
-                        child: SmartRefresher(
-                          enablePullDown: true,
-                          enablePullUp: true,
-                          header: const WaterDropHeader(),
-                          controller: controller.refreshController,
-                          onRefresh: controller.onRefresh,
-                          onLoading: controller.onLoading,
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                sizedBoxHeight(15),
-                            shrinkWrap: true,
-                            // physics: const NeverScrollableScrollPhysics(),
-                            itemCount: controller.myRtiList.length,
-                            itemBuilder: (c, i) {
-                              var data = controller.myRtiList[i];
-                              return InkWell(
-                                splashColor: MyColor.green,
-                                onTap: () {
-                                  controller.getRtiDetails(data.id!, () {
-                                    print(data.id);
-                                    showLoader(context);
-                                  }, () {
-                                    hideLoader();
-                                    Get.toNamed('/rti-detail-screen');
-                                  }, () {
-                                    hideLoader();
-                                  });
-                                },
-                                child: Container(
-                                  color: Colors.white,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 16, horizontal: 12),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                  : controller.myRtiList.isEmpty
+                      ? const Center(
+                          child: Text('No Data'),
+                        )
+                      : SingleChildScrollView(
+                          child: SizedBox(
+                            height: Get.height * 0.7,
+                            child: SmartRefresher(
+                              enablePullDown: true,
+                              enablePullUp: true,
+                              header: const WaterDropHeader(),
+                              controller: controller.refreshController,
+                              onRefresh: controller.onRefresh,
+                              onLoading: controller.onLoading,
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) =>
+                                    sizedBoxHeight(15),
+                                shrinkWrap: true,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                itemCount: controller.myRtiList.length,
+                                itemBuilder: (c, i) {
+                                  var data = controller.myRtiList[i];
+                                  print(data);
+                                  return InkWell(
+                                    splashColor: MyColor.green,
+                                    onTap: () {
+                                      controller.getRtiDetails(data.id!, () {
+                                        print(data.id);
+                                        showLoader(context);
+                                      }, () {
+                                        hideLoader();
+                                        Get.toNamed('/rti-detail-screen');
+                                      }, () {
+                                        hideLoader();
+                                      });
+                                    },
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 16, horizontal: 12),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                const Image(
-                                                    height: 20,
-                                                    image: AssetImage(
-                                                        'images/file.png')),
-                                                rtiStatus(data),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    const Image(
+                                                        height: 20,
+                                                        image: AssetImage(
+                                                            'images/file.png')),
+                                                    rtiStatus(data),
+                                                  ],
+                                                ),
+                                                const Divider(),
+                                                const Text(
+                                                  'Question:',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                AutoSizeText(
+                                                  data.citizen_question
+                                                      .toString(),
+                                                  maxLines: 3,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
                                               ],
                                             ),
-                                            const Divider(),
-                                            const Text(
-                                              'Question:',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Container(
+                                            color: Colors.white,
+                                            padding: const EdgeInsets.all(10),
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  'Submitted On:',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                sizedBoxWidth(5),
+                                                Text(DateFormat(
+                                                        'dd-MMM-yyyy hh:mm a')
+                                                    .format(DateTime.parse(
+                                                        data.created_at!))),
+                                              ],
                                             ),
-                                            AutoSizeText(
-                                              data.citizen_question.toString(),
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          data.departmentModel != null
+                                              ? Container(
+                                                  width: Get.width,
+                                                  color: Colors.white,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  child: Wrap(
+                                                    children: [
+                                                      const Text(
+                                                        'Department:',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      sizedBoxWidth(5),
+                                                      Text(
+                                                        data.departmentModel!
+                                                            .name,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : data.local_council != null
+                                                  ? Container(
+                                                      color: Colors.white,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Row(
+                                                        children: [
+                                                          const Text(
+                                                            'Local Council:',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          sizedBoxWidth(5),
+                                                          Text(data
+                                                              .local_council!
+                                                              .name
+                                                              .toString()),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Container(),
+                                          // rtiStatus(data),
+                                        ],
                                       ),
-                                      Container(
-                                        color: Colors.white,
-                                        padding: const EdgeInsets.all(10),
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              'Submitted On:',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            sizedBoxWidth(5),
-                                            Text(DateFormat(
-                                                    'dd-MMM-yyyy hh:mm a')
-                                                .format(DateTime.parse(
-                                                    data.created_at!))),
-                                          ],
-                                        ),
-                                      ),
-                                      data.departmentModel != null
-                                          ? Container(
-                                              width: Get.width,
-                                              color: Colors.white,
-                                              padding: const EdgeInsets.all(10),
-                                              child: Wrap(
-                                                children: [
-                                                  const Text(
-                                                    'Department:',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  sizedBoxWidth(5),
-                                                  Text(
-                                                    data.departmentModel!.name,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : Container(
-                                              color: Colors.white,
-                                              padding: const EdgeInsets.all(10),
-                                              child: Row(
-                                                children: [
-                                                  const Text(
-                                                    'Local Council:',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  sizedBoxWidth(5),
-                                                  Text(data.local_council!.name
-                                                      .toString()),
-                                                ],
-                                              ),
-                                            ),
-                                      // rtiStatus(data),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
             ),
           );
         });

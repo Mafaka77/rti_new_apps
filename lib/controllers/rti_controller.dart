@@ -91,23 +91,23 @@ class RtiController extends GetxController {
   void submitFirstAppeal(int rtiId, Function onLoading, Function onSuccess,
       Function onError) async {
     onLoading();
-    try {
-      var response = await services.submitFirstAppeal(
-          rtiId, firstAppealReason.text, firstAppealAttachment!);
-      print(response.data);
-      if (response.statusCode == 200) {
-        if (response.data['status'] == 200) {
-          onSuccess(response.data['message']);
-        } else if (response.data['status'] == 404) {
-          onError(response.data['reason']);
-        }
-      } else {
-        onError('Something went wrong');
+    // try {
+    var response = await services.submitFirstAppeal(
+        rtiId, firstAppealReason.text, firstAppealAttachment!);
+
+    if (response.statusCode == 200) {
+      if (response.data['status'] == 200) {
+        onSuccess(response.data['message']);
+      } else if (response.data['status'] == 404) {
+        onError(response.data['reason']);
       }
-    } catch (ex) {
-      print(ex);
+    } else {
       onError('Something went wrong');
     }
+    // } catch (ex) {
+    //   print(ex);
+    //   onError('Something went wrong!!!');
+    // }
   }
 
   void submitSecondAppeal(int rtiId, Function onLoading, Function onSuccess,
@@ -194,7 +194,7 @@ class RtiController extends GetxController {
       "signature": response.signature!,
       "receipt": receipt.value,
     };
-
+    print('Hello Success');
     // var data = await services.verifyOrder(receipt.value, response.signature!,
     //     response.orderId!, response.paymentId!);
     // if (data.statusCode == 200) {
@@ -206,6 +206,7 @@ class RtiController extends GetxController {
   // Handle payment error
   void _handlePaymentError(
       PaymentFailureResponse response, BuildContext context) {
+    print('Payment Error');
     Get.to(() => const PaymentErrorScreen());
   }
 

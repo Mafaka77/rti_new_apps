@@ -50,6 +50,7 @@ class DepartmentWiseController extends GetxController {
 
   void submitFreeRti(
       Function onLoading, Function onSuccess, Function onError) async {
+    print('submit');
     onLoading();
     try {
       var response = await services.submitFreeRti(
@@ -75,6 +76,7 @@ class DepartmentWiseController extends GetxController {
   void createOrder(
       Function onLoading, Function onSuccess, Function onError) async {
     onLoading();
+    print('create Order');
     try {
       var response = await services.createOrder(
           questionsText.text, attachment, departmentId.value, isLiberty.value);
@@ -113,7 +115,7 @@ class DepartmentWiseController extends GetxController {
       'order_id': orderId,
       'timeout': "60"
     };
-
+    print('open checkout');
     try {
       _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
       _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -134,7 +136,7 @@ class DepartmentWiseController extends GetxController {
       "signature": response.signature!,
       "receipt": receipt.value,
     };
-
+    print('Payment Success');
     // var data = await services.verifyOrder(receipt.value, response.signature!,
     //     response.orderId!, response.paymentId!);
     // if (data.statusCode == 200) {
@@ -145,7 +147,7 @@ class DepartmentWiseController extends GetxController {
   // Handle payment error
   void _handlePaymentError(
       PaymentFailureResponse response, BuildContext context) {
-    Get.rawSnackbar(title: 'Error', message: response.message);
+    Get.rawSnackbar(title: 'Error', message: 'response.message');
   }
 
   // Handle external wallet payment

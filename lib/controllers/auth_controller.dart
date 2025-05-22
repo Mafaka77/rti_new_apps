@@ -99,6 +99,7 @@ class AuthController extends GetxController {
     onLoading();
     try {
       var response = await services.login(emailText.text, passwordText.text);
+      print(response);
       if (response.statusCode == 200) {
         switch (response.data['status']) {
           case 200:
@@ -120,11 +121,11 @@ class AuthController extends GetxController {
               onError(response.data['message']);
             }
         }
-      } else {
-        onError('Something went wrong');
       }
+      // else {
+      //   onError('Something went wrong');
+      // }
     } catch (ex) {
-      print(ex);
       onError('Something went wrong');
     }
   }
@@ -135,11 +136,13 @@ class AuthController extends GetxController {
     try {
       var response = await services.register(name, email, mobile, password);
       if (response.statusCode == 200) {
-        if (response.data['status'] == 200) {
-          await storage.write('token', response.data['access_token']);
-          isAuthenticated.value = true;
-          onSuccess(response.data['message']);
-        } else if (response.data['status'] == 409) {
+        print(response.data);
+        if (response.data['staus'] == 200) {
+          print(response.data['access_token']);
+          // await storage.write('token', response.data['access_token']);
+          // isAuthenticated.value = true;
+          onSuccess();
+        } else if (response.data['staus'] == 409) {
           onError(response.data['message']);
         }
       } else {

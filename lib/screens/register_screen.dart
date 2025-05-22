@@ -145,10 +145,10 @@ class RegisterScreen extends GetView<AuthController> {
                                 .validate()) {
                               controller.register(() {
                                 showLoader(context);
-                              }, (String message) {
+                              }, () {
                                 hideLoader();
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    mySuccessSnackBar('Success', message));
+                                    mySuccessSnackBar('Success', 'Welcome'));
                                 Get.offAndToNamed('/login-screen');
                               }, (String message) {
                                 hideLoader();

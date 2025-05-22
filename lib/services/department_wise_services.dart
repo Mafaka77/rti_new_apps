@@ -70,8 +70,10 @@ class DepartmentWiseServices extends BaseService {
     });
     try {
       var response = await client.post(Routes.CREATE_ORDER, data: formData);
+      print(response);
       return response;
     } catch (ex) {
+      print(ex);
       return Future.error(ex);
     }
   }

@@ -67,16 +67,18 @@ class RtiDetailsQuestionWidget extends GetView<RtiController> {
                       Text(data.department!.name),
                     ],
                   )
-                : Wrap(
-                    children: [
-                      const Text(
-                        'Local Council:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      sizedBoxWidth(10),
-                      Text(data.local_council!.name.toString()),
-                    ],
-                  ),
+                : data.department != null
+                    ? Wrap(
+                        children: [
+                          const Text(
+                            'Local Council:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          sizedBoxWidth(10),
+                          Text(data.local_council!.name.toString()),
+                        ],
+                      )
+                    : Container(),
             Wrap(
               children: [
                 const Text(

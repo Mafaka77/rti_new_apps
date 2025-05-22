@@ -77,7 +77,6 @@ class ProfileScreen extends StatelessWidget {
                                   backgroundColor: Colors.white,
                                   child: IconButton(
                                     onPressed: () {
-                                      storage.erase();
                                       openLogoutDialog(context, controller);
                                     },
                                     icon: Icon(
@@ -255,7 +254,6 @@ class ProfileScreen extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  print(storage.read('token'));
                   // storage.erase();
                   controller.logout(() {
                     showLoader(context);

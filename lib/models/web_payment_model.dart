@@ -3,79 +3,68 @@ import 'dart:convert';
 
 class WebPaymentModel {
   int? id;
-  String? transactionId;
-  String? orderId;
-  String? currency;
-  String? status;
+  String? tracking_id;
+  String? order_id;
+  String? order_status;
+  String? payment_mode;
   String? amount;
   String? created_at;
-  String? source;
-  String? failure_reason;
+
   WebPaymentModel({
     this.id,
-    this.transactionId,
-    this.orderId,
-    this.currency,
-    this.status,
+    this.tracking_id,
+    this.order_id,
+    this.order_status,
+    this.payment_mode,
     this.amount,
     this.created_at,
-    this.source,
-    this.failure_reason,
   });
 
   WebPaymentModel copyWith({
     int? id,
-    String? transactionId,
-    String? orderId,
-    String? currency,
-    String? status,
+    String? tracking_id,
+    String? order_id,
+    String? order_status,
+    String? payment_mode,
     String? amount,
     String? created_at,
-    String? source,
-    String? failure_reason,
   }) {
     return WebPaymentModel(
       id: id ?? this.id,
-      transactionId: transactionId ?? this.transactionId,
-      orderId: orderId ?? this.orderId,
-      currency: currency ?? this.currency,
-      status: status ?? this.status,
+      tracking_id: tracking_id ?? this.tracking_id,
+      order_id: order_id ?? this.order_id,
+      order_status: order_status ?? this.order_status,
+      payment_mode: payment_mode ?? this.payment_mode,
       amount: amount ?? this.amount,
       created_at: created_at ?? this.created_at,
-      source: source ?? this.source,
-      failure_reason: failure_reason ?? this.failure_reason,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'transactionId': transactionId,
-      'orderId': orderId,
-      'currency': currency,
-      'status': status,
+      'tracking_id': tracking_id,
+      'order_id': order_id,
+      'order_status': order_status,
+      'payment_mode': payment_mode,
       'amount': amount,
       'created_at': created_at,
-      'source': source,
-      'failure_reason': failure_reason,
     };
   }
 
   factory WebPaymentModel.fromMap(Map<String, dynamic> map) {
     return WebPaymentModel(
       id: map['id'] != null ? map['id'] as int : null,
-      transactionId:
-          map['transactionId'] != null ? map['transactionId'] as String : null,
-      orderId: map['orderId'] != null ? map['orderId'] as String : null,
-      currency: map['currency'] != null ? map['currency'] as String : null,
-      status: map['status'] != null ? map['status'] as String : null,
+      tracking_id:
+          map['tracking_id'] != null ? map['tracking_id'] as String : null,
+      order_id: map['order_id'] != null ? map['order_id'] as String : null,
+      order_status:
+          map['order_status'] != null ? map['order_status'] as String : null,
+      payment_mode:
+          map['payment_mode'] != null ? map['payment_mode'] as String : null,
       amount: map['amount'] != null ? map['amount'] as String : null,
       created_at:
           map['created_at'] != null ? map['created_at'] as String : null,
-      source: map['source'] != null ? map['source'] as String : null,
-      failure_reason: map['failure_reason'] != null
-          ? map['failure_reason'] as String
-          : null,
     );
   }
 
@@ -86,5 +75,34 @@ class WebPaymentModel {
 
   static List<WebPaymentModel> fromJsonList(List list) {
     return list.map((e) => WebPaymentModel.fromMap(e)).toList();
+  }
+
+  @override
+  String toString() {
+    return 'WebPaymentModel(id: $id, tracking_id: $tracking_id, order_id: $order_id, order_status: $order_status, payment_mode: $payment_mode, amount: $amount, created_at: $created_at)';
+  }
+
+  @override
+  bool operator ==(covariant WebPaymentModel other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.tracking_id == tracking_id &&
+        other.order_id == order_id &&
+        other.order_status == order_status &&
+        other.payment_mode == payment_mode &&
+        other.amount == amount &&
+        other.created_at == created_at;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        tracking_id.hashCode ^
+        order_id.hashCode ^
+        order_status.hashCode ^
+        payment_mode.hashCode ^
+        amount.hashCode ^
+        created_at.hashCode;
   }
 }

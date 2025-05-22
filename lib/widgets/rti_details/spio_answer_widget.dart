@@ -191,7 +191,6 @@ class SpioAnswerWidget extends GetView<RtiController> {
                     elevation: 0,
                     color: MyColor.green,
                     onPressed: () {
-                      print(rtiId);
                       if (controller.formKey.currentState!.validate()) {
                         controller.submitFirstAppeal(rtiId, () {
                           showLoader(context);
@@ -205,11 +204,11 @@ class SpioAnswerWidget extends GetView<RtiController> {
                           rtiController.getMyRti();
                           hideLoader();
                         }, (String message) {
-                          Get.back();
-                          hideLoader();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            myErrorSnackBar('Error', message),
+                            myWarningSnackBar('Warning', message),
                           );
+                          hideLoader();
+                          Get.back();
                         });
                       }
                     },

@@ -12,7 +12,9 @@ class BaseService extends GetConnect implements GetxService {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    client = Dio();
+    client = Dio(BaseOptions(
+      contentType: Headers.jsonContentType,
+    ));
     // Configure Dio to bypass proxy settings and disable certificate pinning
     (client.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
@@ -40,6 +42,10 @@ class BaseService extends GetConnect implements GetxService {
             await storage.remove('token');
             Get.offAllNamed('/login-screen');
           }
+          // if (error.response?.statusCode == 401) {
+          //   await storage.remove('token');
+          //   Get.offAllNamed('/login-screen');
+          // }
           if (error.response == null) {
             Get.offAll(() => NetworkErrorScreen(
                   message: 'Network Error!! Please try after sometimes',

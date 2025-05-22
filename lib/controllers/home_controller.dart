@@ -99,7 +99,7 @@ class HomeController extends GetxController
     try {
       var response =
           await services.verifyOrder(receipt, signature, orderId, paymentId);
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         if (response.data['status'] == 200) {
           print(response);

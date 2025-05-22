@@ -33,7 +33,7 @@ class LocalCouncilModel {
   factory LocalCouncilModel.fromMap(Map<String, dynamic> map) {
     return LocalCouncilModel(
       id: map['id']?.toInt(),
-      name: map['name'],
+      name: map['name'].toString(),
       district: map['district'],
     );
   }

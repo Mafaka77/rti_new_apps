@@ -40,6 +40,7 @@ class WebHistoryWidget extends StatelessWidget {
                               itemCount: controller.webPayments.length,
                               itemBuilder: (c, i) {
                                 var data = controller.webPayments[i];
+
                                 return ExpansionTile(
                                   shape: const RoundedRectangleBorder(),
                                   tilePadding: const EdgeInsets.symmetric(
@@ -52,19 +53,19 @@ class WebHistoryWidget extends StatelessWidget {
                                   backgroundColor: Colors.white,
                                   collapsedBackgroundColor: Colors.white,
                                   dense: true,
-                                  title: Text(data.orderId!),
+                                  title: Text(data.order_id!),
                                   children: [
                                     ListTile(
-                                      leading: const Text('Transaction ID:'),
-                                      title: Text(data.transactionId!),
+                                      leading: const Text('Tracking ID:'),
+                                      title: Text(data.tracking_id!),
                                     ),
                                     ListTile(
                                       leading: const Text('Order ID:'),
-                                      title: Text(data.orderId!),
+                                      title: Text(data.order_id!),
                                     ),
                                     ListTile(
                                       leading: const Text('Status:'),
-                                      title: Text(data.status!),
+                                      title: Text(data.order_status!),
                                     ),
                                     ListTile(
                                       leading: const Text('Amount:'),

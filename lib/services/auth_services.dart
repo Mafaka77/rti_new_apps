@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:rti_new_apps/services/base_services.dart';
 import 'package:rti_new_apps/services/routes.dart';
 
@@ -38,16 +39,34 @@ class AuthServices extends BaseService {
       });
       return response;
     } catch (ex) {
+      print(ex);
       return Future.error(ex);
     }
   }
 
   Future login(String email, String password) async {
     try {
-      var response = await client.get(Routes.LOGIN, data: {
-        'contact': email,
-        'password': password,
-      });
+      // FormData formData = FormData.fromMap({
+      //   'contact': email,
+      //   'password': password,
+      // });
+      // print(formData.fields);
+
+      print(email);
+      var response = await client.get(
+        Routes.LOGIN,
+        // data: jsonData,
+        data: {
+          'contact': email,
+          'password': password,
+        },
+        // options: Options(
+        //   contentType: Headers.jsonContentType,
+        //   headers: {
+        //     "Accept": "application/json",
+        //   },
+        // ),
+      );
       return response;
     } catch (ex) {
       return Future.error(ex);
