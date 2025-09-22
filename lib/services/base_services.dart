@@ -31,6 +31,7 @@ class BaseService extends GetConnect implements GetxService {
       InterceptorsWrapper(
         onRequest: (request, handler) async {
           var token = storage.read('token');
+          print(token);
           if (token != null && token != '') {
             request.headers['Authorization'] = 'Bearer $token';
           }

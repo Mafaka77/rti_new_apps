@@ -44,12 +44,11 @@ class RtiScreen extends StatelessWidget {
                                 itemCount: controller.myRtiList.length,
                                 itemBuilder: (c, i) {
                                   var data = controller.myRtiList[i];
-                                  print(data);
                                   return InkWell(
                                     splashColor: MyColor.green,
                                     onTap: () {
                                       controller.getRtiDetails(data.id!, () {
-                                        print(data.id);
+                                        print(data);
                                         showLoader(context);
                                       }, () {
                                         hideLoader();

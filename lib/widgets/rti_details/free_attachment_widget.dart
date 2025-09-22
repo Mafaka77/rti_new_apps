@@ -11,6 +11,7 @@ class FreeAttachmentWidget extends GetView<RtiController> {
   @override
   Widget build(BuildContext context) {
     var data = controller.myRtiDetails.first;
+    print(data);
     return Wrap(
       children: [
         const Text(

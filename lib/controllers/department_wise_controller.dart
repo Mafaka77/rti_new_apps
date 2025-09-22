@@ -50,7 +50,6 @@ class DepartmentWiseController extends GetxController {
 
   void submitFreeRti(
       Function onLoading, Function onSuccess, Function onError) async {
-    print('submit');
     onLoading();
     try {
       var response = await services.submitFreeRti(

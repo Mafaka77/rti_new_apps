@@ -8,10 +8,11 @@ import 'package:rti_new_apps/services/routes.dart';
 class RtiServices extends BaseService {
   Future<List<MyRtiModel>> getMyRti(int offset, int limit) async {
     try {
-      var response = await client.get(Routes.GET_MY_RTI, data: {
+      var response = await client.get(Routes.GET_MY_RTI, queryParameters: {
         'offset': offset,
         'limit': limit,
       });
+      print(response.statusCode);
       var data = response.data['informations'];
       return MyRtiModel.fromJsonList(data);
     } catch (ex) {
@@ -21,11 +22,11 @@ class RtiServices extends BaseService {
 
   Future<MyRtiDetailsModel> getRtiDetails(int id) async {
     try {
-      var respone = await client.get(Routes.GET_RTI_DETAILS, data: {'id': id});
+      var respone =
+          await client.get(Routes.GET_RTI_DETAILS, queryParameters: {'id': id});
       var data = respone.data['information'];
       return MyRtiDetailsModel.fromMap(data);
     } catch (ex) {
-      print(ex);
       return Future.error(ex);
     }
   }

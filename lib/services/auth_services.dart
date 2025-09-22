@@ -51,15 +51,17 @@ class AuthServices extends BaseService {
       //   'password': password,
       // });
       // print(formData.fields);
-
-      print(email);
       var response = await client.get(
         Routes.LOGIN,
         // data: jsonData,
-        data: {
+        queryParameters: {
           'contact': email,
           'password': password,
         },
+        // data: {
+        //   'contact': email,
+        //   'password': password,
+        // },
         // options: Options(
         //   contentType: Headers.jsonContentType,
         //   headers: {
@@ -75,11 +77,13 @@ class AuthServices extends BaseService {
 
   Future resetPasswordOtp(String phone) async {
     try {
-      var response = await client.get(Routes.RESET_PASSWORD_OTP, data: {
+      var response =
+          await client.get(Routes.RESET_PASSWORD_OTP, queryParameters: {
         'phone': phone,
       });
       return response;
     } catch (ex) {
+      print(ex);
       return Future.error(ex);
     }
   }
@@ -98,7 +102,7 @@ class AuthServices extends BaseService {
 
   Future resetPassword(String password, String phone) async {
     try {
-      var response = await client.get(Routes.RESET_PASSWORD, data: {
+      var response = await client.get(Routes.RESET_PASSWORD, queryParameters: {
         'newPassword': password,
         'phone': phone,
       });

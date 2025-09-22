@@ -7,7 +7,8 @@ class PaymentHistoryServices extends BaseService {
   Future<List<MobilePaymentModel>> getMobilePayment(
       int offset, int limit) async {
     try {
-      var response = await client.get(Routes.GET_MOBILE_PAYMENT, data: {
+      var response =
+          await client.get(Routes.GET_MOBILE_PAYMENT, queryParameters: {
         'offset': offset,
         'limit': limit,
       });
@@ -21,7 +22,7 @@ class PaymentHistoryServices extends BaseService {
 
   Future<List<WebPaymentModel>> getWebPayment(int offset, int limit) async {
     try {
-      var response = await client.get(Routes.GET_WEB_PAYMENT, data: {
+      var response = await client.get(Routes.GET_WEB_PAYMENT, queryParameters: {
         'offset': offset,
         'limit': limit,
       });

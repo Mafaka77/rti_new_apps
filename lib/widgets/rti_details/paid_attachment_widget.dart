@@ -52,7 +52,13 @@ class PaidAttachmentWidget extends GetView<RtiController> {
                   style: TextStyle(color: Colors.white),
                 ),
               )
-            : MaterialButton(
+            :
+            // TextButton(
+            //     onPressed: () {
+            //       downloadFile(context, data.spio_answer_file, controller);
+            //     },
+            //     child: Text(data.spio_answer_file!))
+            MaterialButton(
                 elevation: 0,
                 color: MyColor.green,
                 onPressed: () {

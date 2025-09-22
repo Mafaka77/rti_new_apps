@@ -381,42 +381,193 @@ statsLoader() {
   );
 }
 
-void downloadFile(
+Future<void> downloadFile(
     BuildContext context, String? file, RtiController controller) async {
-  // try {
-  var status = await Permission.storage.status;
-  if (!status.isGranted) {
-    await Permission.storage.request();
+  if (file == null || file.trim().isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("No file to download")),
+    );
+    return;
   }
-  final Directory directory = await getApplicationDocumentsDirectory();
-  // final Directory directory = Directory('/storage/emulated/0/Download/Rti');
-  String filePath = '${directory.path}/$file';
-  Dio dio = Dio();
-  // ignore: use_build_context_synchronously
-  ProgressDialog pd = ProgressDialog(context: context);
-  pd.show(max: 100, msg: 'File Downloading...');
-  await dio.download(
-    Routes.DOWNLOAD_URL(file!),
-    filePath,
-    onReceiveProgress: (count, total) {
-      if (total != -1) {
-        controller.downloadPercentage.value = ((count / total * 100).toInt());
-        pd.update(value: controller.downloadPercentage.value);
-      }
-    },
-  );
 
-  OpenFile.open(filePath);
-  showDownloadSuccessSnackBar(
+  // Split comma-separated list into filenames
+  final files =
+      file.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
+
+  if (files.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("No valid filenames found")),
+    );
+    return;
+  }
+
+  // Request storage permission on Android only
+  if (Platform.isAndroid) {
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      status = await Permission.storage.request();
+    }
+    if (!status.isGranted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Storage permission denied")),
+      );
+      return;
+    }
+  }
+
+  // Choose save directory
+  Directory baseDir;
+  if (Platform.isAndroid) {
+    baseDir = (await getExternalStorageDirectory()) ??
+        await getApplicationDocumentsDirectory();
+  } else {
+    baseDir = await getApplicationDocumentsDirectory();
+  }
+
+  final saveDir = Directory("${baseDir.path}/RtiDownloads");
+  if (!await saveDir.exists()) {
+    await saveDir.create(recursive: true);
+  }
+
+  final dio = Dio();
+  final ProgressDialog pd = ProgressDialog(context: context);
+
+  try {
+    // Show dialog
+    pd.show(max: 100, msg: 'Starting download...');
+
+    final int totalFiles = files.length;
+    controller.downloadPercentage.value = 0;
+
+    for (var i = 0; i < totalFiles; i++) {
+      final fileName = files[i];
+      final savePath = "${saveDir.path}/$fileName";
+      final url = Routes.DOWNLOAD_URL(fileName);
+
+      // Per-file download
+      try {
+        await dio.download(
+          url,
+          savePath,
+          onReceiveProgress: (received, total) {
+            final filePercent =
+                (total > 0) ? ((received / total) * 100).toInt() : 0;
+
+            // Compute overall percent: completed files + current file fraction
+            final alreadyDonePercent = (i * 100);
+            // average across totalFiles, so divide sum by totalFiles
+            final overallPercent =
+                ((alreadyDonePercent + filePercent) ~/ totalFiles)
+                    .clamp(0, 100);
+
+            // Update controller & dialog when changed (reduces UI churn)
+            if (controller.downloadPercentage.value != overallPercent) {
+              controller.downloadPercentage.value = overallPercent;
+              // ignore: use_build_context_synchronously
+              pd.update(
+                  value: overallPercent,
+                  msg: 'Downloading $fileName ($filePercent%)');
+            }
+          },
+          options: Options(
+            responseType: ResponseType.bytes,
+            followRedirects: true,
+            receiveTimeout: const Duration(seconds: 0),
+          ),
+        );
+
+        // Open the file after successful download
+        await OpenFile.open(savePath);
+
+        // notify user per file
+        // ignore: use_build_context_synchronously
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text("Downloaded: $fileName")),
+        // );
+      } catch (e) {
+        debugPrint("Error downloading $fileName: $e");
+        // continue with next file after notifying user
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to download: $fileName")),
+        );
+      }
+
+      // Update completed percent after each file finishes (or fails)
+      final completedPercent =
+          ((((i + 1) / totalFiles) * 100).toInt()).clamp(0, 100);
+      controller.downloadPercentage.value = completedPercent;
+      // ignore: use_build_context_synchronously
+      pd.update(
+          value: completedPercent, msg: 'Completed ${i + 1} of $totalFiles');
+    }
+
+    // Finalize
+    controller.downloadPercentage.value = 100;
+    // ignore: use_build_context_synchronously
+    pd.close();
+
+    // Final success snackbar with folder path
+    // ignore: use_build_context_synchronously
+    showDownloadSuccessSnackBar(
       'Success',
-      'File downloaded successfully',
-      const Icon(
-        Icons.check,
-        color: Colors.blue,
-      ),
-      filePath);
-  // } catch (ex) {}
+      'Files downloaded successfully',
+      const Icon(Icons.check, color: Colors.blue),
+      saveDir.path,
+    );
+  } catch (e, st) {
+    debugPrint('Batch download error: $e\n$st');
+    try {
+      pd.close();
+    } catch (_) {}
+    // ignore: use_build_context_synchronously
+    myErrorSnackBar('Error', 'Download Failed');
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(content: Text("Download failed: $e")),
+    // );
+  } finally {
+    // ensure dialog closed in any case
+    try {
+      pd.close();
+    } catch (_) {}
+  }
 }
+// void downloadFile(
+//     BuildContext context, String? file, RtiController controller) async {
+//   // try {
+//   var status = await Permission.storage.status;
+//   if (!status.isGranted) {
+//     await Permission.storage.request();
+//   }
+//   final Directory directory = await getApplicationDocumentsDirectory();
+//   // final Directory directory = Directory('/storage/emulated/0/Download/Rti');
+//   String filePath = '${directory.path}/$file';
+//   Dio dio = Dio();
+//   // ignore: use_build_context_synchronously
+//   ProgressDialog pd = ProgressDialog(context: context);
+//   pd.show(max: 100, msg: 'File Downloading...');
+//   await dio.download(
+//     Routes.DOWNLOAD_URL(file!),
+//     filePath,
+//     onReceiveProgress: (count, total) {
+//       if (total != -1) {
+//         controller.downloadPercentage.value = ((count / total * 100).toInt());
+//         pd.update(value: controller.downloadPercentage.value);
+//       }
+//     },
+//   );
+
+//   OpenFile.open(filePath);
+//   showDownloadSuccessSnackBar(
+//       'Success',
+//       'File downloaded successfully',
+//       const Icon(
+//         Icons.check,
+//         color: Colors.blue,
+//       ),
+//       filePath);
+//   // } catch (ex) {}
+// }
 
 void downloadComplaintFile(
     BuildContext context, String? file, ComplainController controller) async {

@@ -15,10 +15,8 @@ class ProfileServices extends BaseService {
   Future logout() async {
     try {
       var response = await client.get(Routes.LOGOUT);
-      print(response.statusCode);
       return response;
     } catch (ex) {
-      print(ex);
       return Future.error(ex);
     }
   }

@@ -1,6 +1,6 @@
 class Routes {
   static String BASE_URL = 'https://rti.mizoram.gov.in/api';
-  // static String BASE_URL = 'https://staging.egovmz.in/api';
+  // static String BASE_URL = 'https://staging2.egovmz.in/api';
   static String DOWNLOAD_URL(String fileName) =>
       'https://rti.mizoram.gov.in/storage/files/$fileName';
   // static String RAZORPAY_KEY = 'rzp_test_pYMxUu0tLMBSbz';

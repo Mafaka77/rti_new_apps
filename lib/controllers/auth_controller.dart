@@ -99,7 +99,6 @@ class AuthController extends GetxController {
     onLoading();
     try {
       var response = await services.login(emailText.text, passwordText.text);
-      print(response);
       if (response.statusCode == 200) {
         switch (response.data['status']) {
           case 200:
